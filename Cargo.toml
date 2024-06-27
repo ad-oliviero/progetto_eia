@@ -1,0 +1,7 @@
+[package]
+name = "eia"
+version = "1.0.0"
+
+[dependencies]
+flate2 = "1.0.30"
+
