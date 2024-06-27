@@ -3,7 +3,9 @@ pub mod graph {
     use std::collections::{HashMap, HashSet};
     use std::fs::File;
     use std::io::{BufRead, BufReader};
+
     use timed_run;
+
     #[derive(Clone)]
     pub struct Problem {
         start: u32,
@@ -32,15 +34,13 @@ pub mod graph {
     pub struct Graph {
         links: HashMap<u32, HashSet<u32>>,
         problem: Problem,
-        path: Vec<u32>,
     }
 
     impl Graph {
         pub fn new() -> Graph {
             Graph {
                 links: HashMap::new(),
-                problem: Problem::new() ,
-                path: Vec::new(),
+                problem: Problem::new(),
             }
         }
         pub fn set_search_problem(&mut self, from: u32, to: u32) {
@@ -58,11 +58,8 @@ pub mod graph {
         pub fn get_links(&self) -> HashMap<u32, HashSet<u32>> {
             self.links.clone()
         }
-        pub fn get_path(&self) -> Vec<u32> {
-            self.path.clone()
-        }
         pub fn load_dataset(&mut self) {
-            timed_run!("Loaded dataset", {
+            timed_run!({
                 // read the dataset file
                 let lines =
                     BufReader::new(GzDecoder::new(File::open("roadNet-CA.txt.gz").unwrap()))
@@ -85,19 +82,22 @@ pub mod graph {
                         }
                     }
                 }
+                println!("Loaded {} nodes", self.links.len());
             });
         }
-        pub fn best_first_search(&mut self) -> bool {
+        pub fn best_first_search(&mut self) -> Option<Vec<u32>> {
             let mut nodo: u32 = self.problem.get_start();
+            let mut path: Vec<u32> = Vec::new();
             let mut fringe: Vec<u32> = Vec::new();
             let mut visited: HashSet<u32> = HashSet::new();
+            path.push(nodo);
             fringe.push(nodo);
             visited.insert(nodo);
             while !fringe.is_empty() {
                 nodo = fringe.pop().unwrap();
-                self.path.push(nodo);
+                path.push(nodo);
                 if self.problem.is_goal(nodo) {
-                    return true;
+                    return Some(path);
                 }
                 for child in self.links.get(&nodo).unwrap() {
                     if !visited.contains(child) {
@@ -106,31 +106,31 @@ pub mod graph {
                     }
                 }
             }
-            return false;
+            return None;
         }
-        pub fn breadth_first_search(&mut self) -> bool {
-            return false;
+        pub fn breadth_first_search(&mut self) -> Option<Vec<u32>> {
+            return None;
         }
-        pub fn uniform_cost_search(&mut self) -> bool {
-            return false;
+        pub fn uniform_cost_search(&mut self) -> Option<Vec<u32>> {
+            return None;
         }
-        pub fn depth_first_search(&mut self) -> bool {
-            return false;
+        pub fn depth_first_search(&mut self) -> Option<Vec<u32>> {
+            return None;
         }
-        pub fn depth_limited_search(&mut self) -> bool {
-            return false;
+        pub fn depth_limited_search(&mut self) -> Option<Vec<u32>> {
+            return None;
         }
-        pub fn iterative_deepening_search(&mut self) -> bool {
-            return false;
+        pub fn iterative_deepening_search(&mut self) -> Option<Vec<u32>> {
+            return None;
         }
-        pub fn bi_directional_search(&mut self) -> bool {
-            return false;
+        pub fn bi_directional_search(&mut self) -> Option<Vec<u32>> {
+            return None;
         }
-        pub fn greedy_search(&mut self) -> bool {
-            return false;
+        pub fn greedy_search(&mut self) -> Option<Vec<u32>> {
+            return None;
         }
-        pub fn a_star_search(&mut self) -> bool {
-            return false;
+        pub fn a_star_search(&mut self) -> Option<Vec<u32>> {
+            return None;
         }
     }
 }
