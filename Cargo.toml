@@ -5,4 +5,5 @@ version = "1.0.0"
 [dependencies]
 flate2 = "1.0.30"
 heapsize = "0.4.2"
+rand = "0.8.5"
 

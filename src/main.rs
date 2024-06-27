@@ -1,65 +1,85 @@
 extern crate flate2;
 extern crate heapsize;
-use flate2::read::GzDecoder;
+extern crate rand;
+mod graph;
+mod macros;
+
+use graph::graph::*;
 use heapsize::HeapSizeOf;
-use std::collections::HashMap;
-use std::fs::File;
-use std::io::{BufRead, BufReader};
-
-/* Execute some code and measure its execution time */
-macro_rules! timed_run {
-    ($name:expr, $code:block) => {{
-        let start = std::time::Instant::now();
-        $code
-        let elapsed = start.elapsed();
-        println!("{} in: {}.{:03}s", $name, elapsed.as_secs(), elapsed.subsec_millis());
-    }};
-}
-
-struct Graph {
-    links: HashMap<u32, Vec<u32>>,
-}
-
-impl Graph {
-    fn new() -> Graph {
-        Graph {
-            links: HashMap::new(),
-        }
-    }
-
-    fn load_dataset(&mut self) {
-        timed_run!("Loaded dataset", {
-            // read the file
-            let file = BufReader::new(GzDecoder::new(File::open("roadNet-CA.txt.gz").unwrap()));
-            // parse line by line
-            for line in file.lines() {
-                let line = line.unwrap();
-                // ignore comments
-                if !line.starts_with("#") {
-                    // split the line in two values
-                    let mut iter = line.split_whitespace();
-                    if let (Some(node_l), Some(node_r)) = (iter.next(), iter.next()) {
-                        if let (Ok(node_l), Ok(node_r)) = (node_l.parse(), node_r.parse()) {
-                            /* Insert the values in the hashmap
-                             * The result will contain in the left column
-                             * a single value for every node and in the
-                             * right column a Vec (an array) containing all
-                             * the nodes it has a link to
-                             */
-                            self.links.entry(node_l).or_default().push(node_r);
-                        }
-                    }
-                }
-            }
-        });
-    }
-}
 
 fn main() {
     let mut graph = Graph::new();
     graph.load_dataset();
     println!(
-        "{:.3}",
-        graph.links.heap_size_of_children() as f64 / (1024.0 * 1024.0)
+        "The dataset takes {:.3}Mb of memory",
+        graph.get_links().heap_size_of_children() as f64 / (1024.0 * 1024.0)
     );
+    // set random values to test the search algorithms
+    let random_node = |max: u32| -> u32 { rand::random::<u32>() % max };
+    let random_from = random_node(graph.get_links().len() as u32);
+    let random_to = {
+        let mut v = random_node(graph.get_links().len() as u32);
+        while v == random_from {
+            v = random_node(graph.get_links().len() as u32);
+        }
+        v
+    };
+    graph.set_search_problem(random_from, random_to);
+    println!("Starting search from: {} to: {}", graph.get_from(), graph.get_to());
+
+    let mut success;
+    timed_run!(
+        format!("BestFirst {:?}\n{} a solution", graph.get_path(), success),
+        {
+            success = either!( graph.best_first_search() => "Found"; "Did not find");
+        }
+    );
+    timed_run!(
+        format!("BreadthFirst {:?}\n{} a solution", graph.get_path(), success),
+        {
+            success = either!( graph.breadth_first_search() => "Found"; "Did not find");
+        }
+    );
+    timed_run!(
+        format!("UniformCost {:?}\n{} a solution", graph.get_path(), success),
+        {
+            success = either!( graph.uniform_cost_search() => "Found"; "Did not find");
+        }
+    );
+    timed_run!(
+        format!("DepthFirst {:?}\n{} a solution", graph.get_path(), success),
+        {
+            success = either!( graph.depth_first_search() => "Found"; "Did not find");
+        }
+    );
+    timed_run!(
+        format!("DepthLimited {:?}\n{} a solution", graph.get_path(), success),
+        {
+            success = either!( graph.depth_limited_search() => "Found"; "Did not find");
+        }
+    );
+    timed_run!(
+        format!(
+            "IterativeDeepening {:?}\n{} a solution",
+            graph.get_path(), success
+        ),
+        {
+            success = either!( graph.iterative_deepening_search() => "Found"; "Did not find");
+        }
+    );
+    timed_run!(
+        format!("BiDirectional {:?}\n{} a solution", graph.get_path(), success),
+        {
+            success = either!( graph.bi_directional_search() => "Found"; "Did not find");
+        }
+    );
+    timed_run!(
+        format!("Greedy {:?}\n{} a solution", graph.get_path(), success),
+        {
+            success = either!( graph.greedy_search() => "Found"; "Did not find");
+        }
+    );
+    timed_run!(format!("AStar {:?}\n{} a solution", graph.get_path(), success), {
+        success = either!( graph.a_star_search() => "Found"; "Did not find");
+    });
 }
