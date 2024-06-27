@@ -1,8 +1,12 @@
 extern crate flate2;
+extern crate heapsize;
 use flate2::read::GzDecoder;
+use heapsize::HeapSizeOf;
+use std::collections::HashMap;
 use std::fs::File;
-use std::io::Read;
+use std::io::{BufRead, BufReader};
 
+/* Execute some code and measure its execution time */
 macro_rules! timed_run {
     ($name:expr, $code:block) => {{
         let start = std::time::Instant::now();
@@ -13,45 +17,39 @@ macro_rules! timed_run {
 }
 
 struct Graph {
-    edges: Vec<(i32, i32)>,
+    links: HashMap<u32, Vec<u32>>,
 }
 
 impl Graph {
     fn new() -> Graph {
-        Graph { edges: Vec::new() }
+        Graph {
+            links: HashMap::new(),
+        }
     }
 
     fn load_dataset(&mut self) {
-        let file = File::open("roadNet-CA.txt.gz").unwrap();
-        let mut file = GzDecoder::new(file);
-        let mut bytes = Vec::new();
-        let content: String;
-        let mut line_count: usize;
-        timed_run!("Loaded dataset in memory", {
-            file.read_to_end(&mut bytes).unwrap();
-            content = String::from_utf8(bytes).unwrap();
-        });
-        timed_run!(format!("Allocated {} nodes", line_count), {
-            line_count = content.lines().count();
-            for line in content.lines() {
-                if line.starts_with("#") {
-                    line_count -= 1;
+        timed_run!("Loaded dataset", {
+            // read the file
+            let file = BufReader::new(GzDecoder::new(File::open("roadNet-CA.txt.gz").unwrap()));
+            // parse line by line
+            for line in file.lines() {
+                let line = line.unwrap();
+                // ignore comments
+                if !line.starts_with("#") {
+                    // split the line in two values
+                    let mut iter = line.split_whitespace();
+                    if let (Some(node_l), Some(node_r)) = (iter.next(), iter.next()) {
+                        if let (Ok(node_l), Ok(node_r)) = (node_l.parse(), node_r.parse()) {
+                            /* Insert the values in the hashmap
+                             * The result will contain in the left column
+                             * a single value for every node and in the
+                             * right column a Vec (an array) containing all
+                             * the nodes it has a link to
+                             */
+                            self.links.entry(node_l).or_default().push(node_r);
+                        }
+                    }
                 }
-            }
-            self.edges.resize(line_count, (-1, -1));
-        });
-        timed_run!(format!("Loaded {} edges", self.edges.len()), {
-            let mut i = 0;
-            for line in content.lines() {
-                if line.starts_with("#") {
-                    continue;
-                }
-                let mut iter = line.split_whitespace();
-                let node_l: i32 = iter.next().unwrap().parse().unwrap();
-                let node_r: i32 = iter.next().unwrap().parse().unwrap();
-                self.edges[i].0 = node_l;
-                self.edges[i].1 = node_r;
-                i += 1;
             }
         });
     }
@@ -60,4 +58,8 @@ impl Graph {
 fn main() {
     let mut graph = Graph::new();
     graph.load_dataset();
+    println!(
+        "{:.3}",
+        graph.links.heap_size_of_children() as f64 / (1024.0 * 1024.0)
+    );
 }
