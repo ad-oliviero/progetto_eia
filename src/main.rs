@@ -25,61 +25,61 @@ fn main() {
         v
     };
     graph.set_search_problem(random_from, random_to);
-    println!("Starting search from: {} to: {}", graph.get_from(), graph.get_to());
+    println!("Starting search from: {} to: {}", graph.get_problem().get_start(), graph.get_problem().get_end());
 
     let mut success;
     timed_run!(
-        format!("BestFirst {:?}\n{} a solution", graph.get_path(), success),
+        format!("BestFirst {}\n{} a solution", graph.get_path().len(), success),
         {
             success = either!( graph.best_first_search() => "Found"; "Did not find");
         }
     );
     timed_run!(
-        format!("BreadthFirst {:?}\n{} a solution", graph.get_path(), success),
+        format!("BreadthFirst {}\n{} a solution", graph.get_path().len(), success),
         {
             success = either!( graph.breadth_first_search() => "Found"; "Did not find");
         }
     );
     timed_run!(
-        format!("UniformCost {:?}\n{} a solution", graph.get_path(), success),
+        format!("UniformCost {}\n{} a solution", graph.get_path().len(), success),
         {
             success = either!( graph.uniform_cost_search() => "Found"; "Did not find");
         }
     );
     timed_run!(
-        format!("DepthFirst {:?}\n{} a solution", graph.get_path(), success),
+        format!("DepthFirst {}\n{} a solution", graph.get_path().len(), success),
         {
             success = either!( graph.depth_first_search() => "Found"; "Did not find");
         }
     );
     timed_run!(
-        format!("DepthLimited {:?}\n{} a solution", graph.get_path(), success),
+        format!("DepthLimited {}\n{} a solution", graph.get_path().len(), success),
         {
             success = either!( graph.depth_limited_search() => "Found"; "Did not find");
         }
     );
     timed_run!(
         format!(
-            "IterativeDeepening {:?}\n{} a solution",
-            graph.get_path(), success
+            "IterativeDeepening {}\n{} a solution",
+            graph.get_path().len(), success
         ),
         {
             success = either!( graph.iterative_deepening_search() => "Found"; "Did not find");
         }
     );
     timed_run!(
-        format!("BiDirectional {:?}\n{} a solution", graph.get_path(), success),
+        format!("BiDirectional {}\n{} a solution", graph.get_path().len(), success),
         {
             success = either!( graph.bi_directional_search() => "Found"; "Did not find");
         }
     );
     timed_run!(
-        format!("Greedy {:?}\n{} a solution", graph.get_path(), success),
+        format!("Greedy {}\n{} a solution", graph.get_path().len(), success),
         {
             success = either!( graph.greedy_search() => "Found"; "Did not find");
         }
     );
-    timed_run!(format!("AStar {:?}\n{} a solution", graph.get_path(), success), {
+    timed_run!(format!("AStar {}\n{} a solution", graph.get_path().len(), success), {
         success = either!( graph.a_star_search() => "Found"; "Did not find");
     });
 }

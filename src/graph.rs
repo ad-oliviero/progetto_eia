@@ -4,10 +4,34 @@ pub mod graph {
     use std::fs::File;
     use std::io::{BufRead, BufReader};
     use timed_run;
+    #[derive(Clone)]
+    pub struct Problem {
+        start: u32,
+        end: u32,
+    }
+
+    impl Problem {
+        pub fn new() -> Problem {
+            Problem { start: 0, end: 0 }
+        }
+        pub fn set_problem(&mut self, start: u32, end: u32) {
+            self.start = start;
+            self.end = end;
+        }
+        pub fn get_start(&self) -> u32 {
+            self.start
+        }
+        pub fn get_end(&self) -> u32 {
+            self.end
+        }
+        pub fn is_goal(&self, node: u32) -> bool {
+            node == self.end
+        }
+    }
+
     pub struct Graph {
         links: HashMap<u32, HashSet<u32>>,
-        from: u32,
-        to: u32,
+        problem: Problem,
         path: Vec<u32>,
     }
 
@@ -15,19 +39,24 @@ pub mod graph {
         pub fn new() -> Graph {
             Graph {
                 links: HashMap::new(),
-                from: 0,
-                to: 0,
+                problem: Problem::new() ,
                 path: Vec::new(),
             }
         }
+        pub fn set_search_problem(&mut self, from: u32, to: u32) {
+            if !self.links.contains_key(&from) || !self.links.contains_key(&to) {
+                panic!("The nodes {} and {} are not in the dataset", from, to);
+            }
+            if from == to {
+                panic!("The nodes {} and {} are the same", from, to);
+            }
+            self.problem.set_problem(from, to);
+        }
+        pub fn get_problem(&self) -> Problem {
+            self.problem.clone()
+        }
         pub fn get_links(&self) -> HashMap<u32, HashSet<u32>> {
             self.links.clone()
-        }
-        pub fn get_from(&self) -> u32 {
-            self.from
-        }
-        pub fn get_to(&self) -> u32 {
-            self.to
         }
         pub fn get_path(&self) -> Vec<u32> {
             self.path.clone()
@@ -58,17 +87,25 @@ pub mod graph {
                 }
             });
         }
-        pub fn set_search_problem(&mut self, from: u32, to: u32) {
-            if !self.links.contains_key(&from) || !self.links.contains_key(&to) {
-                panic!("The nodes {} and {} are not in the dataset", from, to);
-            }
-            if from == to {
-                panic!("The nodes {} and {} are the same", from, to);
-            }
-            self.from = from;
-            self.to = to;
-        }
         pub fn best_first_search(&mut self) -> bool {
+            let mut nodo: u32 = self.problem.get_start();
+            let mut fringe: Vec<u32> = Vec::new();
+            let mut visited: HashSet<u32> = HashSet::new();
+            fringe.push(nodo);
+            visited.insert(nodo);
+            while !fringe.is_empty() {
+                nodo = fringe.pop().unwrap();
+                self.path.push(nodo);
+                if self.problem.is_goal(nodo) {
+                    return true;
+                }
+                for child in self.links.get(&nodo).unwrap() {
+                    if !visited.contains(child) {
+                        visited.insert(*child);
+                        fringe.push(*child);
+                    }
+                }
+            }
             return false;
         }
         pub fn breadth_first_search(&mut self) -> bool {
