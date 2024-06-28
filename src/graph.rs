@@ -59,6 +59,7 @@ pub mod graph {
     }
 
     pub struct Graph {
+        gtype: String,
         nodes: BTreeMap<Node, BTreeSet<Node>>,
         edge_count: u32,
         problem: Problem,
@@ -67,6 +68,7 @@ pub mod graph {
     impl Graph {
         pub fn new() -> Graph {
             Graph {
+                gtype: "None".to_string(),
                 nodes: BTreeMap::new(),
                 edge_count: 0,
                 problem: Problem::new(),
@@ -78,9 +80,6 @@ pub mod graph {
             graph
         }
         pub fn set_search_problem(&mut self, from: Node, to: Node) {
-            // if !self.nodes.contains_key(&from) || !self.nodes.contains_key(&to) {
-            //     panic!("The nodes do not exist in the graph");
-            // }
             self.problem.set_problem(from, to);
         }
         pub fn get_problem(&self) -> Problem {
@@ -92,9 +91,30 @@ pub mod graph {
         pub fn load_dataset(&mut self, dataset_path: &str) {
             let elapsed = timed_run!({
                 // read the dataset file
-                let lines = BufReader::new(GzDecoder::new(File::open(dataset_path).unwrap()))
+                let mut lines = BufReader::new(GzDecoder::new(File::open(dataset_path).unwrap()))
                     .lines()
                     .map(|line| line.unwrap());
+                loop {
+                    // get the first line
+                    let line = lines.nth(0).unwrap();
+                    // guess the graph type
+                    if line.contains("Directed") {
+                        self.gtype = "Directed".to_string();
+                    } else if line.contains("Undirected") {
+                        self.gtype = "Undirected".to_string();
+                    } else {
+                        self.gtype = "Labeled".to_string();
+                    }
+                    // if the current line is a comment, go to the next one
+                    if line.contains("#") {
+                        // if the next line is not a comment, break the loop
+                        if !lines.next().unwrap().contains("#") {
+                            break;
+                        }
+                        break;
+                    }
+                }
+                println!("Tipo di Grafo: {}", self.gtype);
 
                 // Load every line into the BTree
                 for line in lines {
@@ -120,9 +140,9 @@ pub mod graph {
                     }
                 }
             });
-            println!("Loaded in {:.3}s", elapsed.as_secs_f64());
-            println!("Loaded {} nodes", self.nodes.len());
-            println!("Loaded {} edges", self.edge_count);
+            println!("Durata caricamento: {:.3}s", elapsed.as_secs_f64());
+            println!("Caricati {} nodi", self.nodes.len());
+            println!("Caricati {} archi", self.edge_count);
         }
         pub fn estimate_dataset_size(&self) -> usize {
             let mut size = 0;

@@ -14,11 +14,11 @@ fn test_search_function(
         let result = search_function(graph);
         let found = result.is_some();
         print!(
-            "{:<19}|{:^11}|",
+            "{:<19}|{:^13}|",
             name,
             match found {
-                true => "Found",
-                false => "Not Found",
+                true => "Trovato",
+                false => "Non Trovato",
             }
         );
     });
@@ -27,7 +27,7 @@ fn test_search_function(
 
 #[rustfmt::skip]
 fn test_all_search_functions(graph: &mut Graph) {
-    println!("\x1b[1m{:^19}|{:^11}|{:^11}\x1b[0m",
+    println!("\x1b[1m{:^19}|{:^13}|{:^11}\x1b[0m",
              "Algoritmo", "Risultato", "Tempo");
     test_search_function(graph, "BestFirst", Graph::best_first_search);
     test_search_function(graph, "BreadthFirst", Graph::breadth_first_search);
@@ -45,11 +45,11 @@ fn main() {
     // let mut graph = Graph::from_file("com-lj.ungraph.txt.gz");
     let dataset_size = graph.estimate_dataset_size();
     println!(
-        "The dataset takes ~{} of memory",
+        "Il dataset occupa circa {} di memoria",
         match dataset_size {
             size if size < 1024 * 9 => format!("{}B", size),
             size if size < 1024 * 1024 * 9 => format!("{}KB", size / 1024),
-            size => format!("{} MB", size / (1024 * 1024)),
+            size => format!("{}MB", size / (1024 * 1024)),
         }
     );
     // set random values to test the search algorithms
@@ -65,7 +65,7 @@ fn main() {
     // graph.set_search_problem(Node::from_state(random_from), Node::from_state(random_to));
     graph.set_search_problem(Node::from_state(514054), Node::from_state(1909544));
     println!(
-        "Starting search from: {} to: {}",
+        "Inizio ricerca da: {} verso: {}",
         graph.get_problem().get_start().get_state(),
         graph.get_problem().get_end().get_state()
     );
