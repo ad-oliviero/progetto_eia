@@ -9,33 +9,57 @@ pub mod graph {
 
     pub type State = u32;
 
+    #[derive(Clone, Ord, Eq, PartialEq, PartialOrd, Copy)]
+    pub struct Node {
+        state: State,
+    }
+    impl Node {
+        pub fn new() -> Node {
+            Node { state: 0 }
+        }
+        pub fn from_state(state: State) -> Node {
+            let mut new_node = Node { state };
+            new_node.state = state;
+            new_node
+        }
+        // pub fn set_state(&mut self, state: State) {
+        //     self.state = state;
+        // }
+        pub fn get_state(&self) -> State {
+            self.state
+        }
+    }
+
     #[derive(Clone)]
     pub struct Problem {
-        start: State,
-        end: State,
+        start: Node,
+        end: Node,
     }
 
     impl Problem {
         pub fn new() -> Problem {
-            Problem { start: 0, end: 0 }
+            Problem {
+                start: Node::new(),
+                end: Node::new(),
+            }
         }
-        pub fn set_problem(&mut self, start: State, end: State) {
+        pub fn set_problem(&mut self, start: Node, end: Node) {
             self.start = start;
             self.end = end;
         }
-        pub fn get_start(&self) -> State {
-            self.start
+        pub fn get_start(&self) -> Node {
+            self.start.clone()
         }
-        pub fn get_end(&self) -> State {
-            self.end
+        pub fn get_end(&self) -> Node {
+            self.end.clone()
         }
-        pub fn is_goal(&self, node: State) -> bool {
+        pub fn is_goal(&self, node: Node) -> bool {
             node == self.end
         }
     }
 
     pub struct Graph {
-        nodes: BTreeMap<State, BTreeSet<State>>,
+        nodes: BTreeMap<Node, BTreeSet<Node>>,
         edge_count: u32,
         problem: Problem,
     }
@@ -53,15 +77,18 @@ pub mod graph {
             graph.load_dataset(dataset_path);
             graph
         }
-        pub fn set_search_problem(&mut self, from: State, to: State) {
-            if from >= self.nodes.len() as State || to >= self.nodes.len() as State {
-                panic!("Invalid search problem");
-            }
+        pub fn set_search_problem(&mut self, from: Node, to: Node) {
+            // if !self.nodes.contains_key(&from) || !self.nodes.contains_key(&to) {
+            //     panic!("The nodes do not exist in the graph");
+            // }
             self.problem.set_problem(from, to);
         }
         pub fn get_problem(&self) -> Problem {
             self.problem.clone()
         }
+        // pub fn get_nodes(&self) -> BTreeMap<Node, BTreeSet<Node>> {
+        //     self.nodes.clone()
+        // }
         pub fn load_dataset(&mut self, dataset_path: &str) {
             let elapsed = timed_run!({
                 // read the dataset file
@@ -81,13 +108,13 @@ pub mod graph {
                             self.edge_count += (self
                                 // get the entry of the node_l
                                 .nodes
-                                .entry(from.clone())
+                                .entry(Node::from_state( from.clone() ))
                                 // if it does not exist, create a new BTreeSet (the default)
                                 .or_default()
                                 // then insert the node_r
-                                .insert(to.clone())
+                                .insert(Node::from_state( to.clone() ))
                                 // the same for node_r entry
-                                && self.nodes.entry(to).or_default().insert(from))
+                                && self.nodes.entry(Node::from_state( to )).or_default().insert(Node::from_state( from )))
                                 as u32; // it is a boolean, so cast it to u32 and we get either 1 or 0
                         }
                     }
@@ -109,39 +136,72 @@ pub mod graph {
             }
             size
         }
-        pub fn best_first_search(&mut self) -> Option<Vec<State>> {
-            let mut nodo: State = self.problem.get_start();
-            let mut path: Vec<State> = Vec::new();
-            let mut fringe: Vec<State> = Vec::new();
-            let mut visited: Vec<State> = Vec::new();
+        pub fn best_first_search(&mut self) -> Option<Node> {
+            let mut nodo: Node;
+            let mut frontiera: VecDeque<Node> = VecDeque::new();
+            let mut raggiunti: BTreeMap<State, Node> = BTreeMap::new();
+            nodo = self.problem.get_start();
+            frontiera.push_back(nodo);
+            raggiunti.insert(self.problem.get_start().get_state(), nodo);
+            while !frontiera.is_empty() {
+                nodo = frontiera.pop_front().unwrap();
+                if self.problem.is_goal(nodo) {
+                    return Some(nodo);
+                }
+                for figlio in self.nodes[&nodo].iter() {
+                    let s = figlio.get_state();
+                    if !raggiunti.contains_key(&s) {
+                        raggiunti.insert(s, figlio.clone());
+                        frontiera.push_back(figlio.clone());
+                    }
+                }
+            }
             return None;
         }
-        pub fn breadth_first_search(&mut self) -> Option<Vec<State>> {
-            let mut nodo: State = self.problem.get_start();
-            let mut path: Vec<State> = Vec::new();
-            let mut fringe: VecDeque<State> = VecDeque::new(); // fifo queue
-            let mut visited: Vec<State> = Vec::new();
+        pub fn breadth_first_search(&mut self) -> Option<Node> {
+            let mut nodo: Node;
+            let mut frontiera: VecDeque<Node> = VecDeque::new();
+            let mut raggiunti: BTreeMap<State, Node> = BTreeMap::new();
+            nodo = self.problem.get_start();
+            if self.problem.is_goal(nodo) {
+                return Some(nodo);
+            }
+            frontiera.push_back(nodo);
+            raggiunti.insert(self.problem.get_start().get_state(), nodo);
+            while !frontiera.is_empty() {
+                nodo = frontiera.pop_front().unwrap();
+                for figlio in self.nodes[&nodo].iter() {
+                    let s = figlio.get_state();
+                    if self.problem.is_goal(figlio.clone()) {
+                        return Some(*figlio);
+                    }
+                    if !raggiunti.contains_key(&s) {
+                        raggiunti.insert(s, figlio.clone());
+                        frontiera.push_back(figlio.clone());
+                    }
+                }
+            }
             return None;
         }
-        pub fn uniform_cost_search(&mut self) -> Option<Vec<State>> {
+        pub fn uniform_cost_search(&mut self) -> Option<Node> {
             return None;
         }
-        pub fn depth_first_search(&mut self) -> Option<Vec<State>> {
+        pub fn depth_first_search(&mut self) -> Option<Node> {
             return None;
         }
-        pub fn depth_limited_search(&mut self) -> Option<Vec<State>> {
+        pub fn depth_limited_search(&mut self) -> Option<Node> {
             return None;
         }
-        pub fn iterative_deepening_search(&mut self) -> Option<Vec<State>> {
+        pub fn iterative_deepening_search(&mut self) -> Option<Node> {
             return None;
         }
-        pub fn bi_directional_search(&mut self) -> Option<Vec<State>> {
+        pub fn bi_directional_search(&mut self) -> Option<Node> {
             return None;
         }
-        pub fn greedy_search(&mut self) -> Option<Vec<State>> {
+        pub fn greedy_search(&mut self) -> Option<Node> {
             return None;
         }
-        pub fn a_star_search(&mut self) -> Option<Vec<State>> {
+        pub fn a_star_search(&mut self) -> Option<Node> {
             return None;
         }
     }
