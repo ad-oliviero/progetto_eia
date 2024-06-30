@@ -1,73 +1,89 @@
+extern crate clap;
 extern crate flate2;
 extern crate rand;
-mod graph;
+mod args;
 mod macros;
+mod problem;
 
-use graph::graph::*;
+use clap::Parser;
 
-fn test_search_function(
-    graph: &mut Graph,
-    name: &str,
-    search_function: fn(&mut Graph) -> Option<Node>,
-) {
-    let elapsed = timed_run!({
-        let result = search_function(graph);
-        let found = result.is_some();
-        print!(
-            "{:<19}|{:^13}|",
-            name,
-            match found {
-                true => "Trovato",
-                false => "Non Trovato",
-            }
-        );
-    });
-    println!("{:>4}.{:03}s", elapsed.as_secs(), elapsed.subsec_millis());
-}
+use std::io::Write;
 
-#[rustfmt::skip]
-fn test_all_search_functions(graph: &mut Graph) {
-    println!("\x1b[1m{:^19}|{:^13}|{:^11}\x1b[0m",
-             "Algoritmo", "Risultato", "Tempo");
-    test_search_function(graph, "BestFirst", Graph::best_first_search);
-    test_search_function(graph, "BreadthFirst", Graph::breadth_first_search);
-    test_search_function(graph, "UniformCost", Graph::uniform_cost_search);
-    test_search_function(graph, "DepthFirst", Graph::depth_first_search);
-    test_search_function(graph, "DepthLimited", Graph::depth_limited_search);
-    test_search_function(graph, "IterativeDeepening", Graph::iterative_deepening_search);
-    test_search_function(graph, "BiDirectional", Graph::bi_directional_search);
-    test_search_function(graph, "Greedy", Graph::greedy_search);
-    test_search_function(graph, "AStar", Graph::a_star_search);
-}
+use args::*;
+use problem::*;
 
 fn main() {
-    let mut graph = Graph::from_file("roadNet-CA.txt.gz");
-    // let mut graph = Graph::from_file("com-lj.ungraph.txt.gz");
-    let dataset_size = graph.estimate_dataset_size();
-    println!(
-        "Il dataset occupa circa {} di memoria",
-        match dataset_size {
-            size if size < 1024 * 9 => format!("{}B", size),
-            size if size < 1024 * 1024 * 9 => format!("{}KB", size / 1024),
-            size => format!("{}MB", size / (1024 * 1024)),
-        }
+    let args = Args::parse();
+    let mut problema = Problem::new(
+        args.stato_iniziale.unwrap(),
+        args.stato_finale.unwrap(),
+        &args.file.unwrap(),
     );
-    // set random values to test the search algorithms
-    // let random_state = |max: u32| -> u32 { rand::random::<u32>() % max };
-    // let random_from = random_state(graph.get_nodes().len() as u32);
-    // let random_to = {
-    //     let mut v = random_state(graph.get_nodes().len() as u32);
-    //     while v == random_from {
-    //         v = random_state(graph.get_nodes().len() as u32);
-    //     }
-    //     v
-    // };
-    // graph.set_search_problem(Node::from_state(random_from), Node::from_state(random_to));
-    graph.set_search_problem(Node::from_state(514054), Node::from_state(1909544));
+    let mut to_run: Vec<(Ricerca, fn(&mut Problem) -> SearchResult, bool)> = vec![
+        (Ricerca::TreeSearch, Problem::tree_search, false),
+        (Ricerca::BreadthFirst, Problem::breadth_first_search, false),
+        (Ricerca::UniformCost, Problem::uniform_cost_search, false),
+        (Ricerca::DepthLimited, Problem::depth_limited_search, false),
+        (
+            Ricerca::IterativeDeepening,
+            Problem::iterative_deepening_search,
+            false,
+        ),
+        (
+            Ricerca::BiDirectional,
+            Problem::bi_directional_search,
+            false,
+        ),
+    ];
+    if args.all {
+        // disable TreeSearch because it's too slow
+        for i in 1..to_run.len() {
+            to_run[i].2 = true;
+            // debugging purposes
+            // to_run[i].1 = |_: &mut Problem| SearchResult::Failure;
+        }
+    } else if let Some(ricerca) = args.ricerca {
+        to_run.iter_mut().find(|(r, _, _)| *r == ricerca).unwrap().2 = true;
+    }
     println!(
         "Inizio ricerca da: {} verso: {}",
-        graph.get_problem().get_start().get_state(),
-        graph.get_problem().get_end().get_state()
+        problema.get_stato_iniziale(),
+        problema.get_stato_finale()
     );
-    test_all_search_functions(&mut graph);
+    println!(
+        "\x1b[1m{:^20}|{:^11}|{:^7}|{:^7}|{:^11}\x1b[0m",
+        "Algoritmo", "Risultato", "Depth", "Costo", "Tempo"
+    );
+    for (ricerca, funzione, run) in to_run {
+        if run {
+            print!("{:<20}|", ricerca.to_string());
+            std::io::stdout().flush().unwrap();
+            let elapsed = timed_run!({
+                let result = funzione(&mut problema);
+                print!(
+                    "{:^11}|{:>7}|{:>7}|",
+                    match result {
+                        SearchResult::Found(_) => "Trovato",
+                        SearchResult::Failure => "Fallito",
+                        SearchResult::CutOff => "Cutoff",
+                    },
+                    if let SearchResult::Found(nodo) = &result {
+                        nodo.profondita
+                    } else {
+                        0
+                    },
+                    if let SearchResult::Found(nodo) = &result {
+                        nodo.costo_cammino
+                    } else {
+                        0
+                    }
+                );
+            });
+            println!(
+                "{:>4}.{:05}s",
+                elapsed.as_secs(),
+                elapsed.subsec_millis() + elapsed.subsec_micros()
+            );
+        }
+    }
 }

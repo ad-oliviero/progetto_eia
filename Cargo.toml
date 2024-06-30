@@ -1,8 +1,10 @@
 [package]
 name = "eia"
 version = "1.0.0"
+authors = ["Adriano Oliviero"]
 
 [dependencies]
+clap = { version = "4.5.8", features = ["derive"] }
 flate2 = "1.0.30"
 rand = "0.8.5"
 

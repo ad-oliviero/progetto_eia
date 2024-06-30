@@ -23,7 +23,8 @@ Lo script utilizza `wget` ed è scritto per sistemi UNIX & UNIX-like
 |[as-Skitter](https://snap.stanford.edu/data/as-Skitter.html)|1696415|11095298|Undirected|33MB|
 |[com-LiveJournal](https://snap.stanford.edu/data/com-LiveJournal.html)|3997962|34681189|Undirected|124MB|
 |[com-Friendster](https://snap.stanford.edu/data/com-Friendster.html)|65608366|1806067135|Undirected|8.7GB|
-|[soc-sign-bitcoin-alpha](https://snap.stanford.edu/data/soc-sign-bitcoin-alpha.html)|3783|24186|Labled|152k|
+|[soc-sign-bitcoin-alpha](https://snap.stanford.edu/data/soc-sign-bitcoin-alpha.html)|3783|24186|Labled|152KB|
+|[email-Enron](https://snap.stanford.edu/data/email-Enron.html)|36692|183831|Undirected|1.1MB|
 
 #### Informazioni aggiuntive
 - I dataset contengono alcune informazioni nelle prime righe
