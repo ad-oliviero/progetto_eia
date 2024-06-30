@@ -12,28 +12,21 @@ use std::io::Write;
 use args::*;
 use problem::*;
 
-fn main() {
+fn main() -> Result<(), std::io::Error> {
     let args = Args::parse();
     let mut problema = Problem::new(
         args.stato_iniziale.unwrap(),
         args.stato_finale.unwrap(),
         &args.file.unwrap(),
     );
+    #[rustfmt::skip]
     let mut to_run: Vec<(Ricerca, fn(&mut Problem) -> SearchResult, bool)> = vec![
         (Ricerca::TreeSearch, Problem::tree_search, false),
         (Ricerca::BreadthFirst, Problem::breadth_first_search, false),
         (Ricerca::UniformCost, Problem::uniform_cost_search, false),
         (Ricerca::DepthLimited, Problem::depth_limited_search, false),
-        (
-            Ricerca::IterativeDeepening,
-            Problem::iterative_deepening_search,
-            false,
-        ),
-        (
-            Ricerca::BiDirectional,
-            Problem::bi_directional_search,
-            false,
-        ),
+        (Ricerca::IterativeDeepening, Problem::iterative_deepening_search, false),
+        (Ricerca::BiDirectional, Problem::bi_directional_search, false),
     ];
     if args.all {
         // disable TreeSearch because it's too slow
@@ -86,4 +79,5 @@ fn main() {
             );
         }
     }
+    Ok(())
 }

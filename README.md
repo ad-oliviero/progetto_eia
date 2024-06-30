@@ -18,13 +18,13 @@ Lo script utilizza `wget` ed è scritto per sistemi UNIX & UNIX-like
 ### Dataset Utilizzati
 |Nome|Nodi|Archi|Tipo|Dimensione|
 |----|----|-----|----|----------|
-|[roadNet-CA](https://snap.stanford.edu/data/roadNet-CA.html)|1965206|2766607|Directed|18MB|
-|[cit-Patents](https://snap.stanford.edu/data/cit-Patents.html)|3774768|16518948|Directed|85MB|
-|[as-Skitter](https://snap.stanford.edu/data/as-Skitter.html)|1696415|11095298|Undirected|33MB|
-|[com-LiveJournal](https://snap.stanford.edu/data/com-LiveJournal.html)|3997962|34681189|Undirected|124MB|
-|[com-Friendster](https://snap.stanford.edu/data/com-Friendster.html)|65608366|1806067135|Undirected|8.7GB|
 |[soc-sign-bitcoin-alpha](https://snap.stanford.edu/data/soc-sign-bitcoin-alpha.html)|3783|24186|Labled|152KB|
 |[email-Enron](https://snap.stanford.edu/data/email-Enron.html)|36692|183831|Undirected|1.1MB|
+|[com-Youtube](https://snap.stanford.edu/data/com-Youtube.html)|1134890|2987624|Undirected|11MB|
+|[roadNet-CA](https://snap.stanford.edu/data/roadNet-CA.html)|1965206|2766607|Directed|18MB|
+|[as-Skitter](https://snap.stanford.edu/data/as-Skitter.html)|1696415|11095298|Undirected|33MB|
+|[cit-Patents](https://snap.stanford.edu/data/cit-Patents.html)|3774768|16518948|Directed|85MB|
+|[com-LiveJournal](https://snap.stanford.edu/data/com-LiveJournal.html)|3997962|34681189|Undirected|124MB|
 
 #### Informazioni aggiuntive
 - I dataset contengono alcune informazioni nelle prime righe

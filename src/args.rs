@@ -21,10 +21,6 @@ pub struct Args {
     #[arg(short = 'f', long = "finale", default_value = "73")]
     pub stato_finale: Option<u32>,
 
-    /// Utilizza l'interfaccia interattiva
-    #[arg(short = 'I', action, default_value = "false")]
-    pub interactive: bool,
-
     // Esegue tutti gli algoritmi di ricerca
     #[arg(
         short = 'a',
@@ -54,7 +50,6 @@ impl Default for Args {
             file: Some("email-Enron.txt.gz".into()),
             stato_iniziale: Some(46),
             stato_finale: Some(73),
-            interactive: false,
             all: true,
             limite: 10,
             ricerca: Some(Ricerca::BiDirectional),
