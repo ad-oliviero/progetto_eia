@@ -48,6 +48,7 @@ def main():
 \\begin{document}
 \\maketitle
 \\tableofcontents
+\\newpage
 \\section{Grafici e Risultati}
 Di seguito sono riportati alcuni grafici che visualizzano i risultati sperimentali degli algoritmi di ricerca applicati ai dataset:
 """
@@ -55,18 +56,27 @@ Di seguito sono riportati alcuni grafici che visualizzano i risultati sperimenta
     sp.run(['cargo', 'build', '--release'])
     sp.run(['bash', './download-datasets.sh', DATA_DIR])
     datasets = os.listdir(DATA_DIR)
+    selected_datasets = []
     available_searches = ["breadth-first", "uniform-cost", "depth-limited", "iterative-deepening", "bi-directional"]
+    selected_searches = []
     if len(sys.argv) > 1:
         for arg in sys.argv[1:]:
             if arg in available_searches:
-                available_searches = [arg]
+                selected_searches.append(arg)
             else:
-                datasets = [arg.replace(DATA_DIR + '/', '')]
+                selected_datasets.append(arg.replace(DATA_DIR + '/', ''))
+    if not selected_datasets:
+        selected_datasets = datasets
+    if not selected_searches:
+        selected_searches = available_searches
     os.makedirs(MASSIF_OUTPUT_DIR, exist_ok=True)
     os.makedirs(SEARCH_OUTPUT_DIR, exist_ok=True)
     os.makedirs(PLOTS_DIR, exist_ok=True)
-    for dataset in datasets:
-        for search in available_searches:
+    for dataset in selected_datasets:
+        latex_grafici += f"\\subsection{{Dataset: {dataset}}}\n"
+        latex_risultati_tabella = ""
+        latex_risultati_info = ["", "", ""]
+        for search in selected_searches:
             massif_output_file = f'{MASSIF_OUTPUT_DIR}/{dataset.replace(".txt", "").replace(".gz", "")}_{search}'
             dataset_file = f'{DATA_DIR}/{dataset}'
             search_output_file = f'{SEARCH_OUTPUT_DIR}/{dataset.replace(".txt", "").replace(".gz", "")}_{search}.txt'
@@ -87,23 +97,20 @@ Di seguito sono riportati alcuni grafici che visualizzano i risultati sperimenta
             else:
                 spr = open(search_output_file, 'r').read()
 
-            latex_risultati += f"\\subsection{{{dataset}}}\n"
-            for l in spr.split("\n"):
-                if l.startswith("Tipo di Grado: "):
-                    latex_risultati += f"{l}\n\n"
-                elif l.startswith("Durata caricamento: "):
-                    latex_risultati += f"{l}\n\n"
-                elif l.startswith("Inizio ricerca da: "):
-                    latex_risultati += f"Nodi cercati: "
-                    l = l.replace("Inizio ricerca da: ", "").replace("verso: ", "").split(" ")
-                    latex_risultati += f"{l[0]} e {l[1]}\n\n"
-            latex_risultati += f"\\begin{{table}}[h]\n\\centering\n\\\begin{{tabular}}{{|l|l|r|r|r|}}\n\\hline\n"
-            latex_risultati += f"\\textbf{{Algoritmo}} & \\textbf{{Risultato}} & \\textbf{{Profondità}} & \\textbf{{Costo}} & \\textbf{{Tempo}} \\\\\n \\hline\n"
             for l in spr.split("\n"):
                 if l.startswith(search):
                     l = l.replace(' ', '').split("|")
-                    latex_risultati += f"{l[0]} & {l[1]} & {l[2]} & {l[3]} & {l[4]} \\\\\n"
-            latex_risultati += f"\\hline\n\\end{{tabular}}\n\\caption{{{dataset}}}\n\\end{{table}}\n"
+                    latex_risultati_tabella += f"{l[0]} & {l[1]} & {l[2]} & {l[3]} & {l[4]} \\\\\n"
+
+            for l in spr.split("\n"):
+                if l.startswith("Tipo di Grafo: "):
+                    latex_risultati_info[0] = f"{l}\n\n"
+                elif l.startswith("Durata caricamento: "):
+                    latex_risultati_info[1] = f"{l}\n\n"
+                elif l.startswith("Inizio ricerca da: "):
+                    latex_risultati_info[2] = f"Nodi cercati: "
+                    l = l.replace("Inizio ricerca da: ", "").replace("verso: ", "").split(" ")
+                    latex_risultati_info[2] += f"{l[0]} e {l[1]}\n\n"
 
             massif_output = parse_massif_output(massif_output_file)
             df = pd.DataFrame(massif_output)
@@ -123,11 +130,18 @@ Di seguito sono riportati alcuni grafici che visualizzano i risultati sperimenta
 
             ax.grid(True, linestyle='--', alpha=0.5)
             plt.savefig(save_file, bbox_inches='tight', dpi=300)
-            latex_grafici += f"\\subsection{{Dataset: {dataset}}}\n"
             latex_grafici += f"\\subsubsection{{Algoritmo di ricerca: {search}}}\n"
-            latex_grafici += f"\\begin{{figure}}[H]"
-            latex_grafici += f"\\centering\n\\includegraphics[width=\\textwidth]{{{save_file}}}\n\\caption{{Grafico: breadth-first su com-lj.ungraph}}\n"
+            latex_grafici += f"\\begin{{figure}}[h]"
+            latex_grafici += f"\\centering\n\\includegraphics[width=\\textwidth]{{../{save_file}}}\n\\caption{{Grafico: breadth-first su com-lj.ungraph}}\n"
             latex_grafici += f"\\end{{figure}}\n"
+        latex_risultati += f"\\subsection{{{dataset}}}\n"
+        for info in latex_risultati_info:
+            if not len(info) == 0:
+                latex_risultati += info
+        latex_risultati += f"\\begin{{table}}[h]\n\\centering\n\\begin{{tabular}}{{|l|l|r|r|r|}}\n\\hline\n"
+        latex_risultati += f"\\textbf{{Algoritmo}} & \\textbf{{Risultato}} & \\textbf{{Profondità}} & \\textbf{{Costo}} & \\textbf{{Tempo}} \\\\\n \\hline\n"
+        latex_risultati += latex_risultati_tabella
+        latex_risultati += f"\\hline\n\\end{{tabular}}\n\\caption{{{dataset}}}\n\\end{{table}}\n"
     latex_grafici += "\\end{document}"
     with open('doc/grafici.tex', 'w') as f:
         f.write(latex_grafici)

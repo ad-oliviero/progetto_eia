@@ -5,26 +5,91 @@
 \usepackage{hyperref}
 \usepackage{geometry}
 \geometry{a4paper, margin=1in}
-
 \title{Grafici dell'utilizzo di memoria heap da parte degli algoritmi di ricerca}
 \author{Adriano Oliviero}
-\date{\today}
-
+\date{	oday}
 \begin{document}
-
 \maketitle
-
 \tableofcontents
-
+\newpage
 \section{Grafici e Risultati}
 Di seguito sono riportati alcuni grafici che visualizzano i risultati sperimentali degli algoritmi di ricerca applicati ai dataset:
-
-\subsection{com-lj.ungraph}
-\subsubsection{breadth-first}
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=\textwidth]{../plots/com-lj.ungraph_breadth-first.png}
-	\caption{Grafico: breadth-first su com-lj.ungraph}
+\subsection{Dataset: cit-Patents.txt.gz}
+\subsubsection{Algoritmo di ricerca: breadth-first}
+\begin{figure}[h]\centering
+\includegraphics[width=\textwidth]{../plots/cit-Patents_breadth-first.png}
+\caption{Grafico: breadth-first su com-lj.ungraph}
+\end{figure}
+\subsubsection{Algoritmo di ricerca: uniform-cost}
+\begin{figure}[h]\centering
+\includegraphics[width=\textwidth]{../plots/cit-Patents_uniform-cost.png}
+\caption{Grafico: breadth-first su com-lj.ungraph}
+\end{figure}
+\subsubsection{Algoritmo di ricerca: depth-limited}
+\begin{figure}[h]\centering
+\includegraphics[width=\textwidth]{../plots/cit-Patents_depth-limited.png}
+\caption{Grafico: breadth-first su com-lj.ungraph}
+\end{figure}
+\subsubsection{Algoritmo di ricerca: iterative-deepening}
+\begin{figure}[h]\centering
+\includegraphics[width=\textwidth]{../plots/cit-Patents_iterative-deepening.png}
+\caption{Grafico: breadth-first su com-lj.ungraph}
+\end{figure}
+\subsubsection{Algoritmo di ricerca: bi-directional}
+\begin{figure}[h]\centering
+\includegraphics[width=\textwidth]{../plots/cit-Patents_bi-directional.png}
+\caption{Grafico: breadth-first su com-lj.ungraph}
+\end{figure}
+\subsection{Dataset: com-lj.ungraph.txt.gz}
+\subsubsection{Algoritmo di ricerca: breadth-first}
+\begin{figure}[h]\centering
+\includegraphics[width=\textwidth]{../plots/com-lj.ungraph_breadth-first.png}
+\caption{Grafico: breadth-first su com-lj.ungraph}
+\end{figure}
+\subsubsection{Algoritmo di ricerca: uniform-cost}
+\begin{figure}[h]\centering
+\includegraphics[width=\textwidth]{../plots/com-lj.ungraph_uniform-cost.png}
+\caption{Grafico: breadth-first su com-lj.ungraph}
+\end{figure}
+\subsubsection{Algoritmo di ricerca: depth-limited}
+\begin{figure}[h]\centering
+\includegraphics[width=\textwidth]{../plots/com-lj.ungraph_depth-limited.png}
+\caption{Grafico: breadth-first su com-lj.ungraph}
+\end{figure}
+\subsubsection{Algoritmo di ricerca: iterative-deepening}
+\begin{figure}[h]\centering
+\includegraphics[width=\textwidth]{../plots/com-lj.ungraph_iterative-deepening.png}
+\caption{Grafico: breadth-first su com-lj.ungraph}
+\end{figure}
+\subsubsection{Algoritmo di ricerca: bi-directional}
+\begin{figure}[h]\centering
+\includegraphics[width=\textwidth]{../plots/com-lj.ungraph_bi-directional.png}
+\caption{Grafico: breadth-first su com-lj.ungraph}
+\end{figure}
+\subsection{Dataset: email-Enron.txt.gz}
+\subsubsection{Algoritmo di ricerca: breadth-first}
+\begin{figure}[h]\centering
+\includegraphics[width=\textwidth]{../plots/email-Enron_breadth-first.png}
+\caption{Grafico: breadth-first su com-lj.ungraph}
+\end{figure}
+\subsubsection{Algoritmo di ricerca: uniform-cost}
+\begin{figure}[h]\centering
+\includegraphics[width=\textwidth]{../plots/email-Enron_uniform-cost.png}
+\caption{Grafico: breadth-first su com-lj.ungraph}
+\end{figure}
+\subsubsection{Algoritmo di ricerca: depth-limited}
+\begin{figure}[h]\centering
+\includegraphics[width=\textwidth]{../plots/email-Enron_depth-limited.png}
+\caption{Grafico: breadth-first su com-lj.ungraph}
+\end{figure}
+\subsubsection{Algoritmo di ricerca: iterative-deepening}
+\begin{figure}[h]\centering
+\includegraphics[width=\textwidth]{../plots/email-Enron_iterative-deepening.png}
+\caption{Grafico: breadth-first su com-lj.ungraph}
+\end{figure}
+\subsubsection{Algoritmo di ricerca: bi-directional}
+\begin{figure}[h]\centering
+\includegraphics[width=\textwidth]{../plots/email-Enron_bi-directional.png}
+\caption{Grafico: breadth-first su com-lj.ungraph}
 \end{figure}
 \end{document}
-

@@ -1,91 +1,173 @@
-\documentclass{article}
+\documentclass{ol-softwaremanual}
 \usepackage{graphicx}
 \usepackage{listings}
 \usepackage{xcolor}
 \usepackage{hyperref}
 \usepackage{geometry}
+\usepackage{biblatex}
+\usepackage{listings}
 \geometry{a4paper, margin=1in}
 
-\title{Project Documentation for Elementi di Intelligenza Artificiale}
-\author{Group Members: Name1, Name2, Name3}
+\addbibresource{references.bib}
+\title{Documentazione del Progetto di Intelligenza Artificiale}
+\author{Adriano Oliviero}
 \date{\today}
+
 
 \begin{document}
 
 \maketitle
 
 \tableofcontents
-
+\newpage
 \section{Obiettivo del progetto}
-Il progetto si propone di applicare algoritmi di ricerca a dataset reali per valutare l'efficacia e l'efficienza di tali algoritmi. In particolare, utilizzeremo il dataset disponibile su \url{https://snap.stanford.edu/data/} per sperimentare e confrontare diversi algoritmi di ricerca.
+Il progetto si propone di applicare algoritmi di ricerca ad alcuni dataset disponibili su
+\url{https://snap.stanford.edu/data/} per valutare l'efficacia e l'efficienza di tali algoritmi.
 
 \section{Descrizione delle metodologie e tecniche adoperate}
-Per la realizzazione del progetto, abbiamo utilizzato il linguaggio di programmazione Rust. Il progetto è organizzato come segue:
+\subsection{Il linguaggio}
+Per la realizzazione del progetto, ho utilizzato il linguaggio di programmazione Rust.
+
+Questo linguaggio è stato scelto per diversi motivi:
 \begin{itemize}
-  \item \texttt{Cargo.toml} - File di configurazione per il gestore di pacchetti di Rust, Cargo.
-  \item \texttt{download-datasets.sh} - Script shell per scaricare i dataset.
-  \item \texttt{LICENSE} - Informazioni sulla licenza del progetto.
-  \item \texttt{README.md} - File Readme con una panoramica del progetto.
-  \item \texttt{run.py} - Script Python per eseguire il progetto.
-  \item \texttt{src/} - Directory contenente il codice sorgente in Rust.
-        \begin{itemize}
-          \item \texttt{main.rs} - Punto di ingresso principale per l'applicazione Rust.
-          \item \texttt{macros.rs} - Contiene definizioni di macro utilizzate nel progetto.
-          \item \texttt{args.rs} - Gestisce gli argomenti della riga di comando.
-          \item \texttt{problem/} - Directory contenente i moduli relativi ai problemi di ricerca.
-                \begin{itemize}
-                  \item \texttt{mod.rs} - File di modulo per la directory problem.
-                  \item \texttt{graph.rs} - Modulo per le strutture e funzioni relative ai grafi.
-                  \item \texttt{node.rs} - Modulo per le strutture e funzioni relative ai nodi.
-                \end{itemize}
-        \end{itemize}
+	\item \textbf{Performance}: Rust è un linguaggio di programmazione ad alte prestazioni con controllo della memoria a tempo di compilazione.
+	\item \textbf{Semplicità}: Rust è un linguaggio di programmazione moderno con una sintassi pulita e concisa, quasi alla pari di Python.
+	\item \textbf{Esperienza}: Ho già esperienza con Rust e ho trovato che sia un linguaggio adatto per progetti di questo tipo.
 \end{itemize}
 
-\subsection{Tecnologie Utilizzate}
-Abbiamo utilizzato diverse tecnologie per sviluppare e analizzare il progetto:
+\subsection{Organizzazione del progetto}
+Il progetto è organizzato come segue:
 \begin{itemize}
-  \item \textbf{Rust}: Il linguaggio di programmazione principale utilizzato per implementare gli algoritmi di ricerca.
-  \item \textbf{Python}: Utilizzato per gli script di gestione e automazione, come il download dei dataset.
-  \item \textbf{Massif}: Uno strumento di profiling di memoria che fa parte di Valgrind, utilizzato per analizzare l'uso della memoria del programma.
+	\item \texttt{download-datasets.sh} - Script shell per scaricare i dataset automaticamente.
+	\item \texttt{run.py} - Script Python per eseguire il progetto, e generare benchmark e grafici.
+	\item \texttt{src/} - Directory contenente il codice sorgente in Rust.
+	\item file aggiuntivi
 \end{itemize}
 
-\section{Dataset}
+\subsection{Compilazione ed esecuzione}
+Per compilare ed eseguire il progetto, è necessario avere Rust (e cargo) installato sul proprio sistema.
+Inoltre è necessario scaricare almeno un dataset, come descritto nella \hyperref[sec:dataset]{sezione dedicata}.
+
+Per compilare il progetto, eseguire i seguenti comandi:
+\begin{lstlisting}
+  $ cargo build --release
+\end{lstlisting}
+
+Per eseguire il progetto, eseguire il seguente comando:
+\begin{lstlisting}
+  $ ./target/release/eia <opzioni>
+\end{lstlisting}
+
+Per ottenere la lista delle opzioni disponibili, è possibile eseguire il programma con l'opzione \texttt{-h}
+
+\subsection{Strutture dati}
+Per rendere utilizzabili i dataset, ho implementato le seguenti strutture dati:
+\begin{itemize}
+	\item \texttt{Problem} - Struttura dati contenente il grafo e i dati e le funzioni necessarie per la ricerca:
+	      \begin{itemize}
+		      \item \texttt{stato\_inziale: State} - Nodo dal quale iniziare la ricerca.
+		      \item \texttt{stato\_finale: State} - Nodo da raggiungere.
+		      \item \texttt{grafo: Graph} - Struttura dati contenente il grafo.
+		      \item \texttt{limite: usize} - Limite di profondità per gli algoritmi di ricerca limitata.
+		      \item \texttt{goal\_test(\&self, stato) -> bool} - Funzione per verificare se il nodo obiettivo è stato raggiunto.
+		      \item le funzioni di ricerca, delle quali parlerò più avanti.
+	      \end{itemize}
+	\item \texttt{Graph} - Struttura dati contenente una astrazione del grafo:
+	      \begin{itemize}
+		      \item \texttt{gtype: String} - Tipo del grafo (direzionato, non direzionato o con pesi).
+		      \item \texttt{nodi: Vec<Node>} - I nodi del grafo.
+		      \item \texttt{edge\_count: u32} - Il numero di archi del grafo, utile per essere sicuri che il caricamento del dataset sia avvenuto correttamente.
+		      \item \texttt{load\_dataset(dataset\_path)} - Legge il file del dataset e costruisce il grafo.
+	      \end{itemize}
+	\item \texttt{Node} - Struttura dati per rappresentare un nodo del grafo:
+	      \begin{itemize}
+		      \item \texttt{stato: State} - Stato corrispondente al nodo.
+		      \item \texttt{azioni: Vec<Action>} - Azioni possibili dal nodo.
+		      \item \texttt{genitore: Node} - Nodo genitore, utile per risalire il percorso.
+		      \item \texttt{costo\_camm: usize} - Costo del cammino partendo dal nodo iniziale per raggiungere il nodo.
+		      \item \texttt{profondità: usize} - Profondità del nodo rispetto al nodo iniziale.
+	      \end{itemize}
+	\item \texttt{Action} - Struttura dati per rappresentare un'azione:
+	      \begin{itemize}
+		      \item \texttt{risultato: State} - Stato risultante dall'azione.
+		      \item \texttt{costo: i32} - Costo dell'azione.
+	      \end{itemize}
+	\item \texttt{State: u32} - Un semplice alias per rendere più leggibile il codice.
+\end{itemize}
+\newpage
+\subsection{Algoritmi di ricerca}
+Gli algoritmi di ricerca che ho scelto di implementare sono:
+\begin{itemize}
+	\item \textbf{Tree Search (tree-search)} - Ricerca semplice, per default disattivata a causa della sua eccessiva inefficienza.
+	\item \textbf{Breadth-First Search (breadth-first)} - Ricera in ampiezza.
+	\item \textbf{Depth-First Search (depth-first)} - Ricerca in profondità.
+	\item \textbf{Uniform-Cost Search (uniform-cost)} - Ricerca a costo uniforme.
+	\item \textbf{Depth-Limited Search (depth-limited)} - Ricerca in profondità limitata.
+	\item \textbf{Iterative Deepening Depth-First Search (iterative-deepening)} - Ricerca in profondità iterativa.
+	\item \textbf{Bidirectional Search (bi-directional)} - Ricerca bidirezionale.
+\end{itemize}
+
+Tutti gli algoritmi sono compatibili sia con grafi direzionati che non direzionati, e con grafi pesati.
+
+\section{Dataset}\label{sec:dataset}
 I dataset utilizzati sono stati scaricati dal sito dell'università di Stanford (\url{https://snap.stanford.edu/data/}).
 Per scaricare i dataset, è possibile procedere manualmente recandosi alle reciproche pagine sul sito, oppure utilizzare lo script shell fornito nel progetto:
-\begin{verbatim}
-$ chmod +x ./download-datasets.sh
-$ ./download-datasets.sh
-\end{verbatim}
+\begin{lstlisting}
+  $ chmod +x ./download-datasets.sh
+  $ ./download-datasets.sh
+\end{lstlisting}
 Lo script utilizza \texttt{wget} ed è scritto per sistemi UNIX \& UNIX-like.
 
 \subsection{Dataset Utilizzati}
 \begin{table}[h]
-  \centering
-  \begin{tabular}{|l|r|r|l|r|}
-    \hline
-    Nome                                                                                      & Nodi    & Archi    & Tipo       & Dimensione \\
-    \hline
-    \href{https://snap.stanford.edu/data/soc-sign-bitcoin-alpha.html}{soc-sign-bitcoin-alpha} & 3783    & 24186    & Labled     & 152KB      \\
-    \href{https://snap.stanford.edu/data/email-Enron.html}{email-Enron}                       & 36692   & 183831   & Undirected & 1.1MB      \\
-    \href{https://snap.stanford.edu/data/com-Youtube.html}{com-Youtube}                       & 1134890 & 2987624  & Undirected & 11MB       \\
-    \href{https://snap.stanford.edu/data/roadNet-CA.html}{roadNet-CA}                         & 1965206 & 2766607  & Directed   & 18MB       \\
-    \href{https://snap.stanford.edu/data/as-Skitter.html}{as-Skitter}                         & 1696415 & 11095298 & Undirected & 33MB       \\
-    \href{https://snap.stanford.edu/data/cit-Patents.html}{cit-Patents}                       & 3774768 & 16518948 & Directed   & 85MB       \\
-    \href{https://snap.stanford.edu/data/com-LiveJournal.html}{com-LiveJournal}               & 3997962 & 34681189 & Undirected & 124MB      \\
-    \hline
-  \end{tabular}
-  \caption{Dataset Utilizzati}
+	\centering
+	\begin{tabular}{|l|r|r|l|r|}
+		\hline
+		Nome                                                                                      & Nodi    & Archi    & Tipologia       & Dimensione \\
+		\hline
+		\href{https://snap.stanford.edu/data/soc-sign-bitcoin-alpha.html}{soc-sign-bitcoin-alpha} & 3783    & 24186    & Con pesi        & 152KB      \\
+		\href{https://snap.stanford.edu/data/email-Enron.html}{email-Enron}                       & 36692   & 183831   & Non direzionato & 1.1MB      \\
+		\href{https://snap.stanford.edu/data/com-Youtube.html}{com-Youtube}                       & 1134890 & 2987624  & Non direzionato & 11MB       \\
+		\href{https://snap.stanford.edu/data/roadNet-CA.html}{roadNet-CA}                         & 1965206 & 2766607  & Direzionato     & 18MB       \\
+		\href{https://snap.stanford.edu/data/as-Skitter.html}{as-Skitter}                         & 1696415 & 11095298 & Non direzionato & 33MB       \\
+		\href{https://snap.stanford.edu/data/cit-Patents.html}{cit-Patents}                       & 3774768 & 16518948 & Direzionato     & 85MB       \\
+		\href{https://snap.stanford.edu/data/com-LiveJournal.html}{com-LiveJournal}               & 3997962 & 34681189 & Non direzionato & 124MB      \\
+		\hline
+	\end{tabular}
+	\caption{Dataset Utilizzati}
 \end{table}
 
-I dataset contengono alcune informazioni nelle prime righe. Sono in formato \texttt{txt} e le proprie righe sono formate da due numeri (Nodo Sinistro e Nodo Destro), ad eccezione del dataset \href{https://snap.stanford.edu/data/soc-sign-bitcoin-alpha.html}{soc-sign-bitcoin-alpha}, che è in formato \texttt{csv} con le colonne: \textbf{SOURCE} (id del nodo Sinistro), \textbf{TARGET} (id del nodo Destro), \textbf{RATING} (il costo delle azioni), e \textbf{TIME} (non rilevante).
+I dataset contengono alcune informazioni nelle prime righe. Sono in formato \texttt{txt}
+con compressione \texttt{.gz} e le proprie righe sono formate da due numeri (Nodo Sinistro
+e Nodo Destro), ad eccezione del dataset
+\href{https://snap.stanford.edu/data/soc-sign-bitcoin-alpha.html}{soc-sign-bitcoin-alpha},
+che è in formato \texttt{csv} con le colonne:
+\begin{itemize}
+	\item \textbf{SOURCE} (id del nodo Sinistro),
+	\item \textbf{TARGET} (id del nodo Destro),
+	\item \textbf{RATING} (il costo delle azioni),
+	\item \textbf{TIME} (non rilevante).
+\end{itemize}
 
 \section{Risultati sperimentali}
-Abbiamo applicato gli algoritmi di ricerca ai dataset forniti al link \url{https://snap.stanford.edu/data/}. I risultati ottenuti sono stati valutati in termini di efficacia ed efficienza, come descritto di seguito.
+I risultati ottenuti sono stati valutati in termini di efficacia ed efficienza, come descritto di seguito.
+
+Inoltre, sono stati generati grafici automaticamente dallo script Python fornito nel progetto.
+È possibile visualizzarli nel documento \href{run:grafici.pdf}{grafici.pdf}
+
 
 \input{risultati.tex}
 
 \section{Codice Sviluppato}
-Il codice sviluppato è stato caricato insieme alla documentazione del progetto e può essere consultato nei file allegati.
+Il codice sviluppato è stato consegnato insieme alla documentazione del progetto e può essere consultato nei file allegati.
+
+Alternativamente è possibile trovare il codice sorgente su GitHub al seguente indirizzo:
+
+\href{https://github.com/ad-oliviero/progetto_eia}{ad-oliviero/progetto\_eia}
+
+\newpage
+\nocite{kumar2016edge,kumar2018rev2,jleskovec2009community,klimmt2004introducing,yang2012defining,leskovec2005graphs}
+\printbibliography
 
 \end{document}
 
