@@ -65,7 +65,9 @@ impl Graph {
                 if let (Some(from), Some(to)) = (iter.next(), iter.next()) {
                     if let (Ok(from), Ok(to)) = (from.parse::<State>(), to.parse::<State>()) {
                         let mut costo = 0;
-                        let is_undirected = self.gtype == "Undirected" || self.gtype == "Labeled";
+                        // if the graph is labeled, it is also undirected
+                        let is_labeled = self.gtype == "Labeled";
+                        let is_undirected = self.gtype == "Undirected" || is_labeled;
                         let from_node_exists = self.nodi.len() > from as usize;
                         let to_node_exists = self.nodi.len() > to as usize;
                         let from_to_action_exists = if from_node_exists {
@@ -87,7 +89,8 @@ impl Graph {
                             false
                         };
 
-                        if self.gtype == "Labeled" {
+                        // if the graph is labeled, the next number is the cost of the edge
+                        if is_labeled {
                             if let Some(c) = iter.next() {
                                 if let Ok(c) = c.parse::<i32>() {
                                     costo = c;
@@ -95,6 +98,7 @@ impl Graph {
                             }
                         }
 
+                        // if the node "from" doesn't exist, create it
                         if !from_node_exists {
                             self.nodi.resize(
                                 from as usize + 1,
@@ -107,6 +111,7 @@ impl Graph {
                                 },
                             );
                         }
+                        // if the action from -> to doesn't exist, create it and increment the edge count
                         if !from_to_action_exists {
                             self.nodi[from as usize].azioni.push(Action {
                                 risultato: to,
@@ -120,6 +125,7 @@ impl Graph {
                                 }
                             }
                         }
+                        // same as above, but for the "to" node, only if the graph is undirected
                         if is_undirected {
                             if !to_node_exists {
                                 self.nodi.resize(

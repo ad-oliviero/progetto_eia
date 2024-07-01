@@ -35,9 +35,23 @@ def parse_massif_output(filename):
     return snapshots
 
 def main():
-    for directory in [MASSIF_OUTPUT_DIR, SEARCH_OUTPUT_DIR, PLOTS_DIR]:
-        if os.path.exists(directory):
-            shutil.rmtree(directory)
+    latex_grafici = """\\documentclass{article}
+\\usepackage{graphicx}
+\\usepackage{listings}
+\\usepackage{xcolor}
+\\usepackage{hyperref}
+\\usepackage{geometry}
+\\geometry{a4paper, margin=1in}
+\\title{Grafici dell'utilizzo di memoria heap da parte degli algoritmi di ricerca}
+\\author{Adriano Oliviero}
+\\date{\today}
+\\begin{document}
+\\maketitle
+\\tableofcontents
+\\section{Grafici e Risultati}
+Di seguito sono riportati alcuni grafici che visualizzano i risultati sperimentali degli algoritmi di ricerca applicati ai dataset:
+"""
+    latex_risultati = ""
     sp.run(['cargo', 'build', '--release'])
     sp.run(['bash', './download-datasets.sh', DATA_DIR])
     datasets = os.listdir(DATA_DIR)
@@ -57,20 +71,40 @@ def main():
             dataset_file = f'{DATA_DIR}/{dataset}'
             search_output_file = f'{SEARCH_OUTPUT_DIR}/{dataset.replace(".txt", "").replace(".gz", "")}_{search}.txt'
             save_file = f'{PLOTS_DIR}/{dataset.replace(".txt", "").replace(".gz", "")}_{search}.png'
-            spr = sp.check_output([
-                'valgrind',
-                '--tool=massif',
-                '--time-unit=ms',
-                f'--massif-out-file={massif_output_file}',
-                './target/release/eia',
-                '-F',
-                dataset_file,
-                '-r',
-                search])
-            with open(search_output_file, 'w') as f:
-                f.write(spr.decode('utf-8'))
+            if not os.path.exists(massif_output_file):
+                spr = sp.check_output([
+                    'valgrind',
+                    '--tool=massif',
+                    '--time-unit=ms',
+                    f'--massif-out-file={massif_output_file}',
+                    './target/release/eia',
+                    '-F',
+                    dataset_file,
+                    '-r',
+                    search]).decode('utf-8')
+                with open(search_output_file, 'w') as f:
+                    f.write(spr)
+            else:
+                spr = open(search_output_file, 'r').read()
 
-            print(dataset, end=' ')
+            latex_risultati += f"\\subsection{{{dataset}}}\n"
+            for l in spr.split("\n"):
+                if l.startswith("Tipo di Grado: "):
+                    latex_risultati += f"{l}\n\n"
+                elif l.startswith("Durata caricamento: "):
+                    latex_risultati += f"{l}\n\n"
+                elif l.startswith("Inizio ricerca da: "):
+                    latex_risultati += f"Nodi cercati: "
+                    l = l.replace("Inizio ricerca da: ", "").replace("verso: ", "").split(" ")
+                    latex_risultati += f"{l[0]} e {l[1]}\n\n"
+            latex_risultati += f"\\begin{{table}}[h]\n\\centering\n\\\begin{{tabular}}{{|l|l|r|r|r|}}\n\\hline\n"
+            latex_risultati += f"\\textbf{{Algoritmo}} & \\textbf{{Risultato}} & \\textbf{{Profondità}} & \\textbf{{Costo}} & \\textbf{{Tempo}} \\\\\n \\hline\n"
+            for l in spr.split("\n"):
+                if l.startswith(search):
+                    l = l.replace(' ', '').split("|")
+                    latex_risultati += f"{l[0]} & {l[1]} & {l[2]} & {l[3]} & {l[4]} \\\\\n"
+            latex_risultati += f"\\hline\n\\end{{tabular}}\n\\caption{{{dataset}}}\n\\end{{table}}\n"
+
             massif_output = parse_massif_output(massif_output_file)
             df = pd.DataFrame(massif_output)
             sns.set_style("whitegrid")
@@ -89,7 +123,16 @@ def main():
 
             ax.grid(True, linestyle='--', alpha=0.5)
             plt.savefig(save_file, bbox_inches='tight', dpi=300)
-            print('saved to ' + save_file)
+            latex_grafici += f"\\subsection{{Dataset: {dataset}}}\n"
+            latex_grafici += f"\\subsubsection{{Algoritmo di ricerca: {search}}}\n"
+            latex_grafici += f"\\begin{{figure}}[H]"
+            latex_grafici += f"\\centering\n\\includegraphics[width=\\textwidth]{{{save_file}}}\n\\caption{{Grafico: breadth-first su com-lj.ungraph}}\n"
+            latex_grafici += f"\\end{{figure}}\n"
+    latex_grafici += "\\end{document}"
+    with open('doc/grafici.tex', 'w') as f:
+        f.write(latex_grafici)
+    with open('doc/risultati.tex', 'w') as f:
+        f.write(latex_risultati)
 
 if __name__ == "__main__":
     main()

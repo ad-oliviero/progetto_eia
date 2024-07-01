@@ -12,7 +12,7 @@ use std::io::Write;
 use args::*;
 use problem::*;
 
-fn main() -> Result<(), std::io::Error> {
+fn main() {
     let args = Args::parse();
     let mut problema = Problem::new(
         args.stato_iniziale.unwrap(),
@@ -32,8 +32,6 @@ fn main() -> Result<(), std::io::Error> {
         // disable TreeSearch because it's too slow
         for i in 1..to_run.len() {
             to_run[i].2 = true;
-            // debugging purposes
-            // to_run[i].1 = |_: &mut Problem| SearchResult::Failure;
         }
     } else if let Some(ricerca) = args.ricerca {
         to_run.iter_mut().find(|(r, _, _)| *r == ricerca).unwrap().2 = true;
@@ -47,8 +45,8 @@ fn main() -> Result<(), std::io::Error> {
         "\x1b[1m{:^20}|{:^11}|{:^7}|{:^7}|{:^11}\x1b[0m",
         "Algoritmo", "Risultato", "Depth", "Costo", "Tempo"
     );
-    for (ricerca, funzione, run) in to_run {
-        if run {
+    for (ricerca, funzione, to_run) in to_run {
+        if to_run {
             print!("{:<20}|", ricerca.to_string());
             std::io::stdout().flush().unwrap();
             let elapsed = timed_run!({
@@ -79,5 +77,4 @@ fn main() -> Result<(), std::io::Error> {
             );
         }
     }
-    Ok(())
 }

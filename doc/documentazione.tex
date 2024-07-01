@@ -1,0 +1,91 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+
+\title{Project Documentation for Elementi di Intelligenza Artificiale}
+\author{Group Members: Name1, Name2, Name3}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\section{Obiettivo del progetto}
+Il progetto si propone di applicare algoritmi di ricerca a dataset reali per valutare l'efficacia e l'efficienza di tali algoritmi. In particolare, utilizzeremo il dataset disponibile su \url{https://snap.stanford.edu/data/} per sperimentare e confrontare diversi algoritmi di ricerca.
+
+\section{Descrizione delle metodologie e tecniche adoperate}
+Per la realizzazione del progetto, abbiamo utilizzato il linguaggio di programmazione Rust. Il progetto è organizzato come segue:
+\begin{itemize}
+  \item \texttt{Cargo.toml} - File di configurazione per il gestore di pacchetti di Rust, Cargo.
+  \item \texttt{download-datasets.sh} - Script shell per scaricare i dataset.
+  \item \texttt{LICENSE} - Informazioni sulla licenza del progetto.
+  \item \texttt{README.md} - File Readme con una panoramica del progetto.
+  \item \texttt{run.py} - Script Python per eseguire il progetto.
+  \item \texttt{src/} - Directory contenente il codice sorgente in Rust.
+        \begin{itemize}
+          \item \texttt{main.rs} - Punto di ingresso principale per l'applicazione Rust.
+          \item \texttt{macros.rs} - Contiene definizioni di macro utilizzate nel progetto.
+          \item \texttt{args.rs} - Gestisce gli argomenti della riga di comando.
+          \item \texttt{problem/} - Directory contenente i moduli relativi ai problemi di ricerca.
+                \begin{itemize}
+                  \item \texttt{mod.rs} - File di modulo per la directory problem.
+                  \item \texttt{graph.rs} - Modulo per le strutture e funzioni relative ai grafi.
+                  \item \texttt{node.rs} - Modulo per le strutture e funzioni relative ai nodi.
+                \end{itemize}
+        \end{itemize}
+\end{itemize}
+
+\subsection{Tecnologie Utilizzate}
+Abbiamo utilizzato diverse tecnologie per sviluppare e analizzare il progetto:
+\begin{itemize}
+  \item \textbf{Rust}: Il linguaggio di programmazione principale utilizzato per implementare gli algoritmi di ricerca.
+  \item \textbf{Python}: Utilizzato per gli script di gestione e automazione, come il download dei dataset.
+  \item \textbf{Massif}: Uno strumento di profiling di memoria che fa parte di Valgrind, utilizzato per analizzare l'uso della memoria del programma.
+\end{itemize}
+
+\section{Dataset}
+I dataset utilizzati sono stati scaricati dal sito dell'università di Stanford (\url{https://snap.stanford.edu/data/}).
+Per scaricare i dataset, è possibile procedere manualmente recandosi alle reciproche pagine sul sito, oppure utilizzare lo script shell fornito nel progetto:
+\begin{verbatim}
+$ chmod +x ./download-datasets.sh
+$ ./download-datasets.sh
+\end{verbatim}
+Lo script utilizza \texttt{wget} ed è scritto per sistemi UNIX \& UNIX-like.
+
+\subsection{Dataset Utilizzati}
+\begin{table}[h]
+  \centering
+  \begin{tabular}{|l|r|r|l|r|}
+    \hline
+    Nome                                                                                      & Nodi    & Archi    & Tipo       & Dimensione \\
+    \hline
+    \href{https://snap.stanford.edu/data/soc-sign-bitcoin-alpha.html}{soc-sign-bitcoin-alpha} & 3783    & 24186    & Labled     & 152KB      \\
+    \href{https://snap.stanford.edu/data/email-Enron.html}{email-Enron}                       & 36692   & 183831   & Undirected & 1.1MB      \\
+    \href{https://snap.stanford.edu/data/com-Youtube.html}{com-Youtube}                       & 1134890 & 2987624  & Undirected & 11MB       \\
+    \href{https://snap.stanford.edu/data/roadNet-CA.html}{roadNet-CA}                         & 1965206 & 2766607  & Directed   & 18MB       \\
+    \href{https://snap.stanford.edu/data/as-Skitter.html}{as-Skitter}                         & 1696415 & 11095298 & Undirected & 33MB       \\
+    \href{https://snap.stanford.edu/data/cit-Patents.html}{cit-Patents}                       & 3774768 & 16518948 & Directed   & 85MB       \\
+    \href{https://snap.stanford.edu/data/com-LiveJournal.html}{com-LiveJournal}               & 3997962 & 34681189 & Undirected & 124MB      \\
+    \hline
+  \end{tabular}
+  \caption{Dataset Utilizzati}
+\end{table}
+
+I dataset contengono alcune informazioni nelle prime righe. Sono in formato \texttt{txt} e le proprie righe sono formate da due numeri (Nodo Sinistro e Nodo Destro), ad eccezione del dataset \href{https://snap.stanford.edu/data/soc-sign-bitcoin-alpha.html}{soc-sign-bitcoin-alpha}, che è in formato \texttt{csv} con le colonne: \textbf{SOURCE} (id del nodo Sinistro), \textbf{TARGET} (id del nodo Destro), \textbf{RATING} (il costo delle azioni), e \textbf{TIME} (non rilevante).
+
+\section{Risultati sperimentali}
+Abbiamo applicato gli algoritmi di ricerca ai dataset forniti al link \url{https://snap.stanford.edu/data/}. I risultati ottenuti sono stati valutati in termini di efficacia ed efficienza, come descritto di seguito.
+
+\input{risultati.tex}
+
+\section{Codice Sviluppato}
+Il codice sviluppato è stato caricato insieme alla documentazione del progetto e può essere consultato nei file allegati.
+
+\end{document}
+

@@ -245,17 +245,19 @@ impl Problem {
                     frontiera_finale.push_back(figlio);
                 }
             }
+            // check if the two frontiers have a common node
             if let Some(nodo) = raggiunti_iniziale
                 .keys()
                 .find(|&k| raggiunti_finale.contains_key(k))
             {
                 let mut nodo = raggiunti_finale[nodo].clone();
+                let nodo_comune = nodo.clone();
                 let mut profondita = 1;
                 while let Some(genitore) = &nodo.genitore {
                     nodo = *genitore.clone();
                     profondita += 1;
-                    nodo.profondita = nodo_iniziale.profondita + profondita;
-                    nodo.costo_cammino = nodo_iniziale.costo_cammino + nodo.costo_cammino;
+                    nodo.profondita = nodo_comune.profondita + profondita;
+                    nodo.costo_cammino = nodo_comune.costo_cammino + nodo.costo_cammino;
                 }
                 return SearchResult::Found(nodo);
             }
