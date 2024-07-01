@@ -255,6 +255,7 @@ impl Problem {
                     nodo = *genitore.clone();
                     profondita += 1;
                     nodo.profondita = nodo_iniziale.profondita + profondita;
+                    nodo.costo_cammino = nodo_iniziale.costo_cammino + nodo.costo_cammino;
                 }
                 return SearchResult::Found(nodo);
             }

@@ -32,35 +32,40 @@ impl Graph {
             // read the dataset file
             let mut lines = BufReader::new(GzDecoder::new(File::open(dataset_path).unwrap()))
                 .lines()
-                .map(|line| line.unwrap());
+                .map(|line| line.unwrap()).peekable();
             loop {
                 // get the first line
-                let line = lines.nth(0).unwrap();
-                // guess the graph type
-                if line.contains("Directed") {
-                    self.gtype = "Directed".to_string();
-                } else if line.contains("Undirected") {
-                    self.gtype = "Undirected".to_string();
-                } else {
-                    self.gtype = "Labeled".to_string();
-                }
-                // if the current line is a comment, go to the next one
-                if line.contains("#") {
-                    // if the next line is not a comment, break the loop
-                    if !lines.next().unwrap().contains("#") {
+                if let Some(line) = lines.peek() {
+                    // guess the graph type
+                    if line.contains("Directed") {
+                        self.gtype = "Directed".to_string();
+                    } else if line.contains("Undirected") {
+                        self.gtype = "Undirected".to_string();
+                    } else {
+                        self.gtype = "Labeled".to_string();
+                    break;
+                    }
+                    // if the current line is a comment, go to the next one
+                    if line.contains("#") {
+                        // if the next line is not a comment, break the loop
+                        if !lines.next().unwrap().contains("#") {
+                            break;
+                        }
                         break;
                     }
-                    break;
                 }
             }
             println!("Tipo di Grafo: {}", self.gtype);
+            // print the first line!
 
             // Load every line into the BTree
             for line in lines {
+                let line = line.replace(",", " ");
                 let mut iter = line.split_whitespace();
                 if let (Some(from), Some(to)) = (iter.next(), iter.next()) {
                     if let (Ok(from), Ok(to)) = (from.parse::<State>(), to.parse::<State>()) {
-                        let is_undirected = self.gtype == "Undirected";
+                        let mut costo = 0;
+                        let is_undirected = self.gtype == "Undirected" || self.gtype == "Labeled";
                         let from_node_exists = self.nodi.len() > from as usize;
                         let to_node_exists = self.nodi.len() > to as usize;
                         let from_to_action_exists = if from_node_exists {
@@ -82,6 +87,14 @@ impl Graph {
                             false
                         };
 
+                        if self.gtype == "Labeled" {
+                            if let Some(c) = iter.next() {
+                                if let Ok(c) = c.parse::<i32>() {
+                                    costo = c;
+                                }
+                            }
+                        }
+
                         if !from_node_exists {
                             self.nodi.resize(
                                 from as usize + 1,
@@ -97,7 +110,7 @@ impl Graph {
                         if !from_to_action_exists {
                             self.nodi[from as usize].azioni.push(Action {
                                 risultato: to,
-                                costo: 0,
+                                costo,
                             });
                             if is_undirected {
                                 self.edge_count += 1;
@@ -123,7 +136,7 @@ impl Graph {
                             if !to_from_action_exists {
                                 self.nodi[to as usize].azioni.push(Action {
                                     risultato: from,
-                                    costo: 0,
+                                    costo,
                                 });
                             }
                         }
