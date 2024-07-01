@@ -10,8 +10,10 @@ urls=(
   "$base_url/bigdata/communities/com-lj.ungraph.txt.gz"
   "$base_url/bigdata/communities/com-youtube.ungraph.txt.gz"
 )
-mkdir -p data
+DATA_DIR="data"
+[ -z $1 ] && DATA_DIR=$1
+mkdir -p $DATA_DIR
 for url in "${urls[@]}"; do
-  file_name=$(printf "%s" "${url##*/}")
-  [ ! -f "$file_name" ] && wget -O "data/$file_name" "$url"
+  file_name=$(printf "%s/%s" "$DATA_DIR" "${url##*/}")
+  [ ! -f "$file_name" ] && wget -O "$file_name" "$url"
 done

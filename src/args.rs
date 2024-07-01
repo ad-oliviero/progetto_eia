@@ -10,7 +10,7 @@ use problem::*;
 )]
 pub struct Args {
     /// File contenente il dataset
-    #[arg(short = 'F', long = "file", default_value = "email-Enron.txt.gz")]
+    #[arg(short = 'F', long = "file", default_value = "data/email-Enron.txt.gz")]
     pub file: Option<String>,
 
     /// Stato iniziale
