@@ -1,7 +1,9 @@
 # Progetto per l'esame di Elementi di Intelligenza Artificiale
 
 ## Documentazione
-La documentazione è contenuta nella directory [docs/](https://github.com/ad-oliviero/progetto_eia/tree/main/docs)
+La documentazione è contenuta nella directory [doc/](https://github.com/ad-oliviero/progetto_eia/tree/main/doc):
+- [documentazione.pdf](https://github.com/ad-oliviero/progetto_eia/blob/main/doc/documentazione.pdf)
+- [grafici.pdf](https://github.com/ad-oliviero/progetto_eia/blob/main/doc/grafici.pdf)
 
 ## Dataset
 ### Scaricamento

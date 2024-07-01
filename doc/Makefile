@@ -8,7 +8,6 @@ indent:
 	latexindent -s -w grafici.tex
 clean:
 	latexmk -c
-	rm -f *.pdf
 
 gitignore:
 	find . -type f -print 2>/dev/null | grep -vE "(\.pdf|\.tex|\.bib|\.sh|\.cls|Makefile|\.gitignore)" | sed "s/.*\./*./g;s/\.\///g" > .gitignore

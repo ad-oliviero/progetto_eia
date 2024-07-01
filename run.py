@@ -1,5 +1,5 @@
 #!/bin/env python
-import sys, os, subprocess as sp, shutil
+import sys, os, subprocess as sp, gzip as gz, random as rd, time
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -34,8 +34,25 @@ def parse_massif_output(filename):
         snapshot["time"] /= 1000
     return snapshots
 
-def main():
-    latex_grafici = """\\documentclass{article}
+def get_random_states(dataset):
+    lines = ""
+    with gz.open(f'{DATA_DIR}/{dataset}', 'rt') as f:
+        lines = f.read().split("\n")
+    lines = [line.replace('\t', ' ').replace(',', ' ') for line in lines if not line.startswith("#")]
+    max_idx = len(lines) - 1
+    start_idx = rd.randint(0, max_idx)
+    start = lines[start_idx].split(" ")
+    end = lines[rd.randint(0, max_idx)].split(" ")
+    for i in range(0, max_idx):
+        if lines[i].startswith(start[1]) and lines[i].split(" ")[1] != start[0]:
+            end = lines[i].split(" ")
+            break
+
+    return (start[0], end[0])
+
+def write_latex(grafici, risultati):
+    with open('doc/grafici.tex', 'w') as f:
+        f.write("""\\documentclass{article}
 \\usepackage{graphicx}
 \\usepackage{listings}
 \\usepackage{xcolor}
@@ -51,11 +68,20 @@ def main():
 \\newpage
 \\section{Grafici e Risultati}
 Di seguito sono riportati alcuni grafici che visualizzano i risultati sperimentali degli algoritmi di ricerca applicati ai dataset:
-"""
+""")
+        f.write(grafici)
+    with open('doc/risultati.tex', 'w') as f:
+        f.write(risultati)
+
+
+def main():
+    latex_grafici = ""
     latex_risultati = ""
     sp.run(['cargo', 'build', '--release'])
     sp.run(['bash', './download-datasets.sh', DATA_DIR])
-    datasets = os.listdir(DATA_DIR)
+    datasets = [(f, os.stat(os.path.join(DATA_DIR, f)).st_size) for f in os.listdir(DATA_DIR)]
+    datasets.sort(key=lambda x: x[1]) # sort by size
+    datasets = [f[0] for f in datasets]
     selected_datasets = []
     available_searches = ["breadth-first", "uniform-cost", "depth-limited", "iterative-deepening", "bi-directional"]
     selected_searches = []
@@ -72,30 +98,43 @@ Di seguito sono riportati alcuni grafici che visualizzano i risultati sperimenta
     os.makedirs(MASSIF_OUTPUT_DIR, exist_ok=True)
     os.makedirs(SEARCH_OUTPUT_DIR, exist_ok=True)
     os.makedirs(PLOTS_DIR, exist_ok=True)
+    all_executed = True
+    start_time = time.time()
     for dataset in selected_datasets:
         latex_grafici += f"\\subsection{{Dataset: {dataset}}}\n"
         latex_risultati_tabella = ""
         latex_risultati_info = ["", "", ""]
+        stati = get_random_states(dataset)
         for search in selected_searches:
             massif_output_file = f'{MASSIF_OUTPUT_DIR}/{dataset.replace(".txt", "").replace(".gz", "")}_{search}'
             dataset_file = f'{DATA_DIR}/{dataset}'
             search_output_file = f'{SEARCH_OUTPUT_DIR}/{dataset.replace(".txt", "").replace(".gz", "")}_{search}.txt'
             save_file = f'{PLOTS_DIR}/{dataset.replace(".txt", "").replace(".gz", "")}_{search}.png'
             if not os.path.exists(massif_output_file):
-                spr = sp.check_output([
+                valgrind_command = [
                     'valgrind',
                     '--tool=massif',
                     '--time-unit=ms',
                     f'--massif-out-file={massif_output_file}',
+                ]
+                command = [
                     './target/release/eia',
                     '-F',
                     dataset_file,
+                    '-i',
+                    stati[0],
+                    '-f',
+                    stati[1],
                     '-r',
-                    search]).decode('utf-8')
+                    search,
+                ]
+
+                spr = sp.check_output(valgrind_command + command).decode('utf-8')
                 with open(search_output_file, 'w') as f:
                     f.write(spr)
             else:
                 spr = open(search_output_file, 'r').read()
+                all_executed = False
 
             for l in spr.split("\n"):
                 if l.startswith(search):
@@ -142,11 +181,11 @@ Di seguito sono riportati alcuni grafici che visualizzano i risultati sperimenta
         latex_risultati += f"\\textbf{{Algoritmo}} & \\textbf{{Risultato}} & \\textbf{{Profondità}} & \\textbf{{Costo}} & \\textbf{{Tempo}} \\\\\n \\hline\n"
         latex_risultati += latex_risultati_tabella
         latex_risultati += f"\\hline\n\\end{{tabular}}\n\\caption{{{dataset}}}\n\\end{{table}}\n"
+    end_time = time.time()
     latex_grafici += "\\end{document}"
-    with open('doc/grafici.tex', 'w') as f:
-        f.write(latex_grafici)
-    with open('doc/risultati.tex', 'w') as f:
-        f.write(latex_risultati)
+    if all_executed:
+        latex_risultati = f'L\'esecuzione in totale è durata {round(end_time - start_time, 3)} secondi\n\n' + latex_risultati
+    write_latex(latex_grafici, latex_risultati)
 
 if __name__ == "__main__":
     main()
