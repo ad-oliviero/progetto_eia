@@ -90,7 +90,7 @@ def searches_on_dataset(dataset: str, searches, stati):
     global latex_grafici, latex_risultati
     risultati_tabella = ""
     risultati_info = ["", "", ""]
-    grafici_local = ""
+    grafici_local = f"\\subsection{{{dataset}}}\n"
     risultati_local = f"\\subsection{{{dataset}}}\n"
     dataset_file = f'{DATA_DIR}/{dataset}'
     for search in searches:
@@ -169,7 +169,7 @@ def searches_on_dataset(dataset: str, searches, stati):
             plt.savefig(save_file, bbox_inches='tight', dpi=300)
             plt.close(fig)
         grafici_local += f"\\subsubsection{{Algoritmo di ricerca: {search}}}\n"
-        grafici_local += f"\\begin{{figure}}[h]"
+        grafici_local += f"\\begin{{figure}}[htbp]"
         grafici_local += f"\\centering\n\\includegraphics[width=\\textwidth]{{../{save_file}}}\n\\caption{{Grafico: breadth-first su com-lj.ungraph}}\n"
         grafici_local += f"\\end{{figure}}\n"
         print(f"[\x1b[32m{dataset}\x1b[0m]: completed [{search}]", flush=True)
@@ -214,7 +214,6 @@ def main():
     os.makedirs(PLOTS_DIR, exist_ok=True)
     threads = []
     for dataset in selected_datasets:
-        latex_grafici += f"\\subsection{{Dataset: {dataset}}}\n"
         if RUN_ENABLED and VALGRIND_ENABLED:
             stati = get_random_states(dataset)
             print(f"Selected {stati[0]} -> {stati[1]} for dataset {dataset}")
