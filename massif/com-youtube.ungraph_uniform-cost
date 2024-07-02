@@ -1,0 +1,1555 @@
+desc: --time-unit=ms --massif-out-file=massif/com-youtube.ungraph_uniform-cost
+cmd: ./target/release/eia -F data/com-youtube.ungraph.txt.gz -i 4 -f 2 -r uniform-cost
+time_unit: ms
+#-----------
+snapshot=0
+#-----------
+time=0
+mem_heap_B=0
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=1
+#-----------
+time=82150
+mem_heap_B=281332307
+mem_heap_extra_B=18151397
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=2
+#-----------
+time=205746
+mem_heap_B=278404659
+mem_heap_extra_B=16063325
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=3
+#-----------
+time=292105
+mem_heap_B=270834891
+mem_heap_extra_B=11787501
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=4
+#-----------
+time=404713
+mem_heap_B=267278219
+mem_heap_extra_B=10657813
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=5
+#-----------
+time=486149
+mem_heap_B=293885859
+mem_heap_extra_B=24627029
+mem_stacks_B=0
+heap_tree=detailed
+n6: 293885859 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n3: 154347904 0x118E41: alloc::raw_vec::finish_grow (in /home/adri/progetto_eia/target/release/eia)
+  n1: 103156224 0x11535E: alloc::raw_vec::RawVec<T,A>::reserve::do_reserve_and_handle (in /home/adri/progetto_eia/target/release/eia)
+   n1: 103156224 0x11CB28: alloc::vec::Vec<T,A>::resize (in /home/adri/progetto_eia/target/release/eia)
+    n1: 103156224 0x11B0F5: eia::problem::graph::Graph::from_file (in /home/adri/progetto_eia/target/release/eia)
+     n1: 103156224 0x12C1B1: eia::problem::Problem::new (in /home/adri/progetto_eia/target/release/eia)
+      n1: 103156224 0x124725: eia::main (in /home/adri/progetto_eia/target/release/eia)
+       n1: 103156224 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+        n1: 103156224 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+         n1: 103156224 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+          n1: 103156224 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+           n0: 103156224 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+  n2: 51179392 0x1192F1: alloc::raw_vec::RawVec<T,A>::reserve_for_push (in /home/adri/progetto_eia/target/release/eia)
+   n1: 44718464 0x11B071: eia::problem::graph::Graph::from_file (in /home/adri/progetto_eia/target/release/eia)
+    n1: 44718464 0x12C1B1: eia::problem::Problem::new (in /home/adri/progetto_eia/target/release/eia)
+     n1: 44718464 0x124725: eia::main (in /home/adri/progetto_eia/target/release/eia)
+      n1: 44718464 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+       n1: 44718464 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+        n1: 44718464 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+         n1: 44718464 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+          n0: 44718464 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+   n1: 6460928 0x11B12D: eia::problem::graph::Graph::from_file (in /home/adri/progetto_eia/target/release/eia)
+    n1: 6460928 0x12C1B1: eia::problem::Problem::new (in /home/adri/progetto_eia/target/release/eia)
+     n1: 6460928 0x124725: eia::main (in /home/adri/progetto_eia/target/release/eia)
+      n1: 6460928 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+       n1: 6460928 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+        n1: 6460928 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+         n1: 6460928 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+          n0: 6460928 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+  n0: 12288 in 4 places, all below massif's threshold (1.00%)
+ n2: 55575744 0x11CED9: <alloc::vec::Vec<T,A> as core::clone::Clone>::clone (in /home/adri/progetto_eia/target/release/eia)
+  n1: 55575744 0x130E42: eia::problem::Problem::espandi (in /home/adri/progetto_eia/target/release/eia)
+   n1: 55575744 0x12D93A: eia::problem::Problem::uniform_cost_search (in /home/adri/progetto_eia/target/release/eia)
+    n1: 55575744 0x124C83: eia::main (in /home/adri/progetto_eia/target/release/eia)
+     n1: 55575744 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+      n1: 55575744 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+       n1: 55575744 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+        n1: 55575744 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+         n0: 55575744 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+  n0: 0 in 3 places, all below massif's threshold (1.00%)
+ n1: 47801984 0x11DF29: <eia::problem::node::Node as core::clone::Clone>::clone (in /home/adri/progetto_eia/target/release/eia)
+  n2: 47801984 0x11CF12: <alloc::vec::Vec<T,A> as core::clone::Clone>::clone (in /home/adri/progetto_eia/target/release/eia)
+   n1: 47801984 0x130E42: eia::problem::Problem::espandi (in /home/adri/progetto_eia/target/release/eia)
+    n1: 47801984 0x12D93A: eia::problem::Problem::uniform_cost_search (in /home/adri/progetto_eia/target/release/eia)
+     n1: 47801984 0x124C83: eia::main (in /home/adri/progetto_eia/target/release/eia)
+      n1: 47801984 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+       n1: 47801984 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+        n1: 47801984 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+         n1: 47801984 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+          n0: 47801984 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+   n0: 0 in 3 places, all below massif's threshold (1.00%)
+ n2: 29872576 0x118E67: alloc::raw_vec::finish_grow (in /home/adri/progetto_eia/target/release/eia)
+  n2: 29872384 0x1192F1: alloc::raw_vec::RawVec<T,A>::reserve_for_push (in /home/adri/progetto_eia/target/release/eia)
+   n1: 29850624 0x11B12D: eia::problem::graph::Graph::from_file (in /home/adri/progetto_eia/target/release/eia)
+    n1: 29850624 0x12C1B1: eia::problem::Problem::new (in /home/adri/progetto_eia/target/release/eia)
+     n1: 29850624 0x124725: eia::main (in /home/adri/progetto_eia/target/release/eia)
+      n1: 29850624 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+       n1: 29850624 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+        n1: 29850624 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+         n1: 29850624 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+          n0: 29850624 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+   n0: 21760 in 1 place, below massif's threshold (1.00%)
+  n0: 192 in 6 places, all below massif's threshold (1.00%)
+ n1: 4669088 0x130FF4: eia::problem::Problem::espandi (in /home/adri/progetto_eia/target/release/eia)
+  n1: 4669088 0x12D93A: eia::problem::Problem::uniform_cost_search (in /home/adri/progetto_eia/target/release/eia)
+   n1: 4669088 0x124C83: eia::main (in /home/adri/progetto_eia/target/release/eia)
+    n1: 4669088 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+     n1: 4669088 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+      n1: 4669088 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+       n1: 4669088 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+        n0: 4669088 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+ n0: 1618563 in 54 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=6
+#-----------
+time=598757
+mem_heap_B=295097499
+mem_heap_extra_B=24539989
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=7
+#-----------
+time=767459
+mem_heap_B=297085227
+mem_heap_extra_B=24632637
+mem_stacks_B=0
+heap_tree=detailed
+n6: 297085227 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n3: 154360192 0x118E41: alloc::raw_vec::finish_grow (in /home/adri/progetto_eia/target/release/eia)
+  n1: 103156224 0x11535E: alloc::raw_vec::RawVec<T,A>::reserve::do_reserve_and_handle (in /home/adri/progetto_eia/target/release/eia)
+   n1: 103156224 0x11CB28: alloc::vec::Vec<T,A>::resize (in /home/adri/progetto_eia/target/release/eia)
+    n1: 103156224 0x11B0F5: eia::problem::graph::Graph::from_file (in /home/adri/progetto_eia/target/release/eia)
+     n1: 103156224 0x12C1B1: eia::problem::Problem::new (in /home/adri/progetto_eia/target/release/eia)
+      n1: 103156224 0x124725: eia::main (in /home/adri/progetto_eia/target/release/eia)
+       n1: 103156224 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+        n1: 103156224 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+         n1: 103156224 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+          n1: 103156224 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+           n0: 103156224 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+  n2: 51179392 0x1192F1: alloc::raw_vec::RawVec<T,A>::reserve_for_push (in /home/adri/progetto_eia/target/release/eia)
+   n1: 44718464 0x11B071: eia::problem::graph::Graph::from_file (in /home/adri/progetto_eia/target/release/eia)
+    n1: 44718464 0x12C1B1: eia::problem::Problem::new (in /home/adri/progetto_eia/target/release/eia)
+     n1: 44718464 0x124725: eia::main (in /home/adri/progetto_eia/target/release/eia)
+      n1: 44718464 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+       n1: 44718464 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+        n1: 44718464 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+         n1: 44718464 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+          n0: 44718464 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+   n1: 6460928 0x11B12D: eia::problem::graph::Graph::from_file (in /home/adri/progetto_eia/target/release/eia)
+    n1: 6460928 0x12C1B1: eia::problem::Problem::new (in /home/adri/progetto_eia/target/release/eia)
+     n1: 6460928 0x124725: eia::main (in /home/adri/progetto_eia/target/release/eia)
+      n1: 6460928 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+       n1: 6460928 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+        n1: 6460928 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+         n1: 6460928 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+          n0: 6460928 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+  n0: 24576 in 4 places, all below massif's threshold (1.00%)
+ n2: 55575744 0x11CED9: <alloc::vec::Vec<T,A> as core::clone::Clone>::clone (in /home/adri/progetto_eia/target/release/eia)
+  n1: 55575744 0x130E42: eia::problem::Problem::espandi (in /home/adri/progetto_eia/target/release/eia)
+   n1: 55575744 0x12D93A: eia::problem::Problem::uniform_cost_search (in /home/adri/progetto_eia/target/release/eia)
+    n1: 55575744 0x124C83: eia::main (in /home/adri/progetto_eia/target/release/eia)
+     n1: 55575744 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+      n1: 55575744 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+       n1: 55575744 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+        n1: 55575744 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+         n0: 55575744 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+  n0: 0 in 3 places, all below massif's threshold (1.00%)
+ n1: 47801984 0x11DF29: <eia::problem::node::Node as core::clone::Clone>::clone (in /home/adri/progetto_eia/target/release/eia)
+  n2: 47801984 0x11CF12: <alloc::vec::Vec<T,A> as core::clone::Clone>::clone (in /home/adri/progetto_eia/target/release/eia)
+   n1: 47801984 0x130E42: eia::problem::Problem::espandi (in /home/adri/progetto_eia/target/release/eia)
+    n1: 47801984 0x12D93A: eia::problem::Problem::uniform_cost_search (in /home/adri/progetto_eia/target/release/eia)
+     n1: 47801984 0x124C83: eia::main (in /home/adri/progetto_eia/target/release/eia)
+      n1: 47801984 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+       n1: 47801984 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+        n1: 47801984 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+         n1: 47801984 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+          n0: 47801984 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+   n0: 0 in 3 places, all below massif's threshold (1.00%)
+ n2: 29872576 0x118E67: alloc::raw_vec::finish_grow (in /home/adri/progetto_eia/target/release/eia)
+  n2: 29872384 0x1192F1: alloc::raw_vec::RawVec<T,A>::reserve_for_push (in /home/adri/progetto_eia/target/release/eia)
+   n1: 29850624 0x11B12D: eia::problem::graph::Graph::from_file (in /home/adri/progetto_eia/target/release/eia)
+    n1: 29850624 0x12C1B1: eia::problem::Problem::new (in /home/adri/progetto_eia/target/release/eia)
+     n1: 29850624 0x124725: eia::main (in /home/adri/progetto_eia/target/release/eia)
+      n1: 29850624 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+       n1: 29850624 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+        n1: 29850624 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+         n1: 29850624 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+          n0: 29850624 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+   n0: 21760 in 1 place, below massif's threshold (1.00%)
+  n0: 192 in 6 places, all below massif's threshold (1.00%)
+ n1: 7532208 0x130FF4: eia::problem::Problem::espandi (in /home/adri/progetto_eia/target/release/eia)
+  n1: 7532208 0x12D93A: eia::problem::Problem::uniform_cost_search (in /home/adri/progetto_eia/target/release/eia)
+   n1: 7532208 0x124C83: eia::main (in /home/adri/progetto_eia/target/release/eia)
+    n1: 7532208 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+     n1: 7532208 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+      n1: 7532208 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+       n1: 7532208 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+        n0: 7532208 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+ n0: 1942523 in 54 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=8
+#-----------
+time=943843
+mem_heap_B=294301827
+mem_heap_extra_B=19708333
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=9
+#-----------
+time=1066896
+mem_heap_B=300309587
+mem_heap_extra_B=24638845
+mem_stacks_B=0
+heap_tree=detailed
+n6: 300309587 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n3: 154360192 0x118E41: alloc::raw_vec::finish_grow (in /home/adri/progetto_eia/target/release/eia)
+  n1: 103156224 0x11535E: alloc::raw_vec::RawVec<T,A>::reserve::do_reserve_and_handle (in /home/adri/progetto_eia/target/release/eia)
+   n1: 103156224 0x11CB28: alloc::vec::Vec<T,A>::resize (in /home/adri/progetto_eia/target/release/eia)
+    n1: 103156224 0x11B0F5: eia::problem::graph::Graph::from_file (in /home/adri/progetto_eia/target/release/eia)
+     n1: 103156224 0x12C1B1: eia::problem::Problem::new (in /home/adri/progetto_eia/target/release/eia)
+      n1: 103156224 0x124725: eia::main (in /home/adri/progetto_eia/target/release/eia)
+       n1: 103156224 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+        n1: 103156224 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+         n1: 103156224 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+          n1: 103156224 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+           n0: 103156224 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+  n2: 51179392 0x1192F1: alloc::raw_vec::RawVec<T,A>::reserve_for_push (in /home/adri/progetto_eia/target/release/eia)
+   n1: 44718464 0x11B071: eia::problem::graph::Graph::from_file (in /home/adri/progetto_eia/target/release/eia)
+    n1: 44718464 0x12C1B1: eia::problem::Problem::new (in /home/adri/progetto_eia/target/release/eia)
+     n1: 44718464 0x124725: eia::main (in /home/adri/progetto_eia/target/release/eia)
+      n1: 44718464 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+       n1: 44718464 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+        n1: 44718464 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+         n1: 44718464 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+          n0: 44718464 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+   n1: 6460928 0x11B12D: eia::problem::graph::Graph::from_file (in /home/adri/progetto_eia/target/release/eia)
+    n1: 6460928 0x12C1B1: eia::problem::Problem::new (in /home/adri/progetto_eia/target/release/eia)
+     n1: 6460928 0x124725: eia::main (in /home/adri/progetto_eia/target/release/eia)
+      n1: 6460928 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+       n1: 6460928 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+        n1: 6460928 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+         n1: 6460928 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+          n0: 6460928 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+  n0: 24576 in 4 places, all below massif's threshold (1.00%)
+ n2: 55575744 0x11CED9: <alloc::vec::Vec<T,A> as core::clone::Clone>::clone (in /home/adri/progetto_eia/target/release/eia)
+  n1: 55575744 0x130E42: eia::problem::Problem::espandi (in /home/adri/progetto_eia/target/release/eia)
+   n1: 55575744 0x12D93A: eia::problem::Problem::uniform_cost_search (in /home/adri/progetto_eia/target/release/eia)
+    n1: 55575744 0x124C83: eia::main (in /home/adri/progetto_eia/target/release/eia)
+     n1: 55575744 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+      n1: 55575744 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+       n1: 55575744 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+        n1: 55575744 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+         n0: 55575744 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+  n0: 0 in 3 places, all below massif's threshold (1.00%)
+ n1: 47801984 0x11DF29: <eia::problem::node::Node as core::clone::Clone>::clone (in /home/adri/progetto_eia/target/release/eia)
+  n2: 47801984 0x11CF12: <alloc::vec::Vec<T,A> as core::clone::Clone>::clone (in /home/adri/progetto_eia/target/release/eia)
+   n1: 47801984 0x130E42: eia::problem::Problem::espandi (in /home/adri/progetto_eia/target/release/eia)
+    n1: 47801984 0x12D93A: eia::problem::Problem::uniform_cost_search (in /home/adri/progetto_eia/target/release/eia)
+     n1: 47801984 0x124C83: eia::main (in /home/adri/progetto_eia/target/release/eia)
+      n1: 47801984 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+       n1: 47801984 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+        n1: 47801984 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+         n1: 47801984 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+          n0: 47801984 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+   n0: 0 in 3 places, all below massif's threshold (1.00%)
+ n2: 29872576 0x118E67: alloc::raw_vec::finish_grow (in /home/adri/progetto_eia/target/release/eia)
+  n2: 29872384 0x1192F1: alloc::raw_vec::RawVec<T,A>::reserve_for_push (in /home/adri/progetto_eia/target/release/eia)
+   n1: 29850624 0x11B12D: eia::problem::graph::Graph::from_file (in /home/adri/progetto_eia/target/release/eia)
+    n1: 29850624 0x12C1B1: eia::problem::Problem::new (in /home/adri/progetto_eia/target/release/eia)
+     n1: 29850624 0x124725: eia::main (in /home/adri/progetto_eia/target/release/eia)
+      n1: 29850624 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+       n1: 29850624 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+        n1: 29850624 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+         n1: 29850624 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+          n0: 29850624 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+   n0: 21760 in 1 place, below massif's threshold (1.00%)
+  n0: 192 in 6 places, all below massif's threshold (1.00%)
+ n1: 10593544 0x130FF4: eia::problem::Problem::espandi (in /home/adri/progetto_eia/target/release/eia)
+  n1: 10593544 0x12D93A: eia::problem::Problem::uniform_cost_search (in /home/adri/progetto_eia/target/release/eia)
+   n1: 10593544 0x124C83: eia::main (in /home/adri/progetto_eia/target/release/eia)
+    n1: 10593544 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+     n1: 10593544 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+      n1: 10593544 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+       n1: 10593544 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+        n0: 10593544 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+ n0: 2105547 in 54 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=10
+#-----------
+time=1243280
+mem_heap_B=297274819
+mem_heap_extra_B=19457205
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=11
+#-----------
+time=1364420
+mem_heap_B=303559131
+mem_heap_extra_B=24645285
+mem_stacks_B=0
+heap_tree=detailed
+n6: 303559131 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n3: 154384768 0x118E41: alloc::raw_vec::finish_grow (in /home/adri/progetto_eia/target/release/eia)
+  n1: 103156224 0x11535E: alloc::raw_vec::RawVec<T,A>::reserve::do_reserve_and_handle (in /home/adri/progetto_eia/target/release/eia)
+   n1: 103156224 0x11CB28: alloc::vec::Vec<T,A>::resize (in /home/adri/progetto_eia/target/release/eia)
+    n1: 103156224 0x11B0F5: eia::problem::graph::Graph::from_file (in /home/adri/progetto_eia/target/release/eia)
+     n1: 103156224 0x12C1B1: eia::problem::Problem::new (in /home/adri/progetto_eia/target/release/eia)
+      n1: 103156224 0x124725: eia::main (in /home/adri/progetto_eia/target/release/eia)
+       n1: 103156224 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+        n1: 103156224 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+         n1: 103156224 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+          n1: 103156224 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+           n0: 103156224 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+  n2: 51179392 0x1192F1: alloc::raw_vec::RawVec<T,A>::reserve_for_push (in /home/adri/progetto_eia/target/release/eia)
+   n1: 44718464 0x11B071: eia::problem::graph::Graph::from_file (in /home/adri/progetto_eia/target/release/eia)
+    n1: 44718464 0x12C1B1: eia::problem::Problem::new (in /home/adri/progetto_eia/target/release/eia)
+     n1: 44718464 0x124725: eia::main (in /home/adri/progetto_eia/target/release/eia)
+      n1: 44718464 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+       n1: 44718464 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+        n1: 44718464 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+         n1: 44718464 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+          n0: 44718464 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+   n1: 6460928 0x11B12D: eia::problem::graph::Graph::from_file (in /home/adri/progetto_eia/target/release/eia)
+    n1: 6460928 0x12C1B1: eia::problem::Problem::new (in /home/adri/progetto_eia/target/release/eia)
+     n1: 6460928 0x124725: eia::main (in /home/adri/progetto_eia/target/release/eia)
+      n1: 6460928 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+       n1: 6460928 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+        n1: 6460928 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+         n1: 6460928 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+          n0: 6460928 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+  n0: 49152 in 4 places, all below massif's threshold (1.00%)
+ n2: 55575744 0x11CED9: <alloc::vec::Vec<T,A> as core::clone::Clone>::clone (in /home/adri/progetto_eia/target/release/eia)
+  n1: 55575744 0x130E42: eia::problem::Problem::espandi (in /home/adri/progetto_eia/target/release/eia)
+   n1: 55575744 0x12D93A: eia::problem::Problem::uniform_cost_search (in /home/adri/progetto_eia/target/release/eia)
+    n1: 55575744 0x124C83: eia::main (in /home/adri/progetto_eia/target/release/eia)
+     n1: 55575744 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+      n1: 55575744 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+       n1: 55575744 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+        n1: 55575744 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+         n0: 55575744 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+  n0: 0 in 3 places, all below massif's threshold (1.00%)
+ n1: 47801984 0x11DF29: <eia::problem::node::Node as core::clone::Clone>::clone (in /home/adri/progetto_eia/target/release/eia)
+  n2: 47801984 0x11CF12: <alloc::vec::Vec<T,A> as core::clone::Clone>::clone (in /home/adri/progetto_eia/target/release/eia)
+   n1: 47801984 0x130E42: eia::problem::Problem::espandi (in /home/adri/progetto_eia/target/release/eia)
+    n1: 47801984 0x12D93A: eia::problem::Problem::uniform_cost_search (in /home/adri/progetto_eia/target/release/eia)
+     n1: 47801984 0x124C83: eia::main (in /home/adri/progetto_eia/target/release/eia)
+      n1: 47801984 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+       n1: 47801984 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+        n1: 47801984 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+         n1: 47801984 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+          n0: 47801984 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+   n0: 0 in 3 places, all below massif's threshold (1.00%)
+ n2: 29872576 0x118E67: alloc::raw_vec::finish_grow (in /home/adri/progetto_eia/target/release/eia)
+  n2: 29872384 0x1192F1: alloc::raw_vec::RawVec<T,A>::reserve_for_push (in /home/adri/progetto_eia/target/release/eia)
+   n1: 29850624 0x11B12D: eia::problem::graph::Graph::from_file (in /home/adri/progetto_eia/target/release/eia)
+    n1: 29850624 0x12C1B1: eia::problem::Problem::new (in /home/adri/progetto_eia/target/release/eia)
+     n1: 29850624 0x124725: eia::main (in /home/adri/progetto_eia/target/release/eia)
+      n1: 29850624 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+       n1: 29850624 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+        n1: 29850624 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+         n1: 29850624 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+          n0: 29850624 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+   n0: 21760 in 1 place, below massif's threshold (1.00%)
+  n0: 192 in 6 places, all below massif's threshold (1.00%)
+ n1: 13676904 0x130FF4: eia::problem::Problem::espandi (in /home/adri/progetto_eia/target/release/eia)
+  n1: 13676904 0x12D93A: eia::problem::Problem::uniform_cost_search (in /home/adri/progetto_eia/target/release/eia)
+   n1: 13676904 0x124C83: eia::main (in /home/adri/progetto_eia/target/release/eia)
+    n1: 13676904 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+     n1: 13676904 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+      n1: 13676904 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+       n1: 13676904 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+        n0: 13676904 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+ n0: 2247155 in 54 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=12
+#-----------
+time=1540804
+mem_heap_B=292688947
+mem_heap_extra_B=15367893
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=13
+#-----------
+time=1673534
+mem_heap_B=306837795
+mem_heap_extra_B=24651189
+mem_stacks_B=0
+heap_tree=detailed
+n6: 306837795 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n3: 154384768 0x118E41: alloc::raw_vec::finish_grow (in /home/adri/progetto_eia/target/release/eia)
+  n1: 103156224 0x11535E: alloc::raw_vec::RawVec<T,A>::reserve::do_reserve_and_handle (in /home/adri/progetto_eia/target/release/eia)
+   n1: 103156224 0x11CB28: alloc::vec::Vec<T,A>::resize (in /home/adri/progetto_eia/target/release/eia)
+    n1: 103156224 0x11B0F5: eia::problem::graph::Graph::from_file (in /home/adri/progetto_eia/target/release/eia)
+     n1: 103156224 0x12C1B1: eia::problem::Problem::new (in /home/adri/progetto_eia/target/release/eia)
+      n1: 103156224 0x124725: eia::main (in /home/adri/progetto_eia/target/release/eia)
+       n1: 103156224 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+        n1: 103156224 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+         n1: 103156224 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+          n1: 103156224 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+           n0: 103156224 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+  n2: 51179392 0x1192F1: alloc::raw_vec::RawVec<T,A>::reserve_for_push (in /home/adri/progetto_eia/target/release/eia)
+   n1: 44718464 0x11B071: eia::problem::graph::Graph::from_file (in /home/adri/progetto_eia/target/release/eia)
+    n1: 44718464 0x12C1B1: eia::problem::Problem::new (in /home/adri/progetto_eia/target/release/eia)
+     n1: 44718464 0x124725: eia::main (in /home/adri/progetto_eia/target/release/eia)
+      n1: 44718464 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+       n1: 44718464 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+        n1: 44718464 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+         n1: 44718464 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+          n0: 44718464 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+   n1: 6460928 0x11B12D: eia::problem::graph::Graph::from_file (in /home/adri/progetto_eia/target/release/eia)
+    n1: 6460928 0x12C1B1: eia::problem::Problem::new (in /home/adri/progetto_eia/target/release/eia)
+     n1: 6460928 0x124725: eia::main (in /home/adri/progetto_eia/target/release/eia)
+      n1: 6460928 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+       n1: 6460928 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+        n1: 6460928 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+         n1: 6460928 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+          n0: 6460928 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+  n0: 49152 in 4 places, all below massif's threshold (1.00%)
+ n2: 55575744 0x11CED9: <alloc::vec::Vec<T,A> as core::clone::Clone>::clone (in /home/adri/progetto_eia/target/release/eia)
+  n1: 55575744 0x130E42: eia::problem::Problem::espandi (in /home/adri/progetto_eia/target/release/eia)
+   n1: 55575744 0x12D93A: eia::problem::Problem::uniform_cost_search (in /home/adri/progetto_eia/target/release/eia)
+    n1: 55575744 0x124C83: eia::main (in /home/adri/progetto_eia/target/release/eia)
+     n1: 55575744 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+      n1: 55575744 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+       n1: 55575744 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+        n1: 55575744 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+         n0: 55575744 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+  n0: 0 in 3 places, all below massif's threshold (1.00%)
+ n1: 47801984 0x11DF29: <eia::problem::node::Node as core::clone::Clone>::clone (in /home/adri/progetto_eia/target/release/eia)
+  n2: 47801984 0x11CF12: <alloc::vec::Vec<T,A> as core::clone::Clone>::clone (in /home/adri/progetto_eia/target/release/eia)
+   n1: 47801984 0x130E42: eia::problem::Problem::espandi (in /home/adri/progetto_eia/target/release/eia)
+    n1: 47801984 0x12D93A: eia::problem::Problem::uniform_cost_search (in /home/adri/progetto_eia/target/release/eia)
+     n1: 47801984 0x124C83: eia::main (in /home/adri/progetto_eia/target/release/eia)
+      n1: 47801984 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+       n1: 47801984 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+        n1: 47801984 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+         n1: 47801984 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+          n0: 47801984 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+   n0: 0 in 3 places, all below massif's threshold (1.00%)
+ n2: 29872576 0x118E67: alloc::raw_vec::finish_grow (in /home/adri/progetto_eia/target/release/eia)
+  n2: 29872384 0x1192F1: alloc::raw_vec::RawVec<T,A>::reserve_for_push (in /home/adri/progetto_eia/target/release/eia)
+   n1: 29850624 0x11B12D: eia::problem::graph::Graph::from_file (in /home/adri/progetto_eia/target/release/eia)
+    n1: 29850624 0x12C1B1: eia::problem::Problem::new (in /home/adri/progetto_eia/target/release/eia)
+     n1: 29850624 0x124725: eia::main (in /home/adri/progetto_eia/target/release/eia)
+      n1: 29850624 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+       n1: 29850624 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+        n1: 29850624 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+         n1: 29850624 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+          n0: 29850624 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+   n0: 21760 in 1 place, below massif's threshold (1.00%)
+  n0: 192 in 6 places, all below massif's threshold (1.00%)
+ n1: 16914432 0x130FF4: eia::problem::Problem::espandi (in /home/adri/progetto_eia/target/release/eia)
+  n1: 16914432 0x12D93A: eia::problem::Problem::uniform_cost_search (in /home/adri/progetto_eia/target/release/eia)
+   n1: 16914432 0x124C83: eia::main (in /home/adri/progetto_eia/target/release/eia)
+    n1: 16914432 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+     n1: 16914432 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+      n1: 16914432 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+       n1: 16914432 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+        n0: 16914432 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+ n0: 2288291 in 54 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=14
+#-----------
+time=1849918
+mem_heap_B=271507619
+mem_heap_extra_B=16653277
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=15
+#-----------
+time=1983539
+mem_heap_B=310153323
+mem_heap_extra_B=24657805
+mem_stacks_B=0
+heap_tree=detailed
+n6: 310153323 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n3: 154384768 0x118E41: alloc::raw_vec::finish_grow (in /home/adri/progetto_eia/target/release/eia)
+  n1: 103156224 0x11535E: alloc::raw_vec::RawVec<T,A>::reserve::do_reserve_and_handle (in /home/adri/progetto_eia/target/release/eia)
+   n1: 103156224 0x11CB28: alloc::vec::Vec<T,A>::resize (in /home/adri/progetto_eia/target/release/eia)
+    n1: 103156224 0x11B0F5: eia::problem::graph::Graph::from_file (in /home/adri/progetto_eia/target/release/eia)
+     n1: 103156224 0x12C1B1: eia::problem::Problem::new (in /home/adri/progetto_eia/target/release/eia)
+      n1: 103156224 0x124725: eia::main (in /home/adri/progetto_eia/target/release/eia)
+       n1: 103156224 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+        n1: 103156224 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+         n1: 103156224 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+          n1: 103156224 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+           n0: 103156224 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+  n2: 51179392 0x1192F1: alloc::raw_vec::RawVec<T,A>::reserve_for_push (in /home/adri/progetto_eia/target/release/eia)
+   n1: 44718464 0x11B071: eia::problem::graph::Graph::from_file (in /home/adri/progetto_eia/target/release/eia)
+    n1: 44718464 0x12C1B1: eia::problem::Problem::new (in /home/adri/progetto_eia/target/release/eia)
+     n1: 44718464 0x124725: eia::main (in /home/adri/progetto_eia/target/release/eia)
+      n1: 44718464 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+       n1: 44718464 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+        n1: 44718464 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+         n1: 44718464 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+          n0: 44718464 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+   n1: 6460928 0x11B12D: eia::problem::graph::Graph::from_file (in /home/adri/progetto_eia/target/release/eia)
+    n1: 6460928 0x12C1B1: eia::problem::Problem::new (in /home/adri/progetto_eia/target/release/eia)
+     n1: 6460928 0x124725: eia::main (in /home/adri/progetto_eia/target/release/eia)
+      n1: 6460928 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+       n1: 6460928 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+        n1: 6460928 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+         n1: 6460928 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+          n0: 6460928 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+  n0: 49152 in 4 places, all below massif's threshold (1.00%)
+ n2: 55575744 0x11CED9: <alloc::vec::Vec<T,A> as core::clone::Clone>::clone (in /home/adri/progetto_eia/target/release/eia)
+  n1: 55575744 0x130E42: eia::problem::Problem::espandi (in /home/adri/progetto_eia/target/release/eia)
+   n1: 55575744 0x12D93A: eia::problem::Problem::uniform_cost_search (in /home/adri/progetto_eia/target/release/eia)
+    n1: 55575744 0x124C83: eia::main (in /home/adri/progetto_eia/target/release/eia)
+     n1: 55575744 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+      n1: 55575744 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+       n1: 55575744 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+        n1: 55575744 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+         n0: 55575744 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+  n0: 0 in 3 places, all below massif's threshold (1.00%)
+ n1: 47801984 0x11DF29: <eia::problem::node::Node as core::clone::Clone>::clone (in /home/adri/progetto_eia/target/release/eia)
+  n2: 47801984 0x11CF12: <alloc::vec::Vec<T,A> as core::clone::Clone>::clone (in /home/adri/progetto_eia/target/release/eia)
+   n1: 47801984 0x130E42: eia::problem::Problem::espandi (in /home/adri/progetto_eia/target/release/eia)
+    n1: 47801984 0x12D93A: eia::problem::Problem::uniform_cost_search (in /home/adri/progetto_eia/target/release/eia)
+     n1: 47801984 0x124C83: eia::main (in /home/adri/progetto_eia/target/release/eia)
+      n1: 47801984 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+       n1: 47801984 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+        n1: 47801984 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+         n1: 47801984 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+          n0: 47801984 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+   n0: 0 in 3 places, all below massif's threshold (1.00%)
+ n2: 29872576 0x118E67: alloc::raw_vec::finish_grow (in /home/adri/progetto_eia/target/release/eia)
+  n2: 29872384 0x1192F1: alloc::raw_vec::RawVec<T,A>::reserve_for_push (in /home/adri/progetto_eia/target/release/eia)
+   n1: 29850624 0x11B12D: eia::problem::graph::Graph::from_file (in /home/adri/progetto_eia/target/release/eia)
+    n1: 29850624 0x12C1B1: eia::problem::Problem::new (in /home/adri/progetto_eia/target/release/eia)
+     n1: 29850624 0x124725: eia::main (in /home/adri/progetto_eia/target/release/eia)
+      n1: 29850624 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+       n1: 29850624 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+        n1: 29850624 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+         n1: 29850624 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+          n0: 29850624 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+   n0: 21760 in 1 place, below massif's threshold (1.00%)
+  n0: 192 in 6 places, all below massif's threshold (1.00%)
+ n1: 20173984 0x130FF4: eia::problem::Problem::espandi (in /home/adri/progetto_eia/target/release/eia)
+  n1: 20173984 0x12D93A: eia::problem::Problem::uniform_cost_search (in /home/adri/progetto_eia/target/release/eia)
+   n1: 20173984 0x124C83: eia::main (in /home/adri/progetto_eia/target/release/eia)
+    n1: 20173984 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+     n1: 20173984 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+      n1: 20173984 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+       n1: 20173984 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+        n0: 20173984 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+ n0: 2344267 in 54 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=16
+#-----------
+time=2159923
+mem_heap_B=264635691
+mem_heap_extra_B=9650573
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=17
+#-----------
+time=2248115
+mem_heap_B=297374515
+mem_heap_extra_B=13660701
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=18
+#-----------
+time=2339069
+mem_heap_B=276395523
+mem_heap_extra_B=16297669
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=19
+#-----------
+time=2451677
+mem_heap_B=267865531
+mem_heap_extra_B=9713597
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=20
+#-----------
+time=2611271
+mem_heap_B=316904651
+mem_heap_extra_B=24670373
+mem_stacks_B=0
+heap_tree=detailed
+n6: 316904651 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n3: 154433920 0x118E41: alloc::raw_vec::finish_grow (in /home/adri/progetto_eia/target/release/eia)
+  n1: 103156224 0x11535E: alloc::raw_vec::RawVec<T,A>::reserve::do_reserve_and_handle (in /home/adri/progetto_eia/target/release/eia)
+   n1: 103156224 0x11CB28: alloc::vec::Vec<T,A>::resize (in /home/adri/progetto_eia/target/release/eia)
+    n1: 103156224 0x11B0F5: eia::problem::graph::Graph::from_file (in /home/adri/progetto_eia/target/release/eia)
+     n1: 103156224 0x12C1B1: eia::problem::Problem::new (in /home/adri/progetto_eia/target/release/eia)
+      n1: 103156224 0x124725: eia::main (in /home/adri/progetto_eia/target/release/eia)
+       n1: 103156224 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+        n1: 103156224 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+         n1: 103156224 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+          n1: 103156224 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+           n0: 103156224 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+  n2: 51179392 0x1192F1: alloc::raw_vec::RawVec<T,A>::reserve_for_push (in /home/adri/progetto_eia/target/release/eia)
+   n1: 44718464 0x11B071: eia::problem::graph::Graph::from_file (in /home/adri/progetto_eia/target/release/eia)
+    n1: 44718464 0x12C1B1: eia::problem::Problem::new (in /home/adri/progetto_eia/target/release/eia)
+     n1: 44718464 0x124725: eia::main (in /home/adri/progetto_eia/target/release/eia)
+      n1: 44718464 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+       n1: 44718464 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+        n1: 44718464 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+         n1: 44718464 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+          n0: 44718464 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+   n1: 6460928 0x11B12D: eia::problem::graph::Graph::from_file (in /home/adri/progetto_eia/target/release/eia)
+    n1: 6460928 0x12C1B1: eia::problem::Problem::new (in /home/adri/progetto_eia/target/release/eia)
+     n1: 6460928 0x124725: eia::main (in /home/adri/progetto_eia/target/release/eia)
+      n1: 6460928 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+       n1: 6460928 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+        n1: 6460928 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+         n1: 6460928 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+          n0: 6460928 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+  n0: 98304 in 4 places, all below massif's threshold (1.00%)
+ n2: 55575744 0x11CED9: <alloc::vec::Vec<T,A> as core::clone::Clone>::clone (in /home/adri/progetto_eia/target/release/eia)
+  n1: 55575744 0x130E42: eia::problem::Problem::espandi (in /home/adri/progetto_eia/target/release/eia)
+   n1: 55575744 0x12D93A: eia::problem::Problem::uniform_cost_search (in /home/adri/progetto_eia/target/release/eia)
+    n1: 55575744 0x124C83: eia::main (in /home/adri/progetto_eia/target/release/eia)
+     n1: 55575744 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+      n1: 55575744 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+       n1: 55575744 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+        n1: 55575744 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+         n0: 55575744 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+  n0: 0 in 3 places, all below massif's threshold (1.00%)
+ n1: 47801984 0x11DF29: <eia::problem::node::Node as core::clone::Clone>::clone (in /home/adri/progetto_eia/target/release/eia)
+  n2: 47801984 0x11CF12: <alloc::vec::Vec<T,A> as core::clone::Clone>::clone (in /home/adri/progetto_eia/target/release/eia)
+   n1: 47801984 0x130E42: eia::problem::Problem::espandi (in /home/adri/progetto_eia/target/release/eia)
+    n1: 47801984 0x12D93A: eia::problem::Problem::uniform_cost_search (in /home/adri/progetto_eia/target/release/eia)
+     n1: 47801984 0x124C83: eia::main (in /home/adri/progetto_eia/target/release/eia)
+      n1: 47801984 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+       n1: 47801984 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+        n1: 47801984 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+         n1: 47801984 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+          n0: 47801984 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+   n0: 0 in 3 places, all below massif's threshold (1.00%)
+ n2: 29872576 0x118E67: alloc::raw_vec::finish_grow (in /home/adri/progetto_eia/target/release/eia)
+  n2: 29872384 0x1192F1: alloc::raw_vec::RawVec<T,A>::reserve_for_push (in /home/adri/progetto_eia/target/release/eia)
+   n1: 29850624 0x11B12D: eia::problem::graph::Graph::from_file (in /home/adri/progetto_eia/target/release/eia)
+    n1: 29850624 0x12C1B1: eia::problem::Problem::new (in /home/adri/progetto_eia/target/release/eia)
+     n1: 29850624 0x124725: eia::main (in /home/adri/progetto_eia/target/release/eia)
+      n1: 29850624 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+       n1: 29850624 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+        n1: 29850624 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+         n1: 29850624 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+          n0: 29850624 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+   n0: 21760 in 1 place, below massif's threshold (1.00%)
+  n0: 192 in 6 places, all below massif's threshold (1.00%)
+ n1: 26803208 0x130FF4: eia::problem::Problem::espandi (in /home/adri/progetto_eia/target/release/eia)
+  n1: 26803208 0x12D93A: eia::problem::Problem::uniform_cost_search (in /home/adri/progetto_eia/target/release/eia)
+   n1: 26803208 0x124C83: eia::main (in /home/adri/progetto_eia/target/release/eia)
+    n1: 26803208 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+     n1: 26803208 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+      n1: 26803208 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+       n1: 26803208 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+        n0: 26803208 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+ n0: 2417219 in 54 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=21
+#-----------
+time=2723879
+mem_heap_B=275755763
+mem_heap_extra_B=14686469
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=22
+#-----------
+time=2836487
+mem_heap_B=303407315
+mem_heap_extra_B=13534701
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=23
+#-----------
+time=2928605
+mem_heap_B=320320243
+mem_heap_extra_B=24676693
+mem_stacks_B=0
+heap_tree=detailed
+n6: 320320243 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n3: 154433920 0x118E41: alloc::raw_vec::finish_grow (in /home/adri/progetto_eia/target/release/eia)
+  n1: 103156224 0x11535E: alloc::raw_vec::RawVec<T,A>::reserve::do_reserve_and_handle (in /home/adri/progetto_eia/target/release/eia)
+   n1: 103156224 0x11CB28: alloc::vec::Vec<T,A>::resize (in /home/adri/progetto_eia/target/release/eia)
+    n1: 103156224 0x11B0F5: eia::problem::graph::Graph::from_file (in /home/adri/progetto_eia/target/release/eia)
+     n1: 103156224 0x12C1B1: eia::problem::Problem::new (in /home/adri/progetto_eia/target/release/eia)
+      n1: 103156224 0x124725: eia::main (in /home/adri/progetto_eia/target/release/eia)
+       n1: 103156224 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+        n1: 103156224 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+         n1: 103156224 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+          n1: 103156224 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+           n0: 103156224 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+  n2: 51179392 0x1192F1: alloc::raw_vec::RawVec<T,A>::reserve_for_push (in /home/adri/progetto_eia/target/release/eia)
+   n1: 44718464 0x11B071: eia::problem::graph::Graph::from_file (in /home/adri/progetto_eia/target/release/eia)
+    n1: 44718464 0x12C1B1: eia::problem::Problem::new (in /home/adri/progetto_eia/target/release/eia)
+     n1: 44718464 0x124725: eia::main (in /home/adri/progetto_eia/target/release/eia)
+      n1: 44718464 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+       n1: 44718464 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+        n1: 44718464 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+         n1: 44718464 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+          n0: 44718464 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+   n1: 6460928 0x11B12D: eia::problem::graph::Graph::from_file (in /home/adri/progetto_eia/target/release/eia)
+    n1: 6460928 0x12C1B1: eia::problem::Problem::new (in /home/adri/progetto_eia/target/release/eia)
+     n1: 6460928 0x124725: eia::main (in /home/adri/progetto_eia/target/release/eia)
+      n1: 6460928 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+       n1: 6460928 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+        n1: 6460928 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+         n1: 6460928 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+          n0: 6460928 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+  n0: 98304 in 4 places, all below massif's threshold (1.00%)
+ n2: 55575744 0x11CED9: <alloc::vec::Vec<T,A> as core::clone::Clone>::clone (in /home/adri/progetto_eia/target/release/eia)
+  n1: 55575744 0x130E42: eia::problem::Problem::espandi (in /home/adri/progetto_eia/target/release/eia)
+   n1: 55575744 0x12D93A: eia::problem::Problem::uniform_cost_search (in /home/adri/progetto_eia/target/release/eia)
+    n1: 55575744 0x124C83: eia::main (in /home/adri/progetto_eia/target/release/eia)
+     n1: 55575744 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+      n1: 55575744 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+       n1: 55575744 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+        n1: 55575744 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+         n0: 55575744 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+  n0: 0 in 3 places, all below massif's threshold (1.00%)
+ n1: 47801984 0x11DF29: <eia::problem::node::Node as core::clone::Clone>::clone (in /home/adri/progetto_eia/target/release/eia)
+  n2: 47801984 0x11CF12: <alloc::vec::Vec<T,A> as core::clone::Clone>::clone (in /home/adri/progetto_eia/target/release/eia)
+   n1: 47801984 0x130E42: eia::problem::Problem::espandi (in /home/adri/progetto_eia/target/release/eia)
+    n1: 47801984 0x12D93A: eia::problem::Problem::uniform_cost_search (in /home/adri/progetto_eia/target/release/eia)
+     n1: 47801984 0x124C83: eia::main (in /home/adri/progetto_eia/target/release/eia)
+      n1: 47801984 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+       n1: 47801984 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+        n1: 47801984 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+         n1: 47801984 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+          n0: 47801984 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+   n0: 0 in 3 places, all below massif's threshold (1.00%)
+ n1: 30172880 0x130FF4: eia::problem::Problem::espandi (in /home/adri/progetto_eia/target/release/eia)
+  n1: 30172880 0x12D93A: eia::problem::Problem::uniform_cost_search (in /home/adri/progetto_eia/target/release/eia)
+   n1: 30172880 0x124C83: eia::main (in /home/adri/progetto_eia/target/release/eia)
+    n1: 30172880 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+     n1: 30172880 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+      n1: 30172880 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+       n1: 30172880 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+        n0: 30172880 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+ n2: 29872576 0x118E67: alloc::raw_vec::finish_grow (in /home/adri/progetto_eia/target/release/eia)
+  n2: 29872384 0x1192F1: alloc::raw_vec::RawVec<T,A>::reserve_for_push (in /home/adri/progetto_eia/target/release/eia)
+   n1: 29850624 0x11B12D: eia::problem::graph::Graph::from_file (in /home/adri/progetto_eia/target/release/eia)
+    n1: 29850624 0x12C1B1: eia::problem::Problem::new (in /home/adri/progetto_eia/target/release/eia)
+     n1: 29850624 0x124725: eia::main (in /home/adri/progetto_eia/target/release/eia)
+      n1: 29850624 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+       n1: 29850624 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+        n1: 29850624 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+         n1: 29850624 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+          n0: 29850624 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+   n0: 21760 in 1 place, below massif's threshold (1.00%)
+  n0: 192 in 6 places, all below massif's threshold (1.00%)
+ n0: 2463139 in 54 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=24
+#-----------
+time=3041213
+mem_heap_B=297760019
+mem_heap_extra_B=11135405
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=25
+#-----------
+time=3153821
+mem_heap_B=320494307
+mem_heap_extra_B=22484013
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=26
+#-----------
+time=3248989
+mem_heap_B=323777547
+mem_heap_extra_B=24684197
+mem_stacks_B=0
+heap_tree=detailed
+n6: 323777547 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n3: 154433920 0x118E41: alloc::raw_vec::finish_grow (in /home/adri/progetto_eia/target/release/eia)
+  n1: 103156224 0x11535E: alloc::raw_vec::RawVec<T,A>::reserve::do_reserve_and_handle (in /home/adri/progetto_eia/target/release/eia)
+   n1: 103156224 0x11CB28: alloc::vec::Vec<T,A>::resize (in /home/adri/progetto_eia/target/release/eia)
+    n1: 103156224 0x11B0F5: eia::problem::graph::Graph::from_file (in /home/adri/progetto_eia/target/release/eia)
+     n1: 103156224 0x12C1B1: eia::problem::Problem::new (in /home/adri/progetto_eia/target/release/eia)
+      n1: 103156224 0x124725: eia::main (in /home/adri/progetto_eia/target/release/eia)
+       n1: 103156224 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+        n1: 103156224 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+         n1: 103156224 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+          n1: 103156224 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+           n0: 103156224 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+  n2: 51179392 0x1192F1: alloc::raw_vec::RawVec<T,A>::reserve_for_push (in /home/adri/progetto_eia/target/release/eia)
+   n1: 44718464 0x11B071: eia::problem::graph::Graph::from_file (in /home/adri/progetto_eia/target/release/eia)
+    n1: 44718464 0x12C1B1: eia::problem::Problem::new (in /home/adri/progetto_eia/target/release/eia)
+     n1: 44718464 0x124725: eia::main (in /home/adri/progetto_eia/target/release/eia)
+      n1: 44718464 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+       n1: 44718464 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+        n1: 44718464 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+         n1: 44718464 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+          n0: 44718464 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+   n1: 6460928 0x11B12D: eia::problem::graph::Graph::from_file (in /home/adri/progetto_eia/target/release/eia)
+    n1: 6460928 0x12C1B1: eia::problem::Problem::new (in /home/adri/progetto_eia/target/release/eia)
+     n1: 6460928 0x124725: eia::main (in /home/adri/progetto_eia/target/release/eia)
+      n1: 6460928 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+       n1: 6460928 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+        n1: 6460928 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+         n1: 6460928 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+          n0: 6460928 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+  n0: 98304 in 4 places, all below massif's threshold (1.00%)
+ n2: 55575744 0x11CED9: <alloc::vec::Vec<T,A> as core::clone::Clone>::clone (in /home/adri/progetto_eia/target/release/eia)
+  n1: 55575744 0x130E42: eia::problem::Problem::espandi (in /home/adri/progetto_eia/target/release/eia)
+   n1: 55575744 0x12D93A: eia::problem::Problem::uniform_cost_search (in /home/adri/progetto_eia/target/release/eia)
+    n1: 55575744 0x124C83: eia::main (in /home/adri/progetto_eia/target/release/eia)
+     n1: 55575744 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+      n1: 55575744 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+       n1: 55575744 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+        n1: 55575744 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+         n0: 55575744 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+  n0: 0 in 3 places, all below massif's threshold (1.00%)
+ n1: 47801984 0x11DF29: <eia::problem::node::Node as core::clone::Clone>::clone (in /home/adri/progetto_eia/target/release/eia)
+  n2: 47801984 0x11CF12: <alloc::vec::Vec<T,A> as core::clone::Clone>::clone (in /home/adri/progetto_eia/target/release/eia)
+   n1: 47801984 0x130E42: eia::problem::Problem::espandi (in /home/adri/progetto_eia/target/release/eia)
+    n1: 47801984 0x12D93A: eia::problem::Problem::uniform_cost_search (in /home/adri/progetto_eia/target/release/eia)
+     n1: 47801984 0x124C83: eia::main (in /home/adri/progetto_eia/target/release/eia)
+      n1: 47801984 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+       n1: 47801984 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+        n1: 47801984 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+         n1: 47801984 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+          n0: 47801984 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+   n0: 0 in 3 places, all below massif's threshold (1.00%)
+ n1: 33586600 0x130FF4: eia::problem::Problem::espandi (in /home/adri/progetto_eia/target/release/eia)
+  n1: 33586600 0x12D93A: eia::problem::Problem::uniform_cost_search (in /home/adri/progetto_eia/target/release/eia)
+   n1: 33586600 0x124C83: eia::main (in /home/adri/progetto_eia/target/release/eia)
+    n1: 33586600 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+     n1: 33586600 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+      n1: 33586600 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+       n1: 33586600 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+        n0: 33586600 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+ n2: 29872576 0x118E67: alloc::raw_vec::finish_grow (in /home/adri/progetto_eia/target/release/eia)
+  n2: 29872384 0x1192F1: alloc::raw_vec::RawVec<T,A>::reserve_for_push (in /home/adri/progetto_eia/target/release/eia)
+   n1: 29850624 0x11B12D: eia::problem::graph::Graph::from_file (in /home/adri/progetto_eia/target/release/eia)
+    n1: 29850624 0x12C1B1: eia::problem::Problem::new (in /home/adri/progetto_eia/target/release/eia)
+     n1: 29850624 0x124725: eia::main (in /home/adri/progetto_eia/target/release/eia)
+      n1: 29850624 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+       n1: 29850624 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+        n1: 29850624 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+         n1: 29850624 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+          n0: 29850624 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+   n0: 21760 in 1 place, below massif's threshold (1.00%)
+  n0: 192 in 6 places, all below massif's threshold (1.00%)
+ n0: 2506723 in 54 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=27
+#-----------
+time=3361597
+mem_heap_B=308556171
+mem_heap_extra_B=13280621
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=28
+#-----------
+time=3474205
+mem_heap_B=293835411
+mem_heap_extra_B=20031085
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=29
+#-----------
+time=3566986
+mem_heap_B=327269955
+mem_heap_extra_B=24690141
+mem_stacks_B=0
+heap_tree=detailed
+n6: 327269955 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n3: 154433920 0x118E41: alloc::raw_vec::finish_grow (in /home/adri/progetto_eia/target/release/eia)
+  n1: 103156224 0x11535E: alloc::raw_vec::RawVec<T,A>::reserve::do_reserve_and_handle (in /home/adri/progetto_eia/target/release/eia)
+   n1: 103156224 0x11CB28: alloc::vec::Vec<T,A>::resize (in /home/adri/progetto_eia/target/release/eia)
+    n1: 103156224 0x11B0F5: eia::problem::graph::Graph::from_file (in /home/adri/progetto_eia/target/release/eia)
+     n1: 103156224 0x12C1B1: eia::problem::Problem::new (in /home/adri/progetto_eia/target/release/eia)
+      n1: 103156224 0x124725: eia::main (in /home/adri/progetto_eia/target/release/eia)
+       n1: 103156224 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+        n1: 103156224 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+         n1: 103156224 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+          n1: 103156224 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+           n0: 103156224 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+  n2: 51179392 0x1192F1: alloc::raw_vec::RawVec<T,A>::reserve_for_push (in /home/adri/progetto_eia/target/release/eia)
+   n1: 44718464 0x11B071: eia::problem::graph::Graph::from_file (in /home/adri/progetto_eia/target/release/eia)
+    n1: 44718464 0x12C1B1: eia::problem::Problem::new (in /home/adri/progetto_eia/target/release/eia)
+     n1: 44718464 0x124725: eia::main (in /home/adri/progetto_eia/target/release/eia)
+      n1: 44718464 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+       n1: 44718464 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+        n1: 44718464 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+         n1: 44718464 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+          n0: 44718464 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+   n1: 6460928 0x11B12D: eia::problem::graph::Graph::from_file (in /home/adri/progetto_eia/target/release/eia)
+    n1: 6460928 0x12C1B1: eia::problem::Problem::new (in /home/adri/progetto_eia/target/release/eia)
+     n1: 6460928 0x124725: eia::main (in /home/adri/progetto_eia/target/release/eia)
+      n1: 6460928 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+       n1: 6460928 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+        n1: 6460928 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+         n1: 6460928 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+          n0: 6460928 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+  n0: 98304 in 4 places, all below massif's threshold (1.00%)
+ n2: 55575744 0x11CED9: <alloc::vec::Vec<T,A> as core::clone::Clone>::clone (in /home/adri/progetto_eia/target/release/eia)
+  n1: 55575744 0x130E42: eia::problem::Problem::espandi (in /home/adri/progetto_eia/target/release/eia)
+   n1: 55575744 0x12D93A: eia::problem::Problem::uniform_cost_search (in /home/adri/progetto_eia/target/release/eia)
+    n1: 55575744 0x124C83: eia::main (in /home/adri/progetto_eia/target/release/eia)
+     n1: 55575744 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+      n1: 55575744 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+       n1: 55575744 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+        n1: 55575744 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+         n0: 55575744 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+  n0: 0 in 3 places, all below massif's threshold (1.00%)
+ n1: 47801984 0x11DF29: <eia::problem::node::Node as core::clone::Clone>::clone (in /home/adri/progetto_eia/target/release/eia)
+  n2: 47801984 0x11CF12: <alloc::vec::Vec<T,A> as core::clone::Clone>::clone (in /home/adri/progetto_eia/target/release/eia)
+   n1: 47801984 0x130E42: eia::problem::Problem::espandi (in /home/adri/progetto_eia/target/release/eia)
+    n1: 47801984 0x12D93A: eia::problem::Problem::uniform_cost_search (in /home/adri/progetto_eia/target/release/eia)
+     n1: 47801984 0x124C83: eia::main (in /home/adri/progetto_eia/target/release/eia)
+      n1: 47801984 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+       n1: 47801984 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+        n1: 47801984 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+         n1: 47801984 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+          n0: 47801984 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+   n0: 0 in 3 places, all below massif's threshold (1.00%)
+ n1: 36978296 0x130FF4: eia::problem::Problem::espandi (in /home/adri/progetto_eia/target/release/eia)
+  n1: 36978296 0x12D93A: eia::problem::Problem::uniform_cost_search (in /home/adri/progetto_eia/target/release/eia)
+   n1: 36978296 0x124C83: eia::main (in /home/adri/progetto_eia/target/release/eia)
+    n1: 36978296 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+     n1: 36978296 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+      n1: 36978296 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+       n1: 36978296 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+        n0: 36978296 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+ n2: 29872576 0x118E67: alloc::raw_vec::finish_grow (in /home/adri/progetto_eia/target/release/eia)
+  n2: 29872384 0x1192F1: alloc::raw_vec::RawVec<T,A>::reserve_for_push (in /home/adri/progetto_eia/target/release/eia)
+   n1: 29850624 0x11B12D: eia::problem::graph::Graph::from_file (in /home/adri/progetto_eia/target/release/eia)
+    n1: 29850624 0x12C1B1: eia::problem::Problem::new (in /home/adri/progetto_eia/target/release/eia)
+     n1: 29850624 0x124725: eia::main (in /home/adri/progetto_eia/target/release/eia)
+      n1: 29850624 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+       n1: 29850624 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+        n1: 29850624 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+         n1: 29850624 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+          n0: 29850624 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+   n0: 21760 in 1 place, below massif's threshold (1.00%)
+  n0: 192 in 6 places, all below massif's threshold (1.00%)
+ n0: 2607435 in 54 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=30
+#-----------
+time=3679594
+mem_heap_B=294163059
+mem_heap_extra_B=9808789
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=31
+#-----------
+time=3767786
+mem_heap_B=327921195
+mem_heap_extra_B=23106861
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=32
+#-----------
+time=3892090
+mem_heap_B=330798747
+mem_heap_extra_B=24696589
+mem_stacks_B=0
+heap_tree=detailed
+n6: 330798747 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n3: 154433920 0x118E41: alloc::raw_vec::finish_grow (in /home/adri/progetto_eia/target/release/eia)
+  n1: 103156224 0x11535E: alloc::raw_vec::RawVec<T,A>::reserve::do_reserve_and_handle (in /home/adri/progetto_eia/target/release/eia)
+   n1: 103156224 0x11CB28: alloc::vec::Vec<T,A>::resize (in /home/adri/progetto_eia/target/release/eia)
+    n1: 103156224 0x11B0F5: eia::problem::graph::Graph::from_file (in /home/adri/progetto_eia/target/release/eia)
+     n1: 103156224 0x12C1B1: eia::problem::Problem::new (in /home/adri/progetto_eia/target/release/eia)
+      n1: 103156224 0x124725: eia::main (in /home/adri/progetto_eia/target/release/eia)
+       n1: 103156224 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+        n1: 103156224 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+         n1: 103156224 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+          n1: 103156224 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+           n0: 103156224 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+  n2: 51179392 0x1192F1: alloc::raw_vec::RawVec<T,A>::reserve_for_push (in /home/adri/progetto_eia/target/release/eia)
+   n1: 44718464 0x11B071: eia::problem::graph::Graph::from_file (in /home/adri/progetto_eia/target/release/eia)
+    n1: 44718464 0x12C1B1: eia::problem::Problem::new (in /home/adri/progetto_eia/target/release/eia)
+     n1: 44718464 0x124725: eia::main (in /home/adri/progetto_eia/target/release/eia)
+      n1: 44718464 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+       n1: 44718464 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+        n1: 44718464 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+         n1: 44718464 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+          n0: 44718464 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+   n1: 6460928 0x11B12D: eia::problem::graph::Graph::from_file (in /home/adri/progetto_eia/target/release/eia)
+    n1: 6460928 0x12C1B1: eia::problem::Problem::new (in /home/adri/progetto_eia/target/release/eia)
+     n1: 6460928 0x124725: eia::main (in /home/adri/progetto_eia/target/release/eia)
+      n1: 6460928 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+       n1: 6460928 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+        n1: 6460928 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+         n1: 6460928 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+          n0: 6460928 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+  n0: 98304 in 4 places, all below massif's threshold (1.00%)
+ n2: 55575744 0x11CED9: <alloc::vec::Vec<T,A> as core::clone::Clone>::clone (in /home/adri/progetto_eia/target/release/eia)
+  n1: 55575744 0x130E42: eia::problem::Problem::espandi (in /home/adri/progetto_eia/target/release/eia)
+   n1: 55575744 0x12D93A: eia::problem::Problem::uniform_cost_search (in /home/adri/progetto_eia/target/release/eia)
+    n1: 55575744 0x124C83: eia::main (in /home/adri/progetto_eia/target/release/eia)
+     n1: 55575744 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+      n1: 55575744 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+       n1: 55575744 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+        n1: 55575744 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+         n0: 55575744 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+  n0: 0 in 3 places, all below massif's threshold (1.00%)
+ n1: 47801984 0x11DF29: <eia::problem::node::Node as core::clone::Clone>::clone (in /home/adri/progetto_eia/target/release/eia)
+  n2: 47801984 0x11CF12: <alloc::vec::Vec<T,A> as core::clone::Clone>::clone (in /home/adri/progetto_eia/target/release/eia)
+   n1: 47801984 0x130E42: eia::problem::Problem::espandi (in /home/adri/progetto_eia/target/release/eia)
+    n1: 47801984 0x12D93A: eia::problem::Problem::uniform_cost_search (in /home/adri/progetto_eia/target/release/eia)
+     n1: 47801984 0x124C83: eia::main (in /home/adri/progetto_eia/target/release/eia)
+      n1: 47801984 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+       n1: 47801984 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+        n1: 47801984 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+         n1: 47801984 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+          n0: 47801984 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+   n0: 0 in 3 places, all below massif's threshold (1.00%)
+ n1: 40436064 0x130FF4: eia::problem::Problem::espandi (in /home/adri/progetto_eia/target/release/eia)
+  n1: 40436064 0x12D93A: eia::problem::Problem::uniform_cost_search (in /home/adri/progetto_eia/target/release/eia)
+   n1: 40436064 0x124C83: eia::main (in /home/adri/progetto_eia/target/release/eia)
+    n1: 40436064 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+     n1: 40436064 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+      n1: 40436064 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+       n1: 40436064 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+        n0: 40436064 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+ n2: 29872576 0x118E67: alloc::raw_vec::finish_grow (in /home/adri/progetto_eia/target/release/eia)
+  n2: 29872384 0x1192F1: alloc::raw_vec::RawVec<T,A>::reserve_for_push (in /home/adri/progetto_eia/target/release/eia)
+   n1: 29850624 0x11B12D: eia::problem::graph::Graph::from_file (in /home/adri/progetto_eia/target/release/eia)
+    n1: 29850624 0x12C1B1: eia::problem::Problem::new (in /home/adri/progetto_eia/target/release/eia)
+     n1: 29850624 0x124725: eia::main (in /home/adri/progetto_eia/target/release/eia)
+      n1: 29850624 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+       n1: 29850624 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+        n1: 29850624 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+         n1: 29850624 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+          n0: 29850624 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+   n0: 21760 in 1 place, below massif's threshold (1.00%)
+  n0: 192 in 6 places, all below massif's threshold (1.00%)
+ n0: 2678459 in 54 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=33
+#-----------
+time=3980282
+mem_heap_B=317224363
+mem_heap_extra_B=14288429
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=34
+#-----------
+time=4068474
+mem_heap_B=295637219
+mem_heap_extra_B=16767637
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=35
+#-----------
+time=4216983
+mem_heap_B=334368459
+mem_heap_extra_B=24702613
+mem_stacks_B=0
+heap_tree=detailed
+n6: 334368459 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n3: 154433920 0x118E41: alloc::raw_vec::finish_grow (in /home/adri/progetto_eia/target/release/eia)
+  n1: 103156224 0x11535E: alloc::raw_vec::RawVec<T,A>::reserve::do_reserve_and_handle (in /home/adri/progetto_eia/target/release/eia)
+   n1: 103156224 0x11CB28: alloc::vec::Vec<T,A>::resize (in /home/adri/progetto_eia/target/release/eia)
+    n1: 103156224 0x11B0F5: eia::problem::graph::Graph::from_file (in /home/adri/progetto_eia/target/release/eia)
+     n1: 103156224 0x12C1B1: eia::problem::Problem::new (in /home/adri/progetto_eia/target/release/eia)
+      n1: 103156224 0x124725: eia::main (in /home/adri/progetto_eia/target/release/eia)
+       n1: 103156224 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+        n1: 103156224 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+         n1: 103156224 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+          n1: 103156224 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+           n0: 103156224 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+  n2: 51179392 0x1192F1: alloc::raw_vec::RawVec<T,A>::reserve_for_push (in /home/adri/progetto_eia/target/release/eia)
+   n1: 44718464 0x11B071: eia::problem::graph::Graph::from_file (in /home/adri/progetto_eia/target/release/eia)
+    n1: 44718464 0x12C1B1: eia::problem::Problem::new (in /home/adri/progetto_eia/target/release/eia)
+     n1: 44718464 0x124725: eia::main (in /home/adri/progetto_eia/target/release/eia)
+      n1: 44718464 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+       n1: 44718464 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+        n1: 44718464 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+         n1: 44718464 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+          n0: 44718464 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+   n1: 6460928 0x11B12D: eia::problem::graph::Graph::from_file (in /home/adri/progetto_eia/target/release/eia)
+    n1: 6460928 0x12C1B1: eia::problem::Problem::new (in /home/adri/progetto_eia/target/release/eia)
+     n1: 6460928 0x124725: eia::main (in /home/adri/progetto_eia/target/release/eia)
+      n1: 6460928 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+       n1: 6460928 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+        n1: 6460928 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+         n1: 6460928 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+          n0: 6460928 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+  n0: 98304 in 4 places, all below massif's threshold (1.00%)
+ n2: 55575744 0x11CED9: <alloc::vec::Vec<T,A> as core::clone::Clone>::clone (in /home/adri/progetto_eia/target/release/eia)
+  n1: 55575744 0x130E42: eia::problem::Problem::espandi (in /home/adri/progetto_eia/target/release/eia)
+   n1: 55575744 0x12D93A: eia::problem::Problem::uniform_cost_search (in /home/adri/progetto_eia/target/release/eia)
+    n1: 55575744 0x124C83: eia::main (in /home/adri/progetto_eia/target/release/eia)
+     n1: 55575744 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+      n1: 55575744 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+       n1: 55575744 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+        n1: 55575744 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+         n0: 55575744 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+  n0: 0 in 3 places, all below massif's threshold (1.00%)
+ n1: 47801984 0x11DF29: <eia::problem::node::Node as core::clone::Clone>::clone (in /home/adri/progetto_eia/target/release/eia)
+  n2: 47801984 0x11CF12: <alloc::vec::Vec<T,A> as core::clone::Clone>::clone (in /home/adri/progetto_eia/target/release/eia)
+   n1: 47801984 0x130E42: eia::problem::Problem::espandi (in /home/adri/progetto_eia/target/release/eia)
+    n1: 47801984 0x12D93A: eia::problem::Problem::uniform_cost_search (in /home/adri/progetto_eia/target/release/eia)
+     n1: 47801984 0x124C83: eia::main (in /home/adri/progetto_eia/target/release/eia)
+      n1: 47801984 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+       n1: 47801984 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+        n1: 47801984 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+         n1: 47801984 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+          n0: 47801984 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+   n0: 0 in 3 places, all below massif's threshold (1.00%)
+ n1: 43893832 0x130FF4: eia::problem::Problem::espandi (in /home/adri/progetto_eia/target/release/eia)
+  n1: 43893832 0x12D93A: eia::problem::Problem::uniform_cost_search (in /home/adri/progetto_eia/target/release/eia)
+   n1: 43893832 0x124C83: eia::main (in /home/adri/progetto_eia/target/release/eia)
+    n1: 43893832 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+     n1: 43893832 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+      n1: 43893832 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+       n1: 43893832 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+        n0: 43893832 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+ n2: 29872576 0x118E67: alloc::raw_vec::finish_grow (in /home/adri/progetto_eia/target/release/eia)
+  n2: 29872384 0x1192F1: alloc::raw_vec::RawVec<T,A>::reserve_for_push (in /home/adri/progetto_eia/target/release/eia)
+   n1: 29850624 0x11B12D: eia::problem::graph::Graph::from_file (in /home/adri/progetto_eia/target/release/eia)
+    n1: 29850624 0x12C1B1: eia::problem::Problem::new (in /home/adri/progetto_eia/target/release/eia)
+     n1: 29850624 0x124725: eia::main (in /home/adri/progetto_eia/target/release/eia)
+      n1: 29850624 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+       n1: 29850624 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+        n1: 29850624 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+         n1: 29850624 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+          n0: 29850624 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+   n0: 21760 in 1 place, below massif's threshold (1.00%)
+  n0: 192 in 6 places, all below massif's threshold (1.00%)
+ n0: 2790403 in 54 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=36
+#-----------
+time=4305175
+mem_heap_B=322378123
+mem_heap_extra_B=15273357
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=37
+#-----------
+time=4393367
+mem_heap_B=292458427
+mem_heap_extra_B=13287517
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=38
+#-----------
+time=4537771
+mem_heap_B=337959603
+mem_heap_extra_B=24708325
+mem_stacks_B=0
+heap_tree=detailed
+n6: 337959603 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n3: 154532224 0x118E41: alloc::raw_vec::finish_grow (in /home/adri/progetto_eia/target/release/eia)
+  n1: 103156224 0x11535E: alloc::raw_vec::RawVec<T,A>::reserve::do_reserve_and_handle (in /home/adri/progetto_eia/target/release/eia)
+   n1: 103156224 0x11CB28: alloc::vec::Vec<T,A>::resize (in /home/adri/progetto_eia/target/release/eia)
+    n1: 103156224 0x11B0F5: eia::problem::graph::Graph::from_file (in /home/adri/progetto_eia/target/release/eia)
+     n1: 103156224 0x12C1B1: eia::problem::Problem::new (in /home/adri/progetto_eia/target/release/eia)
+      n1: 103156224 0x124725: eia::main (in /home/adri/progetto_eia/target/release/eia)
+       n1: 103156224 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+        n1: 103156224 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+         n1: 103156224 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+          n1: 103156224 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+           n0: 103156224 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+  n2: 51179392 0x1192F1: alloc::raw_vec::RawVec<T,A>::reserve_for_push (in /home/adri/progetto_eia/target/release/eia)
+   n1: 44718464 0x11B071: eia::problem::graph::Graph::from_file (in /home/adri/progetto_eia/target/release/eia)
+    n1: 44718464 0x12C1B1: eia::problem::Problem::new (in /home/adri/progetto_eia/target/release/eia)
+     n1: 44718464 0x124725: eia::main (in /home/adri/progetto_eia/target/release/eia)
+      n1: 44718464 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+       n1: 44718464 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+        n1: 44718464 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+         n1: 44718464 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+          n0: 44718464 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+   n1: 6460928 0x11B12D: eia::problem::graph::Graph::from_file (in /home/adri/progetto_eia/target/release/eia)
+    n1: 6460928 0x12C1B1: eia::problem::Problem::new (in /home/adri/progetto_eia/target/release/eia)
+     n1: 6460928 0x124725: eia::main (in /home/adri/progetto_eia/target/release/eia)
+      n1: 6460928 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+       n1: 6460928 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+        n1: 6460928 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+         n1: 6460928 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+          n0: 6460928 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+  n0: 196608 in 4 places, all below massif's threshold (1.00%)
+ n2: 55575744 0x11CED9: <alloc::vec::Vec<T,A> as core::clone::Clone>::clone (in /home/adri/progetto_eia/target/release/eia)
+  n1: 55575744 0x130E42: eia::problem::Problem::espandi (in /home/adri/progetto_eia/target/release/eia)
+   n1: 55575744 0x12D93A: eia::problem::Problem::uniform_cost_search (in /home/adri/progetto_eia/target/release/eia)
+    n1: 55575744 0x124C83: eia::main (in /home/adri/progetto_eia/target/release/eia)
+     n1: 55575744 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+      n1: 55575744 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+       n1: 55575744 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+        n1: 55575744 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+         n0: 55575744 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+  n0: 0 in 3 places, all below massif's threshold (1.00%)
+ n1: 47801984 0x11DF29: <eia::problem::node::Node as core::clone::Clone>::clone (in /home/adri/progetto_eia/target/release/eia)
+  n2: 47801984 0x11CF12: <alloc::vec::Vec<T,A> as core::clone::Clone>::clone (in /home/adri/progetto_eia/target/release/eia)
+   n1: 47801984 0x130E42: eia::problem::Problem::espandi (in /home/adri/progetto_eia/target/release/eia)
+    n1: 47801984 0x12D93A: eia::problem::Problem::uniform_cost_search (in /home/adri/progetto_eia/target/release/eia)
+     n1: 47801984 0x124C83: eia::main (in /home/adri/progetto_eia/target/release/eia)
+      n1: 47801984 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+       n1: 47801984 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+        n1: 47801984 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+         n1: 47801984 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+          n0: 47801984 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+   n0: 0 in 3 places, all below massif's threshold (1.00%)
+ n1: 47307552 0x130FF4: eia::problem::Problem::espandi (in /home/adri/progetto_eia/target/release/eia)
+  n1: 47307552 0x12D93A: eia::problem::Problem::uniform_cost_search (in /home/adri/progetto_eia/target/release/eia)
+   n1: 47307552 0x124C83: eia::main (in /home/adri/progetto_eia/target/release/eia)
+    n1: 47307552 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+     n1: 47307552 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+      n1: 47307552 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+       n1: 47307552 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+        n0: 47307552 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+ n2: 29872576 0x118E67: alloc::raw_vec::finish_grow (in /home/adri/progetto_eia/target/release/eia)
+  n2: 29872384 0x1192F1: alloc::raw_vec::RawVec<T,A>::reserve_for_push (in /home/adri/progetto_eia/target/release/eia)
+   n1: 29850624 0x11B12D: eia::problem::graph::Graph::from_file (in /home/adri/progetto_eia/target/release/eia)
+    n1: 29850624 0x12C1B1: eia::problem::Problem::new (in /home/adri/progetto_eia/target/release/eia)
+     n1: 29850624 0x124725: eia::main (in /home/adri/progetto_eia/target/release/eia)
+      n1: 29850624 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+       n1: 29850624 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+        n1: 29850624 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+         n1: 29850624 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+          n0: 29850624 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+   n0: 21760 in 1 place, below massif's threshold (1.00%)
+  n0: 192 in 6 places, all below massif's threshold (1.00%)
+ n0: 2869523 in 54 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=39
+#-----------
+time=4625963
+mem_heap_B=321118387
+mem_heap_extra_B=12713493
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=40
+#-----------
+time=4714155
+mem_heap_B=326857355
+mem_heap_extra_B=24115869
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=41
+#-----------
+time=4867467
+mem_heap_B=341584483
+mem_heap_extra_B=24714221
+mem_stacks_B=0
+heap_tree=detailed
+n6: 341584483 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n3: 154532224 0x118E41: alloc::raw_vec::finish_grow (in /home/adri/progetto_eia/target/release/eia)
+  n1: 103156224 0x11535E: alloc::raw_vec::RawVec<T,A>::reserve::do_reserve_and_handle (in /home/adri/progetto_eia/target/release/eia)
+   n1: 103156224 0x11CB28: alloc::vec::Vec<T,A>::resize (in /home/adri/progetto_eia/target/release/eia)
+    n1: 103156224 0x11B0F5: eia::problem::graph::Graph::from_file (in /home/adri/progetto_eia/target/release/eia)
+     n1: 103156224 0x12C1B1: eia::problem::Problem::new (in /home/adri/progetto_eia/target/release/eia)
+      n1: 103156224 0x124725: eia::main (in /home/adri/progetto_eia/target/release/eia)
+       n1: 103156224 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+        n1: 103156224 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+         n1: 103156224 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+          n1: 103156224 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+           n0: 103156224 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+  n2: 51179392 0x1192F1: alloc::raw_vec::RawVec<T,A>::reserve_for_push (in /home/adri/progetto_eia/target/release/eia)
+   n1: 44718464 0x11B071: eia::problem::graph::Graph::from_file (in /home/adri/progetto_eia/target/release/eia)
+    n1: 44718464 0x12C1B1: eia::problem::Problem::new (in /home/adri/progetto_eia/target/release/eia)
+     n1: 44718464 0x124725: eia::main (in /home/adri/progetto_eia/target/release/eia)
+      n1: 44718464 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+       n1: 44718464 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+        n1: 44718464 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+         n1: 44718464 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+          n0: 44718464 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+   n1: 6460928 0x11B12D: eia::problem::graph::Graph::from_file (in /home/adri/progetto_eia/target/release/eia)
+    n1: 6460928 0x12C1B1: eia::problem::Problem::new (in /home/adri/progetto_eia/target/release/eia)
+     n1: 6460928 0x124725: eia::main (in /home/adri/progetto_eia/target/release/eia)
+      n1: 6460928 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+       n1: 6460928 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+        n1: 6460928 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+         n1: 6460928 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+          n0: 6460928 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+  n0: 196608 in 4 places, all below massif's threshold (1.00%)
+ n2: 55575744 0x11CED9: <alloc::vec::Vec<T,A> as core::clone::Clone>::clone (in /home/adri/progetto_eia/target/release/eia)
+  n1: 55575744 0x130E42: eia::problem::Problem::espandi (in /home/adri/progetto_eia/target/release/eia)
+   n1: 55575744 0x12D93A: eia::problem::Problem::uniform_cost_search (in /home/adri/progetto_eia/target/release/eia)
+    n1: 55575744 0x124C83: eia::main (in /home/adri/progetto_eia/target/release/eia)
+     n1: 55575744 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+      n1: 55575744 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+       n1: 55575744 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+        n1: 55575744 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+         n0: 55575744 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+  n0: 0 in 3 places, all below massif's threshold (1.00%)
+ n1: 50809368 0x130FF4: eia::problem::Problem::espandi (in /home/adri/progetto_eia/target/release/eia)
+  n1: 50809368 0x12D93A: eia::problem::Problem::uniform_cost_search (in /home/adri/progetto_eia/target/release/eia)
+   n1: 50809368 0x124C83: eia::main (in /home/adri/progetto_eia/target/release/eia)
+    n1: 50809368 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+     n1: 50809368 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+      n1: 50809368 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+       n1: 50809368 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+        n0: 50809368 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+ n1: 47801984 0x11DF29: <eia::problem::node::Node as core::clone::Clone>::clone (in /home/adri/progetto_eia/target/release/eia)
+  n2: 47801984 0x11CF12: <alloc::vec::Vec<T,A> as core::clone::Clone>::clone (in /home/adri/progetto_eia/target/release/eia)
+   n1: 47801984 0x130E42: eia::problem::Problem::espandi (in /home/adri/progetto_eia/target/release/eia)
+    n1: 47801984 0x12D93A: eia::problem::Problem::uniform_cost_search (in /home/adri/progetto_eia/target/release/eia)
+     n1: 47801984 0x124C83: eia::main (in /home/adri/progetto_eia/target/release/eia)
+      n1: 47801984 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+       n1: 47801984 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+        n1: 47801984 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+         n1: 47801984 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+          n0: 47801984 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+   n0: 0 in 3 places, all below massif's threshold (1.00%)
+ n2: 29872576 0x118E67: alloc::raw_vec::finish_grow (in /home/adri/progetto_eia/target/release/eia)
+  n2: 29872384 0x1192F1: alloc::raw_vec::RawVec<T,A>::reserve_for_push (in /home/adri/progetto_eia/target/release/eia)
+   n1: 29850624 0x11B12D: eia::problem::graph::Graph::from_file (in /home/adri/progetto_eia/target/release/eia)
+    n1: 29850624 0x12C1B1: eia::problem::Problem::new (in /home/adri/progetto_eia/target/release/eia)
+     n1: 29850624 0x124725: eia::main (in /home/adri/progetto_eia/target/release/eia)
+      n1: 29850624 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+       n1: 29850624 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+        n1: 29850624 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+         n1: 29850624 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+          n0: 29850624 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+   n0: 21760 in 1 place, below massif's threshold (1.00%)
+  n0: 192 in 6 places, all below massif's threshold (1.00%)
+ n0: 2992587 in 54 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=42
+#-----------
+time=4955659
+mem_heap_B=326475451
+mem_heap_extra_B=13514965
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=43
+#-----------
+time=5043851
+mem_heap_B=339486195
+mem_heap_extra_B=20428749
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=44
+#-----------
+time=5204045
+mem_heap_B=345252891
+mem_heap_extra_B=24721477
+mem_stacks_B=0
+heap_tree=detailed
+n6: 345252891 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n3: 154532224 0x118E41: alloc::raw_vec::finish_grow (in /home/adri/progetto_eia/target/release/eia)
+  n1: 103156224 0x11535E: alloc::raw_vec::RawVec<T,A>::reserve::do_reserve_and_handle (in /home/adri/progetto_eia/target/release/eia)
+   n1: 103156224 0x11CB28: alloc::vec::Vec<T,A>::resize (in /home/adri/progetto_eia/target/release/eia)
+    n1: 103156224 0x11B0F5: eia::problem::graph::Graph::from_file (in /home/adri/progetto_eia/target/release/eia)
+     n1: 103156224 0x12C1B1: eia::problem::Problem::new (in /home/adri/progetto_eia/target/release/eia)
+      n1: 103156224 0x124725: eia::main (in /home/adri/progetto_eia/target/release/eia)
+       n1: 103156224 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+        n1: 103156224 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+         n1: 103156224 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+          n1: 103156224 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+           n0: 103156224 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+  n2: 51179392 0x1192F1: alloc::raw_vec::RawVec<T,A>::reserve_for_push (in /home/adri/progetto_eia/target/release/eia)
+   n1: 44718464 0x11B071: eia::problem::graph::Graph::from_file (in /home/adri/progetto_eia/target/release/eia)
+    n1: 44718464 0x12C1B1: eia::problem::Problem::new (in /home/adri/progetto_eia/target/release/eia)
+     n1: 44718464 0x124725: eia::main (in /home/adri/progetto_eia/target/release/eia)
+      n1: 44718464 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+       n1: 44718464 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+        n1: 44718464 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+         n1: 44718464 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+          n0: 44718464 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+   n1: 6460928 0x11B12D: eia::problem::graph::Graph::from_file (in /home/adri/progetto_eia/target/release/eia)
+    n1: 6460928 0x12C1B1: eia::problem::Problem::new (in /home/adri/progetto_eia/target/release/eia)
+     n1: 6460928 0x124725: eia::main (in /home/adri/progetto_eia/target/release/eia)
+      n1: 6460928 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+       n1: 6460928 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+        n1: 6460928 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+         n1: 6460928 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+          n0: 6460928 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+  n0: 196608 in 4 places, all below massif's threshold (1.00%)
+ n2: 55575744 0x11CED9: <alloc::vec::Vec<T,A> as core::clone::Clone>::clone (in /home/adri/progetto_eia/target/release/eia)
+  n1: 55575744 0x130E42: eia::problem::Problem::espandi (in /home/adri/progetto_eia/target/release/eia)
+   n1: 55575744 0x12D93A: eia::problem::Problem::uniform_cost_search (in /home/adri/progetto_eia/target/release/eia)
+    n1: 55575744 0x124C83: eia::main (in /home/adri/progetto_eia/target/release/eia)
+     n1: 55575744 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+      n1: 55575744 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+       n1: 55575744 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+        n1: 55575744 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+         n0: 55575744 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+  n0: 0 in 3 places, all below massif's threshold (1.00%)
+ n1: 54377256 0x130FF4: eia::problem::Problem::espandi (in /home/adri/progetto_eia/target/release/eia)
+  n1: 54377256 0x12D93A: eia::problem::Problem::uniform_cost_search (in /home/adri/progetto_eia/target/release/eia)
+   n1: 54377256 0x124C83: eia::main (in /home/adri/progetto_eia/target/release/eia)
+    n1: 54377256 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+     n1: 54377256 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+      n1: 54377256 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+       n1: 54377256 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+        n0: 54377256 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+ n1: 47801984 0x11DF29: <eia::problem::node::Node as core::clone::Clone>::clone (in /home/adri/progetto_eia/target/release/eia)
+  n2: 47801984 0x11CF12: <alloc::vec::Vec<T,A> as core::clone::Clone>::clone (in /home/adri/progetto_eia/target/release/eia)
+   n1: 47801984 0x130E42: eia::problem::Problem::espandi (in /home/adri/progetto_eia/target/release/eia)
+    n1: 47801984 0x12D93A: eia::problem::Problem::uniform_cost_search (in /home/adri/progetto_eia/target/release/eia)
+     n1: 47801984 0x124C83: eia::main (in /home/adri/progetto_eia/target/release/eia)
+      n1: 47801984 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+       n1: 47801984 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+        n1: 47801984 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+         n1: 47801984 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+          n0: 47801984 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+   n0: 0 in 3 places, all below massif's threshold (1.00%)
+ n2: 29872576 0x118E67: alloc::raw_vec::finish_grow (in /home/adri/progetto_eia/target/release/eia)
+  n2: 29872384 0x1192F1: alloc::raw_vec::RawVec<T,A>::reserve_for_push (in /home/adri/progetto_eia/target/release/eia)
+   n1: 29850624 0x11B12D: eia::problem::graph::Graph::from_file (in /home/adri/progetto_eia/target/release/eia)
+    n1: 29850624 0x12C1B1: eia::problem::Problem::new (in /home/adri/progetto_eia/target/release/eia)
+     n1: 29850624 0x124725: eia::main (in /home/adri/progetto_eia/target/release/eia)
+      n1: 29850624 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+       n1: 29850624 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+        n1: 29850624 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+         n1: 29850624 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+          n0: 29850624 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+   n0: 21760 in 1 place, below massif's threshold (1.00%)
+  n0: 192 in 6 places, all below massif's threshold (1.00%)
+ n0: 3093107 in 54 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=45
+#-----------
+time=5292237
+mem_heap_B=330438307
+mem_heap_extra_B=13661877
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=46
+#-----------
+time=5380429
+mem_heap_B=320262467
+mem_heap_extra_B=22062509
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=47
+#-----------
+time=5549532
+mem_heap_B=348965803
+mem_heap_extra_B=24728653
+mem_stacks_B=0
+heap_tree=peak
+n6: 348965803 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n3: 154532224 0x118E41: alloc::raw_vec::finish_grow (in /home/adri/progetto_eia/target/release/eia)
+  n1: 103156224 0x11535E: alloc::raw_vec::RawVec<T,A>::reserve::do_reserve_and_handle (in /home/adri/progetto_eia/target/release/eia)
+   n1: 103156224 0x11CB28: alloc::vec::Vec<T,A>::resize (in /home/adri/progetto_eia/target/release/eia)
+    n1: 103156224 0x11B0F5: eia::problem::graph::Graph::from_file (in /home/adri/progetto_eia/target/release/eia)
+     n1: 103156224 0x12C1B1: eia::problem::Problem::new (in /home/adri/progetto_eia/target/release/eia)
+      n1: 103156224 0x124725: eia::main (in /home/adri/progetto_eia/target/release/eia)
+       n1: 103156224 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+        n1: 103156224 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+         n1: 103156224 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+          n1: 103156224 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+           n0: 103156224 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+  n2: 51179392 0x1192F1: alloc::raw_vec::RawVec<T,A>::reserve_for_push (in /home/adri/progetto_eia/target/release/eia)
+   n1: 44718464 0x11B071: eia::problem::graph::Graph::from_file (in /home/adri/progetto_eia/target/release/eia)
+    n1: 44718464 0x12C1B1: eia::problem::Problem::new (in /home/adri/progetto_eia/target/release/eia)
+     n1: 44718464 0x124725: eia::main (in /home/adri/progetto_eia/target/release/eia)
+      n1: 44718464 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+       n1: 44718464 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+        n1: 44718464 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+         n1: 44718464 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+          n0: 44718464 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+   n1: 6460928 0x11B12D: eia::problem::graph::Graph::from_file (in /home/adri/progetto_eia/target/release/eia)
+    n1: 6460928 0x12C1B1: eia::problem::Problem::new (in /home/adri/progetto_eia/target/release/eia)
+     n1: 6460928 0x124725: eia::main (in /home/adri/progetto_eia/target/release/eia)
+      n1: 6460928 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+       n1: 6460928 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+        n1: 6460928 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+         n1: 6460928 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+          n0: 6460928 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+  n0: 196608 in 4 places, all below massif's threshold (1.00%)
+ n1: 58055264 0x130FF4: eia::problem::Problem::espandi (in /home/adri/progetto_eia/target/release/eia)
+  n1: 58055264 0x12D93A: eia::problem::Problem::uniform_cost_search (in /home/adri/progetto_eia/target/release/eia)
+   n1: 58055264 0x124C83: eia::main (in /home/adri/progetto_eia/target/release/eia)
+    n1: 58055264 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+     n1: 58055264 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+      n1: 58055264 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+       n1: 58055264 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+        n0: 58055264 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+ n2: 55575744 0x11CED9: <alloc::vec::Vec<T,A> as core::clone::Clone>::clone (in /home/adri/progetto_eia/target/release/eia)
+  n1: 55575744 0x130E42: eia::problem::Problem::espandi (in /home/adri/progetto_eia/target/release/eia)
+   n1: 55575744 0x12D93A: eia::problem::Problem::uniform_cost_search (in /home/adri/progetto_eia/target/release/eia)
+    n1: 55575744 0x124C83: eia::main (in /home/adri/progetto_eia/target/release/eia)
+     n1: 55575744 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+      n1: 55575744 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+       n1: 55575744 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+        n1: 55575744 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+         n0: 55575744 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+  n0: 0 in 3 places, all below massif's threshold (1.00%)
+ n1: 47801984 0x11DF29: <eia::problem::node::Node as core::clone::Clone>::clone (in /home/adri/progetto_eia/target/release/eia)
+  n2: 47801984 0x11CF12: <alloc::vec::Vec<T,A> as core::clone::Clone>::clone (in /home/adri/progetto_eia/target/release/eia)
+   n1: 47801984 0x130E42: eia::problem::Problem::espandi (in /home/adri/progetto_eia/target/release/eia)
+    n1: 47801984 0x12D93A: eia::problem::Problem::uniform_cost_search (in /home/adri/progetto_eia/target/release/eia)
+     n1: 47801984 0x124C83: eia::main (in /home/adri/progetto_eia/target/release/eia)
+      n1: 47801984 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+       n1: 47801984 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+        n1: 47801984 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+         n1: 47801984 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+          n0: 47801984 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+   n0: 0 in 3 places, all below massif's threshold (1.00%)
+ n2: 29872576 0x118E67: alloc::raw_vec::finish_grow (in /home/adri/progetto_eia/target/release/eia)
+  n2: 29872384 0x1192F1: alloc::raw_vec::RawVec<T,A>::reserve_for_push (in /home/adri/progetto_eia/target/release/eia)
+   n1: 29850624 0x11B12D: eia::problem::graph::Graph::from_file (in /home/adri/progetto_eia/target/release/eia)
+    n1: 29850624 0x12C1B1: eia::problem::Problem::new (in /home/adri/progetto_eia/target/release/eia)
+     n1: 29850624 0x124725: eia::main (in /home/adri/progetto_eia/target/release/eia)
+      n1: 29850624 0x12A2F2: std::sys_common::backtrace::__rust_begin_short_backtrace (in /home/adri/progetto_eia/target/release/eia)
+       n1: 29850624 0x132E98: std::rt::lang_start::{{closure}} (in /home/adri/progetto_eia/target/release/eia)
+        n1: 29850624 0x1B3383: std::panicking::try (in /home/adri/progetto_eia/target/release/eia)
+         n1: 29850624 0x1AF874: std::rt::lang_start_internal (in /home/adri/progetto_eia/target/release/eia)
+          n0: 29850624 0x125254: main (in /home/adri/progetto_eia/target/release/eia)
+   n0: 21760 in 1 place, below massif's threshold (1.00%)
+  n0: 192 in 6 places, all below massif's threshold (1.00%)
+ n0: 3128011 in 54 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=48
+#-----------
+time=5637724
+mem_heap_B=336625603
+mem_heap_extra_B=15025477
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=49
+#-----------
+time=5770012
+mem_heap_B=330227723
+mem_heap_extra_B=11770485
+mem_stacks_B=0
+heap_tree=empty

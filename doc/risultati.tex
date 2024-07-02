@@ -1,11 +1,15 @@
-L'esecuzione in totale è durata 14.821 secondi
-
+\subsection{soc-sign-bitcoinalpha.csv.gz}
 \subsection{email-Enron.txt.gz}
-Tipo di Grafo: Directed
+\subsection{com-youtube.ungraph.txt.gz}
+\subsection{roadNet-CA.txt.gz}
+\subsection{as-skitter.txt.gz}
+\subsection{cit-Patents.txt.gz}
+\subsection{com-lj.ungraph.txt.gz}
+Tipo di Grafo: Labeled
 
-Durata caricamento: 1.283s
+Durata caricamento: 0.433s
 
-Nodi cercati: 3394 e 404
+Nodi cercati: 1496 e 160
 
 \begin{table}[h]
 \centering
@@ -13,8 +17,138 @@ Nodi cercati: 3394 e 404
 \hline
 \textbf{Algoritmo} & \textbf{Risultato} & \textbf{Profondità} & \textbf{Costo} & \textbf{Tempo} \\
  \hline
-bi-directional & Trovato & 3 & 0 & 12.238095s \\
+breadth-first & Trovato & 2 & 15 & 9.118638s \\
+uniform-cost & Trovato & 2 & 15 & 12.297874s \\
+depth-limited & Trovato & 10 & 95 & 66.973658s \\
+iterative-deepening & Trovato & 2 & 15 & 11.486800s \\
+bi-directional & Trovato & 3 & 10 & 0.390110s \\
+\hline
+\end{tabular}
+\caption{soc-sign-bitcoinalpha.csv.gz}
+\end{table}
+Tipo di Grafo: Directed
+
+Durata caricamento: 3.618s
+
+Nodi cercati: 1 e 44
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|l|r|r|r|}
+\hline
+\textbf{Algoritmo} & \textbf{Risultato} & \textbf{Profondità} & \textbf{Costo} & \textbf{Tempo} \\
+ \hline
+breadth-first & Trovato & 1 & 0 & 8.757074s \\
+uniform-cost & Trovato & 1 & 0 & 7.892056s \\
+depth-limited & Trovato & 9 & 0 & 87.269592s \\
+iterative-deepening & Trovato & 1 & 0 & 5.509847s \\
+bi-directional & Trovato & 3 & 0 & 10.490036s \\
 \hline
 \end{tabular}
 \caption{email-Enron.txt.gz}
+\end{table}
+Tipo di Grafo: Directed
+
+Durata caricamento: 35.124s
+
+Nodi cercati: 419 e 420
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|l|r|r|r|}
+\hline
+\textbf{Algoritmo} & \textbf{Risultato} & \textbf{Profondità} & \textbf{Costo} & \textbf{Tempo} \\
+ \hline
+breadth-first & Trovato & 1 & 0 & 26.137636s \\
+uniform-cost & Trovato & 1 & 0 & 16.217708s \\
+depth-limited & Trovato & 10 & 0 & 402.53371s \\
+iterative-deepening & Trovato & 1 & 0 & 19.274639s \\
+bi-directional & Trovato & 0 & 0 & 38.861085s \\
+\hline
+\end{tabular}
+\caption{roadNet-CA.txt.gz}
+\end{table}
+Tipo di Grafo: Directed
+
+Durata caricamento: 98.042s
+
+Nodi cercati: 3858244 e 3858246
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|l|r|r|r|}
+\hline
+\textbf{Algoritmo} & \textbf{Risultato} & \textbf{Profondità} & \textbf{Costo} & \textbf{Tempo} \\
+ \hline
+breadth-first & Fallito & 0 & 0 & 39.908980s \\
+uniform-cost & Fallito & 0 & 0 & 41.446474s \\
+depth-limited & Fallito & 0 & 0 & 40.87957s \\
+iterative-deepening & Fallito & 0 & 0 & 80.973557s \\
+bi-directional & Fallito & 0 & 0 & 51.804373s \\
+\hline
+\end{tabular}
+\caption{cit-Patents.txt.gz}
+\end{table}
+Tipo di Grafo: Undirected
+
+Durata caricamento: 114.053s
+
+Nodi cercati: 0 e 1
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|l|r|r|r|}
+\hline
+\textbf{Algoritmo} & \textbf{Risultato} & \textbf{Profondità} & \textbf{Costo} & \textbf{Tempo} \\
+ \hline
+breadth-first & Trovato & 1 & 0 & 1322.715970s \\
+uniform-cost & Trovato & 1 & 0 & 1209.797408s \\
+depth-limited & Trovato & 1 & 0 & 1216.856479s \\
+iterative-deepening & Trovato & 1 & 0 & 1244.184718s \\
+bi-directional & Trovato & 3 & 0 & 1947.698743s \\
+\hline
+\end{tabular}
+\caption{as-skitter.txt.gz}
+\end{table}
+Tipo di Grafo: Undirected
+
+Durata caricamento: 182.437s
+
+Nodi cercati: 3 e 1
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|l|r|r|r|}
+\hline
+\textbf{Algoritmo} & \textbf{Risultato} & \textbf{Profondità} & \textbf{Costo} & \textbf{Tempo} \\
+ \hline
+breadth-first & Trovato & 1 & 0 & 3809.559816s \\
+uniform-cost & Trovato & 1 & 0 & 3712.912851s \\
+depth-limited & Trovato & 1 & 0 & 3683.798236s \\
+iterative-deepening & Trovato & 1 & 0 & 3972.658313s \\
+bi-directional & Trovato & 3 & 0 & 4370.792707s \\
+\hline
+\end{tabular}
+\caption{com-lj.ungraph.txt.gz}
+\end{table}
+Tipo di Grafo: Undirected
+
+Durata caricamento: 20.864s
+
+Nodi cercati: 4 e 2
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|l|r|r|r|}
+\hline
+\textbf{Algoritmo} & \textbf{Risultato} & \textbf{Profondità} & \textbf{Costo} & \textbf{Tempo} \\
+ \hline
+breadth-first & Trovato & 1 & 0 & 6495.430839s \\
+uniform-cost & Trovato & 1 & 0 & 5767.129680s \\
+depth-limited & Trovato & 2 & 0 & 6377.992773s \\
+iterative-deepening & Trovato & 1 & 0 & 6705.143817s \\
+bi-directional & Trovato & 3 & 0 & 6562.304873s \\
+\hline
+\end{tabular}
+\caption{com-youtube.ungraph.txt.gz}
 \end{table}
