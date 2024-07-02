@@ -41,7 +41,7 @@ Questo linguaggio è stato scelto per diversi motivi:
 \begin{itemize}
 	\item \textbf{Performance}: È un linguaggio di programmazione ad alte prestazioni con gestione automatica della memoria.
 	\item \textbf{Semplicità}: È moderno con una sintassi pulita e concisa, compatibile con alti livelli di astrazione, più difficile da scrivere rispetto a Python, ma più facile di C/C++.
-	\item \textbf{Esperienza}: Ho già esperienza con Rust e ho trovato che sia un linguaggio adatto per progetti di questo tipo.
+	\item \textbf{Esperienza}: Ho già esperienza con Rust e ritengo che sia un linguaggio adatto per progetti di questo tipo.
 \end{itemize}
 
 \subsection{Software di profilazione}
@@ -52,12 +52,15 @@ In aggiunta a questa metrica, ho scelto di misurare anche la quantità
 di memoria utilizzata dagli algoritmi, utilizzando un software esterno al progetto: \texttt{valgrind} con il tool \texttt{massif}.
 Tuttavia, tali tool, generano un enorme overhead, infatti l'esecuzione dei cinque algoritmi sui sette dataset (35 esecuzioni),
 ha richiesto precisamente 8 ore, 54 minuti e 53 secondi.
-Ho quindi deciso di eseguire \texttt{run.py} una volta per generare i grafici, ed una seconda volta, disattivando \texttt{valgrind},
-per generare degli output che rendessero giustizia agli algoritmi.
-Questa seconda esecuzione ha richiesto **AGGIORNARE**
+
+Ho quindi deciso di avviare una seconda volta il programma, disattivando \texttt{valgrind},
+per generare degli output che restituiscano misurazioni più precise riguardo al tempo di esecuzione.
+Questa seconda esecuzione ha richiesto 37 minuti e 21 secondi.
+\vspace*{1em}
 
 Per la generazione dei grafici che si basano sui dati ottenuti dalle misurazioni con \texttt{valgrind},
 ho utilizzato la libreria \texttt{matplotlib} di Python.
+I file \LaTeX\ \texttt{grafici.tex} e \texttt{risultati.tex} sono stati generati automaticamente dallo script Python fornito nel progetto.
 
 \subsection{Organizzazione del progetto}
 Il progetto è organizzato come segue:
@@ -84,7 +87,6 @@ Se le dipendenze sono soddisfatte, è possibile procedere con la compilazione ed
 	\item Al fine di compilare il progetto, è possibile eseguire il seguente comando:
 
 	      \lstinline[language=bash]|$ cargo build --release|
-
 	\item Al fine di eseguire il programma compilato, è possibile eseguire il seguente comando:
 
 	      \lstinline[language=bash]|$ ./target/release/eia <opzioni>|
@@ -100,11 +102,6 @@ gli algoritmi alcuni o tutti i dataset, e generare grafici e benchmark:
 
 \lstinline[language=bash]|$ python3 run.py <lista dei dataset> <lista degli algoritmi>|
 
-
-
-
-
-\newpage
 \subsection{Strutture dati}
 Per rendere utilizzabili i dataset, ho implementato le seguenti strutture dati:
 \begin{itemize}
@@ -146,14 +143,12 @@ Gli algoritmi di ricerca che ho scelto di implementare sono:
 	\item \textbf{Tree Search (tree-search)} - Ricerca semplice, per default disattivata a causa della sua eccessiva inefficienza.
 	\item \textbf{Breadth-First Search (breadth-first)} - Ricera in ampiezza.
 	\item \textbf{Uniform-Cost Search (uniform-cost)} - Ricerca a costo uniforme. Differisce dal Breadth-First Search esclusivamente nel caso di grafi pesati.
-	\item \textbf{Depth-Limited Search (depth-limited)}\footnote{test} - Ricerca in profondità limitata.
+	\item \textbf{Depth-Limited Search (depth-limited)} - Ricerca in profondità limitata.
 	\item \textbf{Iterative Deepening Depth-First Search (iterative-deepening)} - Ricerca in profondità iterativa.
 	\item \textbf{Bidirectional Search (bi-directional)} - Ricerca bidirezionale.
 \end{itemize}
 
 Tutti gli algoritmi sono compatibili sia con grafi direzionati che non direzionati, e con grafi pesati.
-
-
 
 \section{Dataset}\label{sec:dataset}
 I dataset utilizzati sono stati scaricati dal sito dell'università di Stanford (\url{https://snap.stanford.edu/data/}).
@@ -195,6 +190,14 @@ che è in formato \texttt{csv} con le colonne:
 	\item \textbf{TIME} (non rilevante).
 \end{itemize}
 
+\section{Codice Sviluppato}
+Il codice sviluppato è stato consegnato insieme alla documentazione del progetto e può essere consultato nei file allegati.
+
+Alternativamente è possibile trovare il codice sorgente su GitHub al seguente indirizzo:
+
+\href{https://github.com/ad-oliviero/progetto_eia}{ad-oliviero/progetto\_eia}
+
+
 \section{Risultati sperimentali}
 I risultati ottenuti sono stati valutati in termini di efficacia ed efficienza, come descritto di seguito.
 
@@ -203,13 +206,6 @@ Inoltre, sono stati generati grafici automaticamente dallo script Python fornito
 
 
 \input{risultati.tex}
-
-\section{Codice Sviluppato}
-Il codice sviluppato è stato consegnato insieme alla documentazione del progetto e può essere consultato nei file allegati.
-
-Alternativamente è possibile trovare il codice sorgente su GitHub al seguente indirizzo:
-
-\href{https://github.com/ad-oliviero/progetto_eia}{ad-oliviero/progetto\_eia}
 
 \newpage
 \nocite{kumar2016edge,kumar2018rev2,jleskovec2009community,klimmt2004introducing,yang2012defining,leskovec2005graphs}

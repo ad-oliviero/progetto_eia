@@ -1,0 +1,7 @@
+Tipo di Grafo: Labeled
+Durata caricamento: 0.587s
+Caricati 7605 nodi
+Caricati 24186 archi
+Inizio ricerca da: 1496 verso: 160
+[1m     Algoritmo      | Risultato | Depth | Costo |   Tempo   [0m
+iterative-deepening |  Trovato  |      2|     15|  11.486800s
