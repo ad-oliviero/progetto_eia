@@ -1,7 +1,7 @@
-\documentclass{ol-softwaremanual}
+\documentclass{article}
 \usepackage{graphicx}
-\usepackage{listings}
 \usepackage{xcolor}
+\usepackage{fancyhdr}
 \usepackage{hyperref}
 \usepackage{geometry}
 \usepackage{biblatex}
@@ -9,15 +9,24 @@
 \geometry{a4paper, margin=1in}
 
 \addbibresource{references.bib}
-\title{Documentazione del Progetto di Intelligenza Artificiale}
-\author{Adriano Oliviero}
-\date{\today}
 
+\pagestyle{fancy}
+\fancyhf{}
+
+\title{Documentazione del Progetto di Intelligenza Artificiale}
+\author{Adriano Oliviero N46006115}
+\date{2 Luglio 2024}
+
+\fancyfoot[L]{Intelligenza Artificiale}
+\fancyfoot[C]{Adriano Oliviero N46006115}
+\fancyfoot[R]{\thepage}
+\renewcommand{\footrulewidth}{0.1pt}
 
 \begin{document}
 
 \maketitle
 
+\newpage
 \tableofcontents
 \newpage
 \section{Obiettivo del progetto}
@@ -30,39 +39,96 @@ Per la realizzazione del progetto, ho utilizzato il linguaggio di programmazione
 
 Questo linguaggio è stato scelto per diversi motivi:
 \begin{itemize}
-	\item \textbf{Performance}: Rust è un linguaggio di programmazione ad alte prestazioni con controllo della memoria a tempo di compilazione.
-	\item \textbf{Semplicità}: Rust è un linguaggio di programmazione moderno con una sintassi pulita e concisa, quasi alla pari di Python.
+	\item \textbf{Performance}: È un linguaggio di programmazione ad alte prestazioni con gestione automatica della memoria.
+	\item \textbf{Semplicità}: È moderno con una sintassi pulita e concisa, compatibile con alti livelli di astrazione, più difficile da scrivere rispetto a Python, ma più facile di C/C++.
 	\item \textbf{Esperienza}: Ho già esperienza con Rust e ho trovato che sia un linguaggio adatto per progetti di questo tipo.
 \end{itemize}
+
+\subsection{Software di profilazione}
+Al fine della valutazione dell'efficienza degli algoritmi, ho scelto di misurare il tempo di esecuzione degli stessi
+utilizzando la libreria \texttt{std::time} di Rust.
+
+In aggiunta a questa metrica, ho scelto di misurare anche la quantità
+di memoria utilizzata dagli algoritmi, utilizzando un software esterno al progetto: \texttt{valgrind} con il tool \texttt{massif}.
+Tuttavia, tali tool, generano un enorme overhead, infatti l'esecuzione dei cinque algoritmi sui sette dataset (35 esecuzioni),
+ha richiesto precisamente 8 ore, 54 minuti e 53 secondi.
+Ho quindi deciso di eseguire \texttt{run.py} una volta per generare i grafici, ed una seconda volta, disattivando \texttt{valgrind},
+per generare degli output che rendessero giustizia agli algoritmi.
+Questa seconda esecuzione ha richiesto **AGGIORNARE**
+
+Per la generazione dei grafici che si basano sui dati ottenuti dalle misurazioni con \texttt{valgrind},
+ho utilizzato la libreria \texttt{matplotlib} di Python.
 
 \subsection{Organizzazione del progetto}
 Il progetto è organizzato come segue:
 \begin{itemize}
-	\item \texttt{download-datasets.sh} - Script shell per scaricare i dataset automaticamente.
+	\item \texttt{src/} - Directory contenente il codice sorgente in Rust, nel quale sono effettivamente implementati gli algoritmi.
 	\item \texttt{run.py} - Script Python per eseguire il progetto, e generare benchmark e grafici.
-	\item \texttt{src/} - Directory contenente il codice sorgente in Rust.
 	\item file aggiuntivi
 \end{itemize}
 
 \subsection{Compilazione ed esecuzione}
-Per compilare ed eseguire il progetto, è necessario avere Rust (e cargo) installato sul proprio sistema.
+Per compilare ed eseguire il progetto, è necessario avere Rust --e il suo package manager, Cargo-- installati sul proprio sistema.
 Inoltre è necessario scaricare almeno un dataset, come descritto nella \hyperref[sec:dataset]{sezione dedicata}.
+\vspace*{1em}
 
-Per compilare il progetto, eseguire i seguenti comandi:
-\begin{lstlisting}
-  $ cargo build --release
-\end{lstlisting}
+Se le dipendenze sono soddisfatte, è possibile procedere con la compilazione ed esecuzione del progetto:
+\lstset{
+	basicstyle=\ttfamily,
+	columns=fullflexible,
+	breaklines=true,
+	postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space},
+	language=bash
+}
+\begin{itemize}
+	\item Al fine di compilare il progetto, è possibile eseguire il seguente comando:
 
-Per eseguire il progetto, eseguire il seguente comando:
-\begin{lstlisting}
-  $ ./target/release/eia <opzioni>
-\end{lstlisting}
+	      \lstinline[language=bash]|$ cargo build --release|
 
-Per ottenere la lista delle opzioni disponibili, è possibile eseguire il programma con l'opzione \texttt{-h}
+	\item Al fine di eseguire il programma compilato, è possibile eseguire il seguente comando:
 
+	      \lstinline[language=bash]|$ ./target/release/eia <opzioni>|
+\end{itemize}
+
+Se si desidera consultare una lista delle opzioni disponibili, è possibile eseguire il programma con il flag \texttt{-h} o \texttt{--help}:
+
+\lstinline[language=bash]|$ ./target/release/eia --help|
+\vspace*{1em}
+
+Inoltre, è possibile eseguire lo script Python fornito per avviare automaticamente alcuni o tutti
+gli algoritmi alcuni o tutti i dataset, e generare grafici e benchmark:
+
+\lstinline[language=bash]|$ python3 run.py <lista dei dataset> <lista degli algoritmi>|
+
+
+
+
+
+\newpage
 \subsection{Strutture dati}
 Per rendere utilizzabili i dataset, ho implementato le seguenti strutture dati:
 \begin{itemize}
+	\item \texttt{State: u32} - Un semplice alias per rendere più leggibile il codice.
+	\item \texttt{Action} - Struttura dati per rappresentare un'azione:
+	      \begin{itemize}
+		      \item \texttt{risultato: State} - Stato risultante dall'azione.
+		      \item \texttt{costo: i32} - Costo dell'azione.
+	      \end{itemize}
+	\item \texttt{Node} - Struttura dati per rappresentare un nodo del grafo:
+	      \begin{itemize}
+		      \item \texttt{stato: State} - Stato corrispondente al nodo.
+		      \item \texttt{azioni: Vec<Action>} - Azioni possibili dal nodo.
+		      \item \texttt{genitore: Node} - Nodo genitore, utile per risalire il percorso.
+		      \item \texttt{costo\_cammino: i32} - Costo del cammino partendo dal nodo iniziale per raggiungere il nodo.
+		      \item \texttt{profondita: usize} - Profondità del nodo rispetto al nodo iniziale.
+	      \end{itemize}
+	\item \texttt{Graph} - Struttura dati contenente una astrazione del grafo:
+	      \begin{itemize}
+		      \item \texttt{gtype: String} - Tipo del grafo (direzionato, non direzionato o con pesi).
+		      \item \texttt{nodi: Vec<Node>} - I nodi del grafo.
+		      \item \texttt{edge\_count: u32} - Il numero di archi del grafo, utile per essere sicuri che il caricamento del dataset sia avvenuto correttamente.
+		      \item \texttt{load\_dataset(dataset\_path)} - Legge il file del dataset e costruisce il grafo.
+	      \end{itemize}
 	\item \texttt{Problem} - Struttura dati contenente il grafo e i dati e le funzioni necessarie per la ricerca:
 	      \begin{itemize}
 		      \item \texttt{stato\_inziale: State} - Nodo dal quale iniziare la ricerca.
@@ -72,27 +138,6 @@ Per rendere utilizzabili i dataset, ho implementato le seguenti strutture dati:
 		      \item \texttt{goal\_test(\&self, stato) -> bool} - Funzione per verificare se il nodo obiettivo è stato raggiunto.
 		      \item le funzioni di ricerca, delle quali parlerò più avanti.
 	      \end{itemize}
-	\item \texttt{Graph} - Struttura dati contenente una astrazione del grafo:
-	      \begin{itemize}
-		      \item \texttt{gtype: String} - Tipo del grafo (direzionato, non direzionato o con pesi).
-		      \item \texttt{nodi: Vec<Node>} - I nodi del grafo.
-		      \item \texttt{edge\_count: u32} - Il numero di archi del grafo, utile per essere sicuri che il caricamento del dataset sia avvenuto correttamente.
-		      \item \texttt{load\_dataset(dataset\_path)} - Legge il file del dataset e costruisce il grafo.
-	      \end{itemize}
-	\item \texttt{Node} - Struttura dati per rappresentare un nodo del grafo:
-	      \begin{itemize}
-		      \item \texttt{stato: State} - Stato corrispondente al nodo.
-		      \item \texttt{azioni: Vec<Action>} - Azioni possibili dal nodo.
-		      \item \texttt{genitore: Node} - Nodo genitore, utile per risalire il percorso.
-		      \item \texttt{costo\_camm: usize} - Costo del cammino partendo dal nodo iniziale per raggiungere il nodo.
-		      \item \texttt{profondità: usize} - Profondità del nodo rispetto al nodo iniziale.
-	      \end{itemize}
-	\item \texttt{Action} - Struttura dati per rappresentare un'azione:
-	      \begin{itemize}
-		      \item \texttt{risultato: State} - Stato risultante dall'azione.
-		      \item \texttt{costo: i32} - Costo dell'azione.
-	      \end{itemize}
-	\item \texttt{State: u32} - Un semplice alias per rendere più leggibile il codice.
 \end{itemize}
 \newpage
 \subsection{Algoritmi di ricerca}
@@ -100,14 +145,15 @@ Gli algoritmi di ricerca che ho scelto di implementare sono:
 \begin{itemize}
 	\item \textbf{Tree Search (tree-search)} - Ricerca semplice, per default disattivata a causa della sua eccessiva inefficienza.
 	\item \textbf{Breadth-First Search (breadth-first)} - Ricera in ampiezza.
-	\item \textbf{Depth-First Search (depth-first)} - Ricerca in profondità.
-	\item \textbf{Uniform-Cost Search (uniform-cost)} - Ricerca a costo uniforme.
-	\item \textbf{Depth-Limited Search (depth-limited)} - Ricerca in profondità limitata.
+	\item \textbf{Uniform-Cost Search (uniform-cost)} - Ricerca a costo uniforme. Differisce dal Breadth-First Search esclusivamente nel caso di grafi pesati.
+	\item \textbf{Depth-Limited Search (depth-limited)}\footnote{test} - Ricerca in profondità limitata.
 	\item \textbf{Iterative Deepening Depth-First Search (iterative-deepening)} - Ricerca in profondità iterativa.
 	\item \textbf{Bidirectional Search (bi-directional)} - Ricerca bidirezionale.
 \end{itemize}
 
 Tutti gli algoritmi sono compatibili sia con grafi direzionati che non direzionati, e con grafi pesati.
+
+
 
 \section{Dataset}\label{sec:dataset}
 I dataset utilizzati sono stati scaricati dal sito dell'università di Stanford (\url{https://snap.stanford.edu/data/}).

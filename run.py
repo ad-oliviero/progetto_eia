@@ -1,6 +1,7 @@
 #!/bin/env python
-import sys, os, subprocess as sp, gzip as gz, random as rd, time
+import sys, os, subprocess as sp, gzip as gz, random as rd, threading as th, time as tm
 import pandas as pd
+import matplotlib as mpl
 import matplotlib.pyplot as plt
 import seaborn as sns
 
@@ -8,6 +9,9 @@ DATA_DIR = 'data'
 MASSIF_OUTPUT_DIR = 'massif'
 SEARCH_OUTPUT_DIR = 'search_output'
 PLOTS_DIR = 'plots'
+
+latex_grafici = ""
+latex_risultati = ""
 
 def parse_massif_output(filename):
     snapshots = []
@@ -39,10 +43,12 @@ def get_random_states(dataset):
     with gz.open(f'{DATA_DIR}/{dataset}', 'rt') as f:
         lines = f.read().split("\n")
     lines = [line.replace('\t', ' ').replace(',', ' ') for line in lines if not line.startswith("#")]
-    max_idx = len(lines) - 1
+    max_idx = 500 # limit to 500 lines as it should be faster to search
     start_idx = rd.randint(0, max_idx)
     start = lines[start_idx].split(" ")
-    end = lines[rd.randint(0, max_idx)].split(" ")
+    end = start
+    while start[0] == end[0]:
+        end = lines[rd.randint(0, max_idx)].split(" ")
     for i in range(0, max_idx):
         if lines[i].startswith(start[1]) and lines[i].split(" ")[1] != start[0]:
             end = lines[i].split(" ")
@@ -73,10 +79,90 @@ Di seguito sono riportati alcuni grafici che visualizzano i risultati sperimenta
     with open('doc/risultati.tex', 'w') as f:
         f.write(risultati)
 
+def searches_on_dataset(dataset: str, searches, stati):
+    global latex_grafici, latex_risultati
+    risultati_tabella = ""
+    risultati_info = ["", "", ""]
+    for search in searches:
+        massif_output_file = f'{MASSIF_OUTPUT_DIR}/{dataset.replace(".txt", "").replace(".gz", "")}_{search}'
+        dataset_file = f'{DATA_DIR}/{dataset}'
+        search_output_file = f'{SEARCH_OUTPUT_DIR}/{dataset.replace(".txt", "").replace(".gz", "")}_{search}.txt'
+        save_file = f'{PLOTS_DIR}/{dataset.replace(".txt", "").replace(".gz", "")}_{search}.png'
+        if not os.path.exists(massif_output_file):
+            valgrind_command = [
+                'valgrind',
+                '--tool=massif',
+                '--time-unit=ms',
+                f'--massif-out-file={massif_output_file}',
+            ]
+            command = [
+                './target/release/eia',
+                '-F',
+                dataset_file,
+                '-i',
+                stati[0],
+                '-f',
+                stati[1],
+                '-r',
+                search,
+            ]
+
+            spr = sp.run(valgrind_command + command, stdout=sp.PIPE, stderr=sp.PIPE, universal_newlines=True).stdout
+            with open(search_output_file, 'w') as f:
+                f.write(spr)
+        else:
+            spr = open(search_output_file, 'r').read()
+
+        for l in spr.split("\n"):
+            if l.startswith(search):
+                l = l.replace(' ', '').split("|")
+                risultati_tabella += f"{l[0]} & {l[1]} & {l[2]} & {l[3]} & {l[4]} \\\\\n"
+
+        for l in spr.split("\n"):
+            if l.startswith("Tipo di Grafo: "):
+                risultati_info[0] = f"{l}\n\n"
+            elif l.startswith("Durata caricamento: "):
+                risultati_info[1] = f"{l}\n\n"
+            elif l.startswith("Inizio ricerca da: "):
+                risultati_info[2] = f"Nodi cercati: "
+                l = l.replace("Inizio ricerca da: ", "").replace("verso: ", "").split(" ")
+                risultati_info[2] += f"{l[0]} e {l[1]}\n\n"
+        massif_output = parse_massif_output(massif_output_file)
+        df = pd.DataFrame(massif_output)
+        sns.set_style("whitegrid")
+        sns.set_context("talk")
+
+        fig, ax = plt.subplots(figsize=(19, 10))
+
+        ax.plot(df['time'], df['mem_heap_B'], label='Heap Size')
+        ax.plot(df['time'], df['mem_heap_extra_B'], label='Heap Extra Size')
+
+        ax.set_title(f'Memory Usage Over Time for search {search} on {dataset}')
+        ax.set_xlabel('Time (s)')
+        ax.set_ylabel('Memory (MB)')
+
+        ax.legend(loc='upper right', frameon=True, fontsize=12)
+
+        ax.grid(True, linestyle='--', alpha=0.5)
+        plt.savefig(save_file, bbox_inches='tight', dpi=300)
+        plt.close(fig)
+        latex_grafici += f"\\subsubsection{{Algoritmo di ricerca: {search}}}\n"
+        latex_grafici += f"\\begin{{figure}}[h]"
+        latex_grafici += f"\\centering\n\\includegraphics[width=\\textwidth]{{../{save_file}}}\n\\caption{{Grafico: breadth-first su com-lj.ungraph}}\n"
+        latex_grafici += f"\\end{{figure}}\n"
+        print(f"[\x1b[32m{dataset}\x1b[0m]: completed [{search}]", flush=True)
+    for info in risultati_info:
+        if not len(info) == 0:
+            latex_risultati += info
+    latex_risultati += f"\\begin{{table}}[h]\n\\centering\n\\begin{{tabular}}{{|l|l|r|r|r|}}\n\\hline\n"
+    latex_risultati += f"\\textbf{{Algoritmo}} & \\textbf{{Risultato}} & \\textbf{{Profondità}} & \\textbf{{Costo}} & \\textbf{{Tempo}} \\\\\n \\hline\n"
+    latex_risultati += risultati_tabella
+    latex_risultati += f"\\hline\n\\end{{tabular}}\n\\caption{{{dataset}}}\n\\end{{table}}\n"
+    print(f"[\x1b[31m{dataset}\x1b[0m]: \x1b[32mCOMPLETED\x1b[0m {tm.strftime('%Y-%m-%d %H:%M:%S', tm.localtime())}", flush=True)
+
 
 def main():
-    latex_grafici = ""
-    latex_risultati = ""
+    global latex_grafici, latex_risultati
     sp.run(['cargo', 'build', '--release'])
     sp.run(['bash', './download-datasets.sh', DATA_DIR])
     datasets = [(f, os.stat(os.path.join(DATA_DIR, f)).st_size) for f in os.listdir(DATA_DIR)]
@@ -85,6 +171,7 @@ def main():
     selected_datasets = []
     available_searches = ["breadth-first", "uniform-cost", "depth-limited", "iterative-deepening", "bi-directional"]
     selected_searches = []
+    mpl.use('Agg') # non-interactive backend
     if len(sys.argv) > 1:
         for arg in sys.argv[1:]:
             if arg in available_searches:
@@ -95,96 +182,23 @@ def main():
         selected_datasets = datasets
     if not selected_searches:
         selected_searches = available_searches
+    plt.rcParams['figure.max_open_warning'] = len(selected_datasets) * len(selected_searches)
     os.makedirs(MASSIF_OUTPUT_DIR, exist_ok=True)
     os.makedirs(SEARCH_OUTPUT_DIR, exist_ok=True)
     os.makedirs(PLOTS_DIR, exist_ok=True)
-    all_executed = True
-    start_time = time.time()
+    threads = []
     for dataset in selected_datasets:
         latex_grafici += f"\\subsection{{Dataset: {dataset}}}\n"
-        latex_risultati_tabella = ""
-        latex_risultati_info = ["", "", ""]
         stati = get_random_states(dataset)
-        for search in selected_searches:
-            massif_output_file = f'{MASSIF_OUTPUT_DIR}/{dataset.replace(".txt", "").replace(".gz", "")}_{search}'
-            dataset_file = f'{DATA_DIR}/{dataset}'
-            search_output_file = f'{SEARCH_OUTPUT_DIR}/{dataset.replace(".txt", "").replace(".gz", "")}_{search}.txt'
-            save_file = f'{PLOTS_DIR}/{dataset.replace(".txt", "").replace(".gz", "")}_{search}.png'
-            if not os.path.exists(massif_output_file):
-                valgrind_command = [
-                    'valgrind',
-                    '--tool=massif',
-                    '--time-unit=ms',
-                    f'--massif-out-file={massif_output_file}',
-                ]
-                command = [
-                    './target/release/eia',
-                    '-F',
-                    dataset_file,
-                    '-i',
-                    stati[0],
-                    '-f',
-                    stati[1],
-                    '-r',
-                    search,
-                ]
-
-                spr = sp.check_output(valgrind_command + command).decode('utf-8')
-                with open(search_output_file, 'w') as f:
-                    f.write(spr)
-            else:
-                spr = open(search_output_file, 'r').read()
-                all_executed = False
-
-            for l in spr.split("\n"):
-                if l.startswith(search):
-                    l = l.replace(' ', '').split("|")
-                    latex_risultati_tabella += f"{l[0]} & {l[1]} & {l[2]} & {l[3]} & {l[4]} \\\\\n"
-
-            for l in spr.split("\n"):
-                if l.startswith("Tipo di Grafo: "):
-                    latex_risultati_info[0] = f"{l}\n\n"
-                elif l.startswith("Durata caricamento: "):
-                    latex_risultati_info[1] = f"{l}\n\n"
-                elif l.startswith("Inizio ricerca da: "):
-                    latex_risultati_info[2] = f"Nodi cercati: "
-                    l = l.replace("Inizio ricerca da: ", "").replace("verso: ", "").split(" ")
-                    latex_risultati_info[2] += f"{l[0]} e {l[1]}\n\n"
-
-            massif_output = parse_massif_output(massif_output_file)
-            df = pd.DataFrame(massif_output)
-            sns.set_style("whitegrid")
-            sns.set_context("talk")
-
-            _, ax = plt.subplots(figsize=(19, 10))
-
-            ax.plot(df['time'], df['mem_heap_B'], label='Heap Size')
-            ax.plot(df['time'], df['mem_heap_extra_B'], label='Heap Extra Size')
-
-            ax.set_title(f'Memory Usage Over Time for search {search} on {dataset}')
-            ax.set_xlabel('Time (s)')
-            ax.set_ylabel('Memory (MB)')
-
-            ax.legend(loc='upper right', frameon=True, fontsize=12)
-
-            ax.grid(True, linestyle='--', alpha=0.5)
-            plt.savefig(save_file, bbox_inches='tight', dpi=300)
-            latex_grafici += f"\\subsubsection{{Algoritmo di ricerca: {search}}}\n"
-            latex_grafici += f"\\begin{{figure}}[h]"
-            latex_grafici += f"\\centering\n\\includegraphics[width=\\textwidth]{{../{save_file}}}\n\\caption{{Grafico: breadth-first su com-lj.ungraph}}\n"
-            latex_grafici += f"\\end{{figure}}\n"
+        print(f"Selected {stati[0]} -> {stati[1]} for dataset {dataset}")
         latex_risultati += f"\\subsection{{{dataset}}}\n"
-        for info in latex_risultati_info:
-            if not len(info) == 0:
-                latex_risultati += info
-        latex_risultati += f"\\begin{{table}}[h]\n\\centering\n\\begin{{tabular}}{{|l|l|r|r|r|}}\n\\hline\n"
-        latex_risultati += f"\\textbf{{Algoritmo}} & \\textbf{{Risultato}} & \\textbf{{Profondità}} & \\textbf{{Costo}} & \\textbf{{Tempo}} \\\\\n \\hline\n"
-        latex_risultati += latex_risultati_tabella
-        latex_risultati += f"\\hline\n\\end{{tabular}}\n\\caption{{{dataset}}}\n\\end{{table}}\n"
-    end_time = time.time()
+        threads.append(th.Thread(target=searches_on_dataset, args=(dataset, selected_searches, stati)))
+
+    for t in threads:
+        t.start()
+    for t in threads:
+        t.join()
     latex_grafici += "\\end{document}"
-    if all_executed:
-        latex_risultati = f'L\'esecuzione in totale è durata {round(end_time - start_time, 3)} secondi\n\n' + latex_risultati
     write_latex(latex_grafici, latex_risultati)
 
 if __name__ == "__main__":

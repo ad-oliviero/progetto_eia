@@ -10,6 +10,6 @@ clean:
 	latexmk -c
 
 gitignore:
-	find . -type f -print 2>/dev/null | grep -vE "(\.pdf|\.tex|\.bib|\.sh|\.cls|Makefile|\.gitignore)" | sed "s/.*\./*./g;s/\.\///g" > .gitignore
+	find . -type f -print 2>/dev/null | grep -vE "(\.pdf|\.tex|\.bib|\.sh|\.cls|\.sty|Makefile|\.gitignore)" | sed "s/.*\./*./g;s/\.\///g" > .gitignore
 	cat .gitignore
 
