@@ -13,11 +13,11 @@
 \pagestyle{fancy}
 \fancyhf{}
 
-\title{Documentazione del Progetto di Intelligenza Artificiale}
+\title{Documentazione del Progetto di Elementi di Intelligenza Artificiale}
 \author{Adriano Oliviero N46006115}
 \date{2 Luglio 2024}
 
-\fancyfoot[L]{Intelligenza Artificiale}
+\fancyfoot[L]{Elementi di Intelligenza Artificiale}
 \fancyfoot[C]{Adriano Oliviero N46006115}
 \fancyfoot[R]{\thepage}
 \renewcommand{\footrulewidth}{0.1pt}
@@ -200,12 +200,37 @@ Alternativamente è possibile trovare il codice sorgente su GitHub al seguente i
 
 \section{Risultati sperimentali}
 I risultati ottenuti sono stati valutati in termini di efficacia ed efficienza, come descritto di seguito.
+Essi sono organizzati in ordine di completamento.
 
 Inoltre, sono stati generati grafici automaticamente dallo script Python fornito nel progetto.
 È possibile visualizzarli nel documento \href{run:grafici.pdf}{grafici.pdf}
 
 
 \input{risultati.tex}
+
+\section{Conclusioni}
+\subsection{Completezza}
+La completezza di un algoritmo indica se l'algoritmo è in grado di trovare una soluzione se essa esiste. Gli algoritmi breadth-first, uniform-cost, depth-limited, iterative-deepening e bi-directional sono completi, come dimostrato dai risultati sui vari dataset, ad eccezione del dataset \texttt{cit-Patents.txt.gz} dove, a causa di un errore nella selezione degli stati, i test non sono stati validi.
+
+\subsection{Complessità spaziale}
+La complessità spaziale misura la quantità di memoria richiesta da un algoritmo durante la sua esecuzione. Nel nostro studio, abbiamo osservato che:
+\begin{itemize}
+	\item Gli algoritmi breadth-first e iterative-deepening presentano una complessità spaziale elevata nei grafi di grandi dimensioni come \texttt{com-youtube.ungraph.txt.gz} e \texttt{com-lj.ungraph.txt.gz}, richiedendo significative risorse di memoria.
+	\item L'algoritmo bi-directional ha dimostrato di essere più efficiente in termini di memoria nei test sui grafi meno densi, come \texttt{soc-sign-bitcoinalpha.csv.gz} e \texttt{email-Enron.txt.gz}.
+\end{itemize}
+
+\subsection{Complessità temporale}
+La complessità temporale rappresenta il tempo necessario per l'esecuzione di un algoritmo. Dai risultati ottenuti:
+\begin{itemize}
+	\item Gli algoritmi depth-limited e bi-directional hanno mostrato una complessità temporale inferiore rispetto agli altri, specialmente su grafi di dimensioni ridotte come \texttt{soc-sign-bitcoinalpha.csv.gz} e \texttt{email-Enron.txt.gz}.
+	\item Per grafi molto grandi, come \texttt{com-youtube.ungraph.txt.gz} e \texttt{com-lj.ungraph.txt.gz}, tutti gli algoritmi hanno evidenziato tempi di esecuzione prolungati, con bi-directional che si è dimostrato inefficace in alcuni casi.
+\end{itemize}
+
+\subsection{Ottimalità}
+L'ottimalità si riferisce alla capacità di un algoritmo di trovare la soluzione migliore (più economica). Gli algoritmi uniform-cost, breadth-first e iterative-deepening hanno garantito soluzioni ottimali nei test condotti, confermando la loro efficienza nel trovare percorsi di costo minimo.
+
+\subsection{Nota sui risultati del dataset \texttt{cit-Patents.txt.gz}}
+A causa di un errore nella selezione degli stati per il dataset \texttt{cit-Patents.txt.gz}, i test eseguiti su questo dataset sono stati invalidati. Pertanto, i risultati ottenuti non possono essere utilizzati per trarre conclusioni affidabili riguardo le performance degli algoritmi su tale dataset.
 
 \newpage
 \nocite{kumar2016edge,kumar2018rev2,jleskovec2009community,klimmt2004introducing,yang2012defining,leskovec2005graphs}
