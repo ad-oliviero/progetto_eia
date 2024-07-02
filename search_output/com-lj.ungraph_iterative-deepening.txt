@@ -1,7 +1,7 @@
 Tipo di Grafo: Undirected
-Durata caricamento: 192.425s
+Durata caricamento: 15.965s
 Caricati 4036538 nodi
 Caricati 34681189 archi
 Inizio ricerca da: 3 verso: 1
 [1m     Algoritmo      | Risultato | Depth | Costo |   Tempo   [0m
-iterative-deepening |  Trovato  |      1|      0|3972.658313s
+iterative-deepening |  Trovato  |      1|      0| 372.558098s

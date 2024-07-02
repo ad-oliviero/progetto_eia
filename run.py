@@ -5,6 +5,9 @@ import matplotlib as mpl
 import matplotlib.pyplot as plt
 import seaborn as sns
 
+VALGRIND_ENABLED = os.environ.get('VALGRIND_ENABLED', 'true').lower() == 'true'
+RUN_ENABLED = os.environ.get('RUN_ENABLED', 'true').lower() == 'true'
+
 DATA_DIR = 'data'
 MASSIF_OUTPUT_DIR = 'massif'
 SEARCH_OUTPUT_DIR = 'search_output'
@@ -12,6 +15,10 @@ PLOTS_DIR = 'plots'
 
 latex_grafici = ""
 latex_risultati = ""
+
+latex_risultati_mutex = th.Lock()
+latex_grafici_mutex = th.Lock()
+plot_mutex = th.Lock()
 
 def parse_massif_output(filename):
     snapshots = []
@@ -83,12 +90,23 @@ def searches_on_dataset(dataset: str, searches, stati):
     global latex_grafici, latex_risultati
     risultati_tabella = ""
     risultati_info = ["", "", ""]
+    grafici_local = ""
+    risultati_local = f"\\subsection{{{dataset}}}\n"
+    dataset_file = f'{DATA_DIR}/{dataset}'
     for search in searches:
         massif_output_file = f'{MASSIF_OUTPUT_DIR}/{dataset.replace(".txt", "").replace(".gz", "")}_{search}'
-        dataset_file = f'{DATA_DIR}/{dataset}'
         search_output_file = f'{SEARCH_OUTPUT_DIR}/{dataset.replace(".txt", "").replace(".gz", "")}_{search}.txt'
         save_file = f'{PLOTS_DIR}/{dataset.replace(".txt", "").replace(".gz", "")}_{search}.png'
-        if not os.path.exists(massif_output_file):
+        if stati[0] == -1 and stati[1] == -1:
+            content = ""
+            with open(massif_output_file, 'r') as f:
+                content = f.read().split("\n")
+            for l in content:
+                if l.startswith("cmd: ./target/release/eia"):
+                    stati = (l.split("-i ")[1].split(" ")[0], l.split("-f ")[1].split(" ")[0])
+                    print(f"Using previously selected states: {stati[0]} -> {stati[1]}")
+            
+        if RUN_ENABLED:
             valgrind_command = [
                 'valgrind',
                 '--tool=massif',
@@ -107,7 +125,10 @@ def searches_on_dataset(dataset: str, searches, stati):
                 search,
             ]
 
-            spr = sp.run(valgrind_command + command, stdout=sp.PIPE, stderr=sp.PIPE, universal_newlines=True).stdout
+            if VALGRIND_ENABLED:
+                spr = sp.run(valgrind_command + command, stdout=sp.PIPE, stderr=sp.PIPE, universal_newlines=True).stdout
+            else:
+                spr = sp.run(command, stdout=sp.PIPE, stderr=sp.PIPE, universal_newlines=True).stdout
             with open(search_output_file, 'w') as f:
                 f.write(spr)
         else:
@@ -132,32 +153,37 @@ def searches_on_dataset(dataset: str, searches, stati):
         sns.set_style("whitegrid")
         sns.set_context("talk")
 
-        fig, ax = plt.subplots(figsize=(19, 10))
+        with plot_mutex:
+            fig, ax = plt.subplots(figsize=(19, 10))
 
-        ax.plot(df['time'], df['mem_heap_B'], label='Heap Size')
-        ax.plot(df['time'], df['mem_heap_extra_B'], label='Heap Extra Size')
+            ax.plot(df['time'], df['mem_heap_B'], label='Heap Size')
+            ax.plot(df['time'], df['mem_heap_extra_B'], label='Heap Extra Size')
 
-        ax.set_title(f'Memory Usage Over Time for search {search} on {dataset}')
-        ax.set_xlabel('Time (s)')
-        ax.set_ylabel('Memory (MB)')
+            ax.set_title(f'Memory Usage Over Time for search {search} on {dataset}')
+            ax.set_xlabel('Time (s)')
+            ax.set_ylabel('Memory (MB)')
 
-        ax.legend(loc='upper right', frameon=True, fontsize=12)
+            ax.legend(loc='upper right', frameon=True, fontsize=12)
 
-        ax.grid(True, linestyle='--', alpha=0.5)
-        plt.savefig(save_file, bbox_inches='tight', dpi=300)
-        plt.close(fig)
-        latex_grafici += f"\\subsubsection{{Algoritmo di ricerca: {search}}}\n"
-        latex_grafici += f"\\begin{{figure}}[h]"
-        latex_grafici += f"\\centering\n\\includegraphics[width=\\textwidth]{{../{save_file}}}\n\\caption{{Grafico: breadth-first su com-lj.ungraph}}\n"
-        latex_grafici += f"\\end{{figure}}\n"
+            ax.grid(True, linestyle='--', alpha=0.5)
+            plt.savefig(save_file, bbox_inches='tight', dpi=300)
+            plt.close(fig)
+        grafici_local += f"\\subsubsection{{Algoritmo di ricerca: {search}}}\n"
+        grafici_local += f"\\begin{{figure}}[h]"
+        grafici_local += f"\\centering\n\\includegraphics[width=\\textwidth]{{../{save_file}}}\n\\caption{{Grafico: breadth-first su com-lj.ungraph}}\n"
+        grafici_local += f"\\end{{figure}}\n"
         print(f"[\x1b[32m{dataset}\x1b[0m]: completed [{search}]", flush=True)
     for info in risultati_info:
         if not len(info) == 0:
-            latex_risultati += info
-    latex_risultati += f"\\begin{{table}}[h]\n\\centering\n\\begin{{tabular}}{{|l|l|r|r|r|}}\n\\hline\n"
-    latex_risultati += f"\\textbf{{Algoritmo}} & \\textbf{{Risultato}} & \\textbf{{Profondità}} & \\textbf{{Costo}} & \\textbf{{Tempo}} \\\\\n \\hline\n"
-    latex_risultati += risultati_tabella
-    latex_risultati += f"\\hline\n\\end{{tabular}}\n\\caption{{{dataset}}}\n\\end{{table}}\n"
+            risultati_local += info
+    risultati_local += f"\\begin{{table}}[h]\n\\centering\n\\begin{{tabular}}{{|l|l|r|r|r|}}\n\\hline\n"
+    risultati_local += f"\\textbf{{Algoritmo}} & \\textbf{{Risultato}} & \\textbf{{Profondità}} & \\textbf{{Costo}} & \\textbf{{Tempo}} \\\\\n \\hline\n"
+    risultati_local += risultati_tabella
+    risultati_local += f"\\hline\n\\end{{tabular}}\n\\caption{{{dataset}}}\n\\end{{table}}\n"
+    with latex_risultati_mutex:
+        latex_risultati += risultati_local
+    with latex_grafici_mutex:
+        latex_grafici += grafici_local
     print(f"[\x1b[31m{dataset}\x1b[0m]: \x1b[32mCOMPLETED\x1b[0m {tm.strftime('%Y-%m-%d %H:%M:%S', tm.localtime())}", flush=True)
 
 
@@ -189,9 +215,11 @@ def main():
     threads = []
     for dataset in selected_datasets:
         latex_grafici += f"\\subsection{{Dataset: {dataset}}}\n"
-        stati = get_random_states(dataset)
-        print(f"Selected {stati[0]} -> {stati[1]} for dataset {dataset}")
-        latex_risultati += f"\\subsection{{{dataset}}}\n"
+        if RUN_ENABLED and VALGRIND_ENABLED:
+            stati = get_random_states(dataset)
+            print(f"Selected {stati[0]} -> {stati[1]} for dataset {dataset}")
+        else:
+            stati = (-1, -1)
         threads.append(th.Thread(target=searches_on_dataset, args=(dataset, selected_searches, stati)))
 
     for t in threads:

@@ -1,7 +1,7 @@
 Tipo di Grafo: Directed
-Durata caricamento: 49.591s
+Durata caricamento: 2.441s
 Caricati 1971281 nodi
 Caricati 2766607 archi
 Inizio ricerca da: 419 verso: 420
 [1m     Algoritmo      | Risultato | Depth | Costo |   Tempo   [0m
-breadth-first       |  Trovato  |      1|      0|  26.137636s
+breadth-first       |  Trovato  |      1|      0|   0.859953s
